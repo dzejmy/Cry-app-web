@@ -18,6 +18,7 @@ import OperatorRegister from './pages/auth/OperatorRegister'
 import Home from './pages/Home'
 import ResortList from './pages/ResortList'
 import ResortDetail from './pages/ResortDetail'
+import OperatorOfferPage from './pages/OperatorOfferPage'
 
 // ── Placeholder for pages not yet built ─────────────────────────────────────
 function Placeholder({ name }: { name: string }) {
@@ -76,8 +77,8 @@ export default function App() {
         <Route path="/resorts" element={<ResortList />} />
         <Route path="/resorts/:id" element={<ResortDetail />} />
         <Route
-          path="/resorts/:id/operators/:operatorId"
-          element={<Placeholder name="Operator Offer Page" />}
+          path="/resorts/:resortId/operators/:operatorId"
+          element={<OperatorOfferPage />}
         />
 
         {/* ── Auth ────────────────────────────────────────────── */}
