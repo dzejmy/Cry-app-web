@@ -11,27 +11,8 @@ CREATE EXTENSION IF NOT EXISTS "pg_trgm";    -- trigram indexes for search
 
 
 -- =============================================================================
--- HELPER FUNCTIONS
+-- HELPER FUNCTIONS  (only functions that don't reference app tables go here)
 -- =============================================================================
-
--- Returns the current user's role from profiles.
--- SECURITY DEFINER avoids RLS recursion when policies call this function.
-CREATE OR REPLACE FUNCTION public.get_user_role()
-RETURNS TEXT
-LANGUAGE sql STABLE SECURITY DEFINER
-SET search_path = public
-AS $$
-  SELECT role FROM public.profiles WHERE id = auth.uid();
-$$;
-
--- Returns the operator.id that belongs to the current authenticated user.
-CREATE OR REPLACE FUNCTION public.get_my_operator_id()
-RETURNS UUID
-LANGUAGE sql STABLE SECURITY DEFINER
-SET search_path = public
-AS $$
-  SELECT id FROM public.operators WHERE profile_id = auth.uid();
-$$;
 
 -- Generic updated_at stamp trigger function.
 CREATE OR REPLACE FUNCTION public.set_updated_at()
@@ -325,6 +306,30 @@ CREATE TABLE public.equipment_inventory (
   CONSTRAINT inventory_quantity_check
     CHECK (quantity_available <= quantity_total)
 );
+
+
+-- =============================================================================
+-- HELPER FUNCTIONS  (reference app tables — must come after CREATE TABLE)
+-- =============================================================================
+
+-- Returns the current user's role from profiles.
+-- SECURITY DEFINER avoids RLS recursion when policies call this function.
+CREATE OR REPLACE FUNCTION public.get_user_role()
+RETURNS TEXT
+LANGUAGE sql STABLE SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT role FROM public.profiles WHERE id = auth.uid();
+$$;
+
+-- Returns the operator.id that belongs to the current authenticated user.
+CREATE OR REPLACE FUNCTION public.get_my_operator_id()
+RETURNS UUID
+LANGUAGE sql STABLE SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT id FROM public.operators WHERE profile_id = auth.uid();
+$$;
 
 
 -- =============================================================================
