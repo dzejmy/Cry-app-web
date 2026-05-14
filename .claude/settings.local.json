@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(update-config)",
+      "Skill(update-config:*)",
+      "Bash(node -e \"const f = require\\('fs'\\).readFileSync\\('C:/Users/olive/Documents/OhLee/AppsCode/home-hero-hub/.claude/settings.local.json', 'utf8'\\); const j = JSON.parse\\(f\\); console.log\\(j.hooks.SessionStart[0].hooks[0].command\\)\")"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$(git rev-parse --show-toplevel 2>/dev/null)\" && git pull 2>/dev/null || true",
+            "timeout": 30,
+            "statusMessage": "Pulling latest changes..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$(git rev-parse --show-toplevel 2>/dev/null)\" && git add -A && git diff --staged --quiet || git commit -m \"Auto-commit:$(git diff --staged --shortstat) - $(git diff --staged --name-only | head -3 | tr '\\n' ' ')\" && git push origin HEAD:main 2>/dev/null || true",
+            "timeout": 60,
+            "statusMessage": "Committing and pushing to main..."
+          }
+        ]
+      }
+    ]
+  }
+}
