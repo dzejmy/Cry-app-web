@@ -14,6 +14,11 @@ import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import OperatorRegister from './pages/auth/OperatorRegister'
 
+// Public pages
+import Home from './pages/Home'
+import ResortList from './pages/ResortList'
+import ResortDetail from './pages/ResortDetail'
+
 // ── Placeholder for pages not yet built ─────────────────────────────────────
 function Placeholder({ name }: { name: string }) {
   return (
@@ -67,11 +72,11 @@ export default function App() {
 
       <Routes>
         {/* ── Public ──────────────────────────────────────────── */}
-        <Route path="/" element={<Placeholder name="Home" />} />
-        <Route path="/search" element={<Placeholder name="Resort Search" />} />
-        <Route path="/resorts/:slug" element={<Placeholder name="Resort Detail" />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/resorts" element={<ResortList />} />
+        <Route path="/resorts/:id" element={<ResortDetail />} />
         <Route
-          path="/resorts/:slug/operators/:operatorId"
+          path="/resorts/:id/operators/:operatorId"
           element={<Placeholder name="Operator Offer Page" />}
         />
 
