@@ -1,4 +1,5 @@
 import type { RentalEquipmentType } from '../store/skiRentalStore'
+import type { RidingStyle } from '../store/bikeRentalStore'
 
 // ─── Recommendation output ────────────────────────────────────────────────────
 
@@ -182,4 +183,140 @@ export const TIER_LABELS: Record<RecoTier, string> = {
   freestyle_snowboard: 'Freestyle Board',
   freeride_snowboard:  'Freeride Board',
   telemark:            'Telemark Setup',
+}
+
+// ─── Bike types ───────────────────────────────────────────────────────────────
+
+export type BikeFrameSize = 'S' | 'M' | 'L' | 'XL'
+
+export type BikeTier =
+  | 'leisure_bike'
+  | 'trail_bike'
+  | 'enduro_bike'
+  | 'cross_country_bike'
+  | 'leisure_ebike'
+  | 'trail_ebike'
+  | 'performance_ebike'
+
+export interface BikeReco {
+  frameSize: BikeFrameSize
+  tier: BikeTier
+  label: string
+  tagline: string
+  description: string
+  specs: string[]
+  reason: string
+}
+
+export const BIKE_TIER_COLORS: Record<BikeTier, { bg: string; text: string; border: string; dot: string }> = {
+  leisure_bike:       { bg: 'bg-green-50',   text: 'text-green-700',   border: 'border-green-200',   dot: 'bg-green-500'   },
+  trail_bike:         { bg: 'bg-blue-50',    text: 'text-blue-700',    border: 'border-blue-200',    dot: 'bg-blue-500'    },
+  enduro_bike:        { bg: 'bg-orange-50',  text: 'text-orange-700',  border: 'border-orange-200',  dot: 'bg-orange-500'  },
+  cross_country_bike: { bg: 'bg-teal-50',    text: 'text-teal-700',    border: 'border-teal-200',    dot: 'bg-teal-500'    },
+  leisure_ebike:      { bg: 'bg-emerald-50', text: 'text-emerald-700', border: 'border-emerald-200', dot: 'bg-emerald-500' },
+  trail_ebike:        { bg: 'bg-violet-50',  text: 'text-violet-700',  border: 'border-violet-200',  dot: 'bg-violet-500'  },
+  performance_ebike:  { bg: 'bg-red-50',     text: 'text-red-700',     border: 'border-red-200',     dot: 'bg-red-500'     },
+}
+
+export const BIKE_TIER_LABELS: Record<BikeTier, string> = {
+  leisure_bike:       'Leisure Bike',
+  trail_bike:         'Trail Bike',
+  enduro_bike:        'Enduro Bike',
+  cross_country_bike: 'Cross-Country Bike',
+  leisure_ebike:      'Leisure E-Bike',
+  trail_ebike:        'Trail E-Bike',
+  performance_ebike:  'Performance E-Bike',
+}
+
+export const BIKE_TIERS_BY_STYLE: Record<string, BikeTier[]> = {
+  leisure:       ['leisure_bike', 'trail_bike', 'leisure_ebike'],
+  trail:         ['trail_bike', 'enduro_bike', 'trail_ebike'],
+  enduro:        ['enduro_bike', 'trail_bike', 'performance_ebike'],
+  cross_country: ['cross_country_bike', 'trail_bike', 'trail_ebike'],
+  leisure_ebike: ['leisure_ebike', 'trail_ebike'],
+  trail_ebike:   ['trail_ebike', 'leisure_ebike', 'performance_ebike'],
+  enduro_ebike:  ['performance_ebike', 'trail_ebike'],
+  xc_ebike:      ['trail_ebike', 'leisure_ebike'],
+}
+
+export function bikeFrameSize(heightCm: number): BikeFrameSize {
+  if (heightCm < 162) return 'S'
+  if (heightCm < 174) return 'M'
+  if (heightCm < 186) return 'L'
+  return 'XL'
+}
+
+export function recommendBike(params: {
+  heightCm: number
+  weightKg: number
+  ridingStyle: RidingStyle
+  ebike: boolean
+}): BikeReco {
+  const { heightCm, weightKg, ridingStyle, ebike } = params
+  const frameSize = bikeFrameSize(heightCm)
+  const heavySpec = weightKg > 95 ? 'Reinforced frame (≥ 95 kg spec)' : null
+  const baseSpecs = [`Frame size: ${frameSize}`, ...(heavySpec ? [heavySpec] : [])]
+
+  if (ebike) {
+    if (ridingStyle === 'leisure' || ridingStyle === 'cross_country') {
+      return {
+        frameSize, tier: 'leisure_ebike',
+        label: 'Leisure E-Bike', tagline: 'Effortless exploration',
+        description: 'Comfortable geometry with pedal-assist motor. Ideal for scenic rides and climbs without the effort. Hub-drive or mid-drive available.',
+        specs: [...baseSpecs, 'Motor: 250 W pedal-assist', 'Range: ~60–80 km', 'Hydraulic disc brakes'],
+        reason: `${ridingStyle === 'leisure' ? 'Leisure' : 'Cross-country'} riding with e-assist for longer rides and easier climbs.`,
+      }
+    }
+    if (ridingStyle === 'trail') {
+      return {
+        frameSize, tier: 'trail_ebike',
+        label: 'Trail E-Bike', tagline: 'Powered trail shredder',
+        description: 'Full-suspension trail geometry with mid-drive motor for maximum power transfer on technical climbs and descents.',
+        specs: [...baseSpecs, 'Motor: Bosch Performance mid-drive', 'Range: ~50–70 km', '150 mm travel front & rear'],
+        reason: 'Trail riding with e-assist amplifies climbing power while keeping descents technical and fun.',
+      }
+    }
+    return {
+      frameSize, tier: 'performance_ebike',
+      label: 'Performance E-Bike', tagline: 'Enduro power',
+      description: 'High-torque mid-drive motor on an enduro platform. Machine-assisted climbs, raw and capable descents.',
+      specs: [...baseSpecs, 'Motor: Shimano EP8 / Bosch CX', 'Torque: up to 85 Nm', '170 mm travel front & rear'],
+      reason: 'Enduro with e-assist — aggressive terrain capability combined with effortless climbing.',
+    }
+  }
+
+  if (ridingStyle === 'leisure') {
+    return {
+      frameSize, tier: 'leisure_bike',
+      label: 'Leisure Bike', tagline: 'Easy, comfortable rides',
+      description: 'Upright geometry, wide tires and a padded saddle. Great for scenic trails, bike paths and village-to-village rides.',
+      specs: [...baseSpecs, 'Geometry: comfort / upright', 'Tire: 2.2" all-terrain', 'Hydraulic disc brakes'],
+      reason: 'Leisure style — a comfortable, stable bike for relaxed mountain exploration.',
+    }
+  }
+  if (ridingStyle === 'cross_country') {
+    return {
+      frameSize, tier: 'cross_country_bike',
+      label: 'Cross-Country Bike', tagline: 'Efficient climber',
+      description: 'Lightweight hardtail or short-travel full-suspension optimised for trail efficiency. Climbs fast, rolls quickly.',
+      specs: [...baseSpecs, 'Geometry: aggressive XC', 'Travel: 100–120 mm', 'Fast-rolling XC tires'],
+      reason: 'Cross-country rewards an efficient, lightweight bike that climbs fast and conserves energy.',
+    }
+  }
+  if (ridingStyle === 'trail') {
+    return {
+      frameSize, tier: 'trail_bike',
+      label: 'Trail Bike', tagline: 'All-mountain versatility',
+      description: '140 mm full-suspension trail bike with balanced geometry. Climbs efficiently and descends confidently on most terrain.',
+      specs: [...baseSpecs, 'Geometry: trail / all-mountain', 'Travel: 140 mm front & rear', 'Mid-fat tires 2.4"'],
+      reason: 'Trail style — a versatile full-suspension bike that handles gravel to steep singletrack.',
+    }
+  }
+  return {
+    frameSize, tier: 'enduro_bike',
+    label: 'Enduro Bike', tagline: 'Built for descents',
+    description: 'Long-travel (160–170 mm) full-suspension enduro machine with slack geometry. Dominates technical descents and rough terrain.',
+    specs: [...baseSpecs, 'Travel: 165 mm front & rear', 'Geometry: slack & low', 'Maxxis Assegai tires'],
+    reason: 'Enduro style demands the most capable and progressive full-suspension bike in the fleet.',
+  }
 }

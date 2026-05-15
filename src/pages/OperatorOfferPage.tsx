@@ -394,6 +394,10 @@ export default function OperatorOfferPage() {
         navigate(`/book/ski-rental/${operatorId}/${resortId}`)
       } else if (service.type === 'ski_school') {
         navigate(`/book/ski-school/${operatorId}/${resortId}`)
+      } else if (service.type === 'bike_rental') {
+        navigate(`/book/bike-rental/${operatorId}/${resortId}`)
+      } else if (service.type === 'bike_guiding') {
+        navigate(`/book/bike-guiding/${operatorId}/${resortId}`)
       } else {
         navigate(`/book/${resort.slug}/${operatorId}/${service.id}`)
       }

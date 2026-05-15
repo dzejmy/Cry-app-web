@@ -21,6 +21,8 @@ import ResortDetail from './pages/ResortDetail'
 import OperatorOfferPage from './pages/OperatorOfferPage'
 import SkiRentalBooking from './pages/booking/SkiRentalBooking'
 import SkiSchoolBooking from './pages/booking/SkiSchoolBooking'
+import BikeRentalBooking from './pages/booking/BikeRentalBooking'
+import BikeGuidingBooking from './pages/booking/BikeGuidingBooking'
 
 // Customer pages
 import MyTrips from './pages/customer/MyTrips'
@@ -137,6 +139,22 @@ export default function App() {
           element={
             <ProtectedRoute requiredRole="customer">
               <SkiSchoolBooking />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/book/bike-rental/:operatorId/:resortId"
+          element={
+            <ProtectedRoute requiredRole="customer">
+              <BikeRentalBooking />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/book/bike-guiding/:operatorId/:resortId"
+          element={
+            <ProtectedRoute requiredRole="customer">
+              <BikeGuidingBooking />
             </ProtectedRoute>
           }
         />
