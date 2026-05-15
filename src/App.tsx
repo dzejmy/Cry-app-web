@@ -27,6 +27,7 @@ import BikeGuidingBooking from './pages/booking/BikeGuidingBooking'
 // Customer pages
 import MyTrips from './pages/customer/MyTrips'
 import TripDetail from './pages/customer/TripDetail'
+import Profile from './pages/customer/Profile'
 
 // Operator pages
 import OperatorDashboard from './pages/operator/Dashboard'
@@ -105,14 +106,14 @@ export default function App() {
           path="/profile"
           element={
             <ProtectedRoute>
-              <Placeholder name="My Profile" />
+              <Profile />
             </ProtectedRoute>
           }
         />
 
         {/* ── Customer ────────────────────────────────────────── */}
         <Route
-          path="/my-trips"
+          path="/trips"
           element={
             <ProtectedRoute requiredRole="customer">
               <MyTrips />
@@ -120,13 +121,16 @@ export default function App() {
           }
         />
         <Route
-          path="/my-trips/:id"
+          path="/trips/:bookingId"
           element={
             <ProtectedRoute requiredRole="customer">
               <TripDetail />
             </ProtectedRoute>
           }
         />
+        {/* Legacy redirect */}
+        <Route path="/my-trips" element={<Navigate to="/trips" replace />} />
+        <Route path="/my-trips/:id" element={<Navigate to="/trips" replace />} />
         <Route
           path="/book/ski-rental/:operatorId/:resortId"
           element={

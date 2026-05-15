@@ -25,9 +25,9 @@ const CUSTOMER_TABS: Tab[] = [
   },
   {
     label: 'My Trips',
-    to: '/my-trips',
+    to: '/trips',
     icon: Ticket,
-    match: (p) => p.startsWith('/my-trips') || p.startsWith('/book'),
+    match: (p) => p.startsWith('/trips') || p.startsWith('/my-trips') || p.startsWith('/book'),
   },
   {
     label: 'Profile',
