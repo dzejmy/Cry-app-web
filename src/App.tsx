@@ -19,6 +19,7 @@ import Home from './pages/Home'
 import ResortList from './pages/ResortList'
 import ResortDetail from './pages/ResortDetail'
 import OperatorOfferPage from './pages/OperatorOfferPage'
+import SkiRentalBooking from './pages/booking/SkiRentalBooking'
 
 // ── Placeholder for pages not yet built ─────────────────────────────────────
 function Placeholder({ name }: { name: string }) {
@@ -110,6 +111,14 @@ export default function App() {
           element={
             <ProtectedRoute requiredRole="customer">
               <Placeholder name="Trip Detail" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/book/ski-rental/:operatorId/:resortId"
+          element={
+            <ProtectedRoute requiredRole="customer">
+              <SkiRentalBooking />
             </ProtectedRoute>
           }
         />

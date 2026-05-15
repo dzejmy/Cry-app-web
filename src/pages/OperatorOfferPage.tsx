@@ -390,9 +390,13 @@ export default function OperatorOfferPage() {
   const navigateToBooking = useCallback(
     (service: Service) => {
       if (!resort) return
-      navigate(`/book/${resort.slug}/${operatorId}/${service.id}`)
+      if (service.type === 'ski_rental') {
+        navigate(`/book/ski-rental/${operatorId}/${resortId}`)
+      } else {
+        navigate(`/book/${resort.slug}/${operatorId}/${service.id}`)
+      }
     },
-    [resort, operatorId, navigate],
+    [resort, resortId, operatorId, navigate],
   )
 
   const handleBookNow = useCallback(() => {
