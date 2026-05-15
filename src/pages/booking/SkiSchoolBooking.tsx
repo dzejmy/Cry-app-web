@@ -494,13 +494,13 @@ function Step2({ onNext, onBack }: { onNext: () => void; onBack: () => void }) {
                 return (
                   <button
                     key={slot.id}
-                    onClick={() => setSlot(slot.id, slot.start_time)}
+                    onClick={() => setSlot(slot.id, `${slot.start_time.slice(0, 5)} – ${slot.end_time.slice(0, 5)}`)}
                     className={[
                       'flex flex-col items-center px-4 py-2.5 rounded-xl border-2 text-sm font-medium transition-all',
                       selected ? 'border-blue-500 bg-blue-50 text-blue-700' : 'border-gray-200 text-gray-700 hover:border-blue-300',
                     ].join(' ')}
                   >
-                    <span className="font-semibold">{slot.start_time}</span>
+                    <span className="font-semibold">{slot.start_time.slice(0, 5)} – {slot.end_time.slice(0, 5)}</span>
                     <span className={['text-[10px] mt-0.5', remaining <= 2 ? 'text-orange-500' : 'text-gray-400'].join(' ')}>
                       {remaining} spot{remaining !== 1 ? 's' : ''} left
                     </span>

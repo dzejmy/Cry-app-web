@@ -21,6 +21,70 @@ export async function getSlotById(id: string): Promise<AvailabilitySlot> {
   return assertData(data, error, `getSlotById(${id})`)
 }
 
+export type SlotInsert = {
+  service_id: string
+  operator_id: string
+  date: string           // 'yyyy-MM-dd'
+  start_time: string     // 'HH:mm'
+  end_time: string       // 'HH:mm'
+  capacity_total: number
+  price_override?: number | null
+  notes?: string | null
+}
+
+/**
+ * Returns ALL slots for a service in a date range regardless of remaining capacity
+ * or active status — used by operators managing their own availability.
+ */
+export async function getAllSlotsByService(
+  serviceId: string,
+  dateRange: { from: Date; to: Date },
+): Promise<AvailabilitySlot[]> {
+  const from = format(dateRange.from, 'yyyy-MM-dd')
+  const to = format(dateRange.to, 'yyyy-MM-dd')
+
+  const { data, error } = await supabase
+    .from('availability_slots')
+    .select('*')
+    .eq('service_id', serviceId)
+    .gte('date', from)
+    .lte('date', to)
+    .order('date')
+    .order('start_time')
+
+  return assertData(data, error, `getAllSlotsByService(${serviceId})`) as AvailabilitySlot[]
+}
+
+/**
+ * Creates a new availability slot for a service. Returns the created row.
+ */
+export async function createSlot(insert: SlotInsert): Promise<AvailabilitySlot> {
+  const { data, error } = await supabase
+    .from('availability_slots')
+    .insert({
+      ...insert,
+      capacity_booked: 0,
+      active: true,
+    })
+    .select()
+    .single()
+
+  return assertData(data, error, 'createSlot') as AvailabilitySlot
+}
+
+/**
+ * Hard-deletes a slot by ID. Only safe when capacity_booked === 0.
+ * For slots with bookings, use blockSlot() to deactivate instead.
+ */
+export async function deleteSlot(slotId: string): Promise<void> {
+  const { error } = await supabase
+    .from('availability_slots')
+    .delete()
+    .eq('id', slotId)
+
+  if (error) throw new Error(`[availability] deleteSlot: ${error.message}`)
+}
+
 /**
  * Returns active slots for a service within an inclusive date range,
  * where at least one space is still available (capacity_booked < capacity_total).

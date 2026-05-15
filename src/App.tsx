@@ -32,6 +32,7 @@ import TripDetail from './pages/customer/TripDetail'
 import OperatorDashboard from './pages/operator/Dashboard'
 import OperatorBookings from './pages/operator/Bookings'
 import OperatorCheckIn from './pages/operator/CheckIn'
+import OperatorAvailability from './pages/operator/Availability'
 
 // ── Placeholder for pages not yet built ─────────────────────────────────────
 function Placeholder({ name }: { name: string }) {
@@ -188,7 +189,7 @@ export default function App() {
           path="/operator/availability"
           element={
             <ProtectedRoute requiredRole="operator">
-              <Placeholder name="Manage Availability" />
+              <OperatorAvailability />
             </ProtectedRoute>
           }
         />

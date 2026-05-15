@@ -26,6 +26,21 @@ export async function getServicesByOperator(
 }
 
 /**
+ * Returns all active services for an operator across all resorts.
+ * Used by the operator dashboard/availability management where resortId is unknown.
+ */
+export async function getAllServicesByOperator(operatorId: string): Promise<Service[]> {
+  const { data, error } = await supabase
+    .from('services')
+    .select('*')
+    .eq('operator_id', operatorId)
+    .eq('active', true)
+    .order('type')
+
+  return assertData(data, error, `getAllServicesByOperator(${operatorId})`)
+}
+
+/**
  * Returns a single service by its UUID.
  */
 export async function getServiceById(id: string): Promise<Service> {
