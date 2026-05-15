@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Bell, UserCircle } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
 import SeasonToggle from './SeasonToggle'
 import { useAuth } from '../../hooks/useAuth'
 
 export default function Header() {
-  const { t }                      = useTranslation()
-  const { isAuthenticated, user }  = useAuth()
+  const { isAuthenticated, user } = useAuth()
   const [scrolled, setScrolled]    = useState(false)
 
   useEffect(() => {
@@ -85,7 +83,7 @@ export default function Header() {
                   : 'border-white/50 text-white hover:bg-white/10',
               ].join(' ')}
             >
-              {t('auth.signIn')}
+              Sign in
             </Link>
           )}
         </div>
