@@ -51,16 +51,16 @@ const OPERATOR_TABS: Tab[] = [
     match: (p) => p.startsWith('/operator/bookings'),
   },
   {
-    label: 'Check-In',
-    to: '/operator/check-in',
+    label: 'Scan',
+    to: '/operator/scan',
     icon: ScanLine,
-    match: (p) => p.startsWith('/operator/check-in'),
+    match: (p) => p.startsWith('/operator/scan') || p.startsWith('/operator/check-in'),
   },
   {
     label: 'Profile',
-    to: '/profile',
+    to: '/operator/profile',
     icon: User,
-    match: (p) => p.startsWith('/profile'),
+    match: (p) => p.startsWith('/operator/profile'),
   },
 ]
 

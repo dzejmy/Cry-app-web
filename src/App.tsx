@@ -31,9 +31,11 @@ import Profile from './pages/customer/Profile'
 
 // Operator pages
 import OperatorDashboard from './pages/operator/Dashboard'
-import OperatorBookings from './pages/operator/Bookings'
-import OperatorCheckIn from './pages/operator/CheckIn'
-import OperatorAvailability from './pages/operator/Availability'
+import OperatorBookings from './pages/operator/BookingsList'
+import OperatorScan from './pages/operator/QRScannerPage'
+import OperatorAvailability from './pages/operator/AvailabilityManager'
+import OperatorEquipment from './pages/operator/EquipmentTracker'
+import OperatorProfile from './pages/operator/OperatorProfile'
 
 // ── Placeholder for pages not yet built ─────────────────────────────────────
 function Placeholder({ name }: { name: string }) {
@@ -206,21 +208,32 @@ export default function App() {
           }
         />
         <Route
-          path="/operator/check-in"
+          path="/operator/scan"
           element={
             <ProtectedRoute requiredRole="operator">
-              <OperatorCheckIn />
+              <OperatorScan />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/operator/inventory"
+          path="/operator/equipment"
           element={
             <ProtectedRoute requiredRole="operator">
-              <Placeholder name="Equipment Inventory" />
+              <OperatorEquipment />
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/operator/profile"
+          element={
+            <ProtectedRoute requiredRole="operator">
+              <OperatorProfile />
+            </ProtectedRoute>
+          }
+        />
+        {/* Legacy redirects */}
+        <Route path="/operator/check-in" element={<Navigate to="/operator/scan" replace />} />
+        <Route path="/operator/inventory" element={<Navigate to="/operator/equipment" replace />} />
 
         {/* ── Admin ───────────────────────────────────────────── */}
         <Route

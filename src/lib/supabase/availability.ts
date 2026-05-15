@@ -112,6 +112,24 @@ export async function getAvailableSlots(
   return slots.filter((s) => s.capacity_booked < s.capacity_total)
 }
 
+export type SlotUpdate = Partial<Pick<
+  import('../../types').AvailabilitySlot,
+  'start_time' | 'end_time' | 'capacity_total' | 'price_override' | 'notes' | 'active'
+>>
+
+export async function updateSlot(slotId: string, fields: SlotUpdate): Promise<import('../../types').AvailabilitySlot> {
+  const { data, error } = await supabase
+    .from('availability_slots')
+    .update({ ...fields, updated_at: new Date().toISOString() })
+    .eq('id', slotId)
+    .select()
+    .single()
+
+  if (error) throw new Error(`[availability] updateSlot: ${error.message}`)
+  if (!data) throw new Error('[availability] updateSlot: no data returned')
+  return data as import('../../types').AvailabilitySlot
+}
+
 /**
  * Marks a slot as inactive so operators can block it from being booked.
  */
