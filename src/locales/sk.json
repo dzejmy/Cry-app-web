@@ -1,0 +1,383 @@
+{
+  "nav": {
+    "home": "Domov",
+    "search": "Hľadať",
+    "myTrips": "Moje výlety",
+    "profile": "Profil",
+    "dashboard": "Prehľad",
+    "bookings": "Rezervácie",
+    "scan": "Skenovať",
+    "operatorProfile": "Profil"
+  },
+
+  "common": {
+    "save": "Uložiť",
+    "saving": "Ukladám…",
+    "cancel": "Zrušiť",
+    "confirm": "Potvrdiť",
+    "back": "Späť",
+    "next": "Ďalej",
+    "close": "Zavrieť",
+    "update": "Aktualizovať",
+    "delete": "Odstrániť",
+    "edit": "Upraviť",
+    "add": "Pridať",
+    "loading": "Načítavam…",
+    "viewAll": "Zobraziť všetky →",
+    "noData": "Žiadne dáta",
+    "all": "Všetky",
+    "yes": "Áno",
+    "no": "Nie",
+    "optional": "nepovinné",
+    "items": "{{count}} položka",
+    "items_plural": "{{count}} položky"
+  },
+
+  "status": {
+    "pending": "Čakajúca",
+    "confirmed": "Potvrdená",
+    "arrived": "Prítomný",
+    "completed": "Dokončená",
+    "cancelled": "Zrušená"
+  },
+
+  "season": {
+    "winter": "Zima",
+    "summer": "Leto",
+    "winterSeason": "Zimná sezóna",
+    "summerSeason": "Letná sezóna"
+  },
+
+  "auth": {
+    "signIn": "Prihlásiť sa",
+    "signOut": "Odhlásiť sa",
+    "login": {
+      "title": "Vitajte späť",
+      "subtitle": "Prihláste sa do svojho účtu PeakPass",
+      "email": "E-mailová adresa",
+      "password": "Heslo",
+      "submit": "Prihlásiť sa",
+      "submitting": "Prihlasovanie…",
+      "noAccount": "Nemáte účet?",
+      "signUp": "Zaregistrovať sa",
+      "forgotPassword": "Zabudnuté heslo?"
+    },
+    "register": {
+      "title": "Vytvoriť účet",
+      "subtitle": "Pridajte sa k PeakPass",
+      "firstName": "Meno",
+      "lastName": "Priezvisko",
+      "email": "E-mailová adresa",
+      "password": "Heslo",
+      "phone": "Telefón",
+      "submit": "Vytvoriť účet",
+      "submitting": "Vytváram účet…",
+      "hasAccount": "Už máte účet?",
+      "operatorLink": "Registrujete sa ako prevádzkovateľ?",
+      "operatorSignUp": "Registrácia prevádzkovateľa"
+    },
+    "operatorRegister": {
+      "title": "Registrácia prevádzkovateľa",
+      "companyName": "Názov firmy",
+      "submit": "Zaregistrovať ako prevádzkovateľa"
+    }
+  },
+
+  "home": {
+    "headline": "Nájdi, rezervuj, príď pripravený.",
+    "subtitleWinter": "Lyžiarske kurzy, požičovňa výstroja a skúsení inštruktori — všetko na jednom mieste.",
+    "subtitleSummer": "Komentované cyklovýlety a požičovňa pre každú úroveň zdatnosti.",
+    "searchPlaceholder": "Hľadaj strediská…",
+    "search": "Hľadať",
+    "featuredResorts": "Odporúčané strediská",
+    "featuredSubWinter": "Top lyžiarske destinácie tejto zimy",
+    "featuredSubSummer": "Najlepšie miesta pre cyklistiku toto leto",
+    "viewAll": "Zobraziť všetky →",
+    "scrollCue": "Odporúčané strediská",
+    "noResorts": "Pre túto sezónu neboli nájdené žiadne strediská.",
+    "elevation": "{{elevation}} m"
+  },
+
+  "resorts": {
+    "title": "Strediská",
+    "searchPlaceholder": "Hľadaj strediská…",
+    "filterSeason": "Sezóna",
+    "filterCountry": "Krajina",
+    "noResults": "Žiadne strediská nevyhovujú vašim filtrám",
+    "noResultsHint": "Skúste upraviť vyhľadávanie alebo prepnúť sezónu",
+    "viewOperators": "Zobraziť prevádzkovateľov"
+  },
+
+  "booking": {
+    "bookNow": "Rezervovať",
+    "selectDate": "Vyberte dátum",
+    "selectTime": "Vyberte časový slot",
+    "noSlots": "Pre tento dátum nie sú dostupné sloty",
+    "steps": {
+      "details": "Vaše údaje",
+      "participants": "Účastníci",
+      "equipment": "Výstroj",
+      "review": "Prehľad",
+      "payment": "Platba"
+    },
+    "participant": {
+      "title": "Účastník {{number}}",
+      "firstName": "Meno",
+      "lastName": "Priezvisko",
+      "age": "Vek",
+      "skillLevel": "Úroveň",
+      "beginner": "Začiatočník",
+      "intermediate": "Pokročilý",
+      "advanced": "Expert",
+      "addParticipant": "Pridať účastníka",
+      "removeParticipant": "Odstrániť"
+    },
+    "rental": {
+      "equipmentType": "Typ výstroja",
+      "heightCm": "Výška (cm)",
+      "weightKg": "Hmotnosť (kg)",
+      "bootSize": "Číslo topánky (EU)",
+      "helmetSize": "Veľkosť helmy",
+      "preferredBrand": "Preferovaná značka (nepovinné)"
+    },
+    "review": {
+      "summary": "Prehľad rezervácie",
+      "service": "Služba",
+      "date": "Dátum",
+      "time": "Čas",
+      "participants": "Účastníci",
+      "total": "Celkovo",
+      "termsNote": "Potvrdením súhlasíte s našimi storno podmienkami."
+    },
+    "payment": {
+      "title": "Bezpečná platba",
+      "cardDetails": "Údaje karty",
+      "pay": "Zaplatiť a potvrdiť rezerváciu",
+      "processing": "Spracovávam…",
+      "secured": "Zabezpečené cez Stripe · Vaše údaje karty nie sú uložené na našich serveroch",
+      "holdNote": "Vaša karta bude autorizovaná teraz a zaúčtovaná po potvrdení rezervácie."
+    },
+    "success": "Rezervácia potvrdená!",
+    "cancel": {
+      "title": "Zrušiť rezerváciu",
+      "body": "Naozaj chcete zrušiť túto rezerváciu?",
+      "confirm": "Áno, zrušiť rezerváciu",
+      "reason": "Dôvod (nepovinné)",
+      "warning": "Táto akcia sa nedá vrátiť.",
+      "tooLate": "Rezervácie nie je možné zrušiť v priebehu 48 hodín pred začiatkom.",
+      "cancelled": "Rezervácia zrušená",
+      "success": "Vaša rezervácia bola zrušená."
+    },
+    "type": {
+      "school_only": "Lyžiarska škola",
+      "rental_only": "Požičovňa",
+      "guiding_only": "Sprievodný výlet",
+      "bundle": "Balík"
+    },
+    "bundle": "Balík",
+    "slotFull": "Tento slot je plne obsadený"
+  },
+
+  "trips": {
+    "title": "Moje výlety",
+    "empty": {
+      "title": "Zatiaľ žiadne výlety",
+      "subtitle": "Rezervujte lyžiarsku školu, požičovňu alebo sprievodný výlet a zobrazí sa tu.",
+      "cta": "Objavovať strediská"
+    },
+    "tabs": {
+      "upcoming": "Nadchádzajúce",
+      "past": "Minulé",
+      "cancelled": "Zrušené"
+    },
+    "viewDetails": "Zobraziť detail",
+    "participants": "{{count}} účastník",
+    "participants_plural": "{{count}} účastníci",
+    "downloadPdf": "Stiahnuť PDF",
+    "showQr": "Zobraziť QR kód",
+    "qrSubtitle": "Ukážte inštruktorovi pri príchode",
+    "preparation": "Tipy na prípravu"
+  },
+
+  "profile": {
+    "title": "Profil",
+    "personalInfo": "Osobné údaje",
+    "firstName": "Meno",
+    "lastName": "Priezvisko",
+    "email": "E-mailová adresa",
+    "phone": "Telefón",
+    "language": "Jazyk",
+    "preferredSeason": "Preferovaná sezóna",
+    "save": "Uložiť zmeny",
+    "saved": "Profil aktualizovaný",
+    "signOut": "Odhlásiť sa",
+    "accountSection": "Účet"
+  },
+
+  "operator": {
+    "verified": "Overený prevádzkovateľ",
+
+    "dashboard": {
+      "greeting": {
+        "morning": "Dobré ráno",
+        "afternoon": "Dobrý deň",
+        "evening": "Dobrý večer"
+      },
+      "stats": {
+        "todaysBookings": "Dnešné rezervácie",
+        "weekRevenue": "Tento týždeň",
+        "revenue": "príjmy",
+        "equipmentOut": "Výstroj vonku",
+        "items": "položky"
+      },
+      "schedule": "Dnešný rozvrh",
+      "noBookingsToday": "Dnes nie sú naplánované žiadne rezervácie",
+      "quickActions": "Rýchle akcie",
+      "actions": {
+        "scan": "Skenovať QR kód",
+        "scanDesc": "Odbavte hostí pri príchode",
+        "calendar": "Zobraziť kalendár",
+        "calendarDesc": "Zobraziť a upraviť dostupnosť",
+        "addAvailability": "Pridať dostupnosť",
+        "addAvailabilityDesc": "Vytvoriť nové časové sloty",
+        "equipment": "Správa výstroja",
+        "equipmentDesc": "{{count}} položiek momentálne vonku",
+        "allBookings": "Všetky rezervácie",
+        "allBookingsDesc": "{{count}} čakajúcich na odbavenie dnes",
+        "operatorProfile": "Profil prevádzkovateľa",
+        "operatorProfileDesc": "Upraviť info o firme a prepojenia so strediskami"
+      }
+    },
+
+    "bookings": {
+      "title": "Rezervácie",
+      "noBookings": "Žiadne rezervácie",
+      "noBookingsHint": "Upravte filtre pre zobrazenie výsledkov",
+      "filters": {
+        "dateFrom": "Od",
+        "dateTo": "Do",
+        "serviceType": "Typ služby",
+        "status": "Stav"
+      },
+      "detail": {
+        "participants": "Účastníci",
+        "rentalMeasurements": "Miery pre požičovňu",
+        "height": "Výška",
+        "weight": "Hmotnosť",
+        "boot": "Topánka",
+        "helmet": "Helma",
+        "brand": "Značka",
+        "skill": "Úroveň",
+        "total": "Celkovo",
+        "markAs": "Označiť ako"
+      }
+    },
+
+    "scan": {
+      "title": "Skenovať QR kód",
+      "subtitle": "Namierte kameru na QR kód hosťa",
+      "startCamera": "Spustiť kameru",
+      "scanning": "Skenujem…",
+      "stop": "Zastaviť",
+      "notYourBooking": "Táto rezervácia nepatrí vášmu účtu",
+      "checkIn": "Odbavit hosťa",
+      "alreadyCheckedIn": "Už odbavený",
+      "equipmentChecklist": "Kontrolný zoznam výstroja",
+      "confirmed": "Hosť odbavený!"
+    },
+
+    "availability": {
+      "title": "Dostupnosť",
+      "addSlot": "Pridať slot",
+      "editSlot": "Upraviť slot",
+      "deleteSlot": "Odstrániť slot",
+      "blockSlot": "Zablokovať slot",
+      "bulkBlock": "Hromadné blokovanie",
+      "bulkBlockTitle": "Zablokovať nadchádzajúce sloty",
+      "noSlots": "Pre tento deň nie sú žiadne sloty",
+      "selectDay": "Vyberte deň z kalendára",
+      "capacity": "Kapacita",
+      "price": "Prepísaná cena",
+      "notes": "Poznámky"
+    },
+
+    "equipment": {
+      "title": "Výstroj",
+      "subtitle": "Správa skladu a prenájmov",
+      "updateQty": "Aktualizovať množstvo",
+      "allOut": "Všetko vonku",
+      "unitsOut": "Kusov vonku",
+      "fullyOut": "Úplne prázdne",
+      "itemTypes": "Typy položiek",
+      "available": "Dostupné",
+      "total": "Celkovo",
+      "out": "Vonku",
+      "outOnly": "Iba vonku",
+      "noInventory": "Žiadny sklad výstroja",
+      "noInventoryHint": "Pridajte výstroj v Supabase dashboarde.",
+      "noItemsCategory": "Žiadne položky v tejto kategórii",
+      "noItemsOut": "Žiadne vonkajšie položky v tejto kategórii"
+    },
+
+    "profile": {
+      "title": "Profil prevádzkovateľa",
+      "companyInfo": "Informácie o firme",
+      "companyName": "Názov firmy",
+      "description": "Popis",
+      "descriptionPlaceholder": "Povedzte zákazníkom, čo vás robí výnimočnými…",
+      "contact": "Kontakt",
+      "website": "Webstránka",
+      "phone": "Telefón",
+      "email": "E-mail",
+      "resorts": "Strediská",
+      "noResorts": "Zatiaľ žiadne strediská.",
+      "addResort": "Pridať stredisko",
+      "logo": "Logo",
+      "uploadLogo": "Nahrať logo",
+      "uploading": "Nahrávam…",
+      "logoHint": "PNG, JPG do 2 MB",
+      "verified": "Overený prevádzkovateľ",
+      "verifiedDesc": "Váš profil je viditeľný pre zákazníkov.",
+      "pendingVerification": "Čaká na overenie",
+      "pendingDesc": "Overenie prebieha. Ak to trvá dlho, kontaktujte podporu."
+    }
+  },
+
+  "errors": {
+    "network": "Chyba siete. Skontrolujte pripojenie a skúste znova.",
+    "payment": "Platba zlyhala. Skontrolujte údaje karty a skúste znova.",
+    "qrScan": "QR kód sa nepodarilo prečítať. Skúste znova.",
+    "slotFull": "Tento slot je plne obsadený. Vyberte iný.",
+    "notFound": "Stránka nenájdená",
+    "notFoundDesc": "Stránka, ktorú hľadáte, neexistuje alebo bola presunutá.",
+    "goHome": "Domov",
+    "generic": "Niečo sa pokazilo. Skúste to znova.",
+    "loadFailed": "Načítanie zlyhalo. Obnovte stránku.",
+    "offline": "Ste offline",
+    "offlineDesc": "Skontrolujte pripojenie na internet",
+    "boundary": {
+      "title": "Niečo sa pokazilo",
+      "body": "Nastala neočakávaná chyba. Obnovte stránku.",
+      "refresh": "Obnoviť stránku"
+    }
+  },
+
+  "emptyState": {
+    "noResorts": {
+      "title": "Žiadne strediská",
+      "subtitle": "Pre túto sezónu nie sú dostupné žiadne strediská. Prepnite sezónu alebo sa vráťte neskôr."
+    },
+    "noBookings": {
+      "title": "Zatiaľ žiadne výlety",
+      "subtitle": "Vaše nadchádzajúce rezervácie sa zobrazia tu. Ste pripravení naplánovať ďalšie dobrodružstvo?"
+    },
+    "noUpcoming": {
+      "title": "Dnes žiadne rezervácie",
+      "subtitle": "Váš rozvrh je voľný. Užite si pokoj pred ruchom!"
+    },
+    "fullyBooked": {
+      "title": "Plne obsadené",
+      "subtitle": "Všetky sloty pre tento dátum sú obsadené. Skúste iný dátum alebo službu."
+    }
+  }
+}

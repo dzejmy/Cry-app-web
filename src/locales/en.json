@@ -1,0 +1,383 @@
+{
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "myTrips": "My Trips",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "bookings": "Bookings",
+    "scan": "Scan",
+    "operatorProfile": "Profile"
+  },
+
+  "common": {
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "update": "Update",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "loading": "Loading…",
+    "viewAll": "View all →",
+    "noData": "No data found",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "optional",
+    "items": "{{count}} item",
+    "items_plural": "{{count}} items"
+  },
+
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "arrived": "Arrived",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+
+  "season": {
+    "winter": "Winter",
+    "summer": "Summer",
+    "winterSeason": "Winter season",
+    "summerSeason": "Summer season"
+  },
+
+  "auth": {
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your PeakPass account",
+      "email": "Email address",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "forgotPassword": "Forgot password?"
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "Join PeakPass today",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email address",
+      "password": "Password",
+      "phone": "Phone",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "hasAccount": "Already have an account?",
+      "operatorLink": "Registering as an operator?",
+      "operatorSignUp": "Operator sign-up"
+    },
+    "operatorRegister": {
+      "title": "Operator registration",
+      "companyName": "Company name",
+      "submit": "Register as operator"
+    }
+  },
+
+  "home": {
+    "headline": "Find, book, arrive ready.",
+    "subtitleWinter": "Ski lessons, rental gear, and expert instructors — all in one place.",
+    "subtitleSummer": "Guided bike tours and rental gear for every trail level.",
+    "searchPlaceholder": "Search resorts…",
+    "search": "Search",
+    "featuredResorts": "Featured resorts",
+    "featuredSubWinter": "Top ski destinations this winter",
+    "featuredSubSummer": "Best bike spots this summer",
+    "viewAll": "View all →",
+    "scrollCue": "Featured resorts",
+    "noResorts": "No resorts found for this season.",
+    "elevation": "{{elevation}} m"
+  },
+
+  "resorts": {
+    "title": "Resorts",
+    "searchPlaceholder": "Search resorts…",
+    "filterSeason": "Season",
+    "filterCountry": "Country",
+    "noResults": "No resorts match your filters",
+    "noResultsHint": "Try adjusting your search or switching season",
+    "viewOperators": "View operators"
+  },
+
+  "booking": {
+    "bookNow": "Book now",
+    "selectDate": "Select a date",
+    "selectTime": "Select a time slot",
+    "noSlots": "No available slots for this date",
+    "steps": {
+      "details": "Your Details",
+      "participants": "Participants",
+      "equipment": "Equipment",
+      "review": "Review",
+      "payment": "Payment"
+    },
+    "participant": {
+      "title": "Participant {{number}}",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "age": "Age",
+      "skillLevel": "Skill level",
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "addParticipant": "Add participant",
+      "removeParticipant": "Remove"
+    },
+    "rental": {
+      "equipmentType": "Equipment type",
+      "heightCm": "Height (cm)",
+      "weightKg": "Weight (kg)",
+      "bootSize": "Boot size (EU)",
+      "helmetSize": "Helmet size",
+      "preferredBrand": "Preferred brand (optional)"
+    },
+    "review": {
+      "summary": "Booking summary",
+      "service": "Service",
+      "date": "Date",
+      "time": "Time",
+      "participants": "Participants",
+      "total": "Total",
+      "termsNote": "By confirming, you agree to our cancellation policy."
+    },
+    "payment": {
+      "title": "Secure payment",
+      "cardDetails": "Card details",
+      "pay": "Pay & confirm booking",
+      "processing": "Processing…",
+      "secured": "Secured by Stripe · Your card details are never stored on our servers",
+      "holdNote": "Your card will be authorised now and charged after your booking is confirmed."
+    },
+    "success": "Booking confirmed!",
+    "cancel": {
+      "title": "Cancel booking",
+      "body": "Are you sure you want to cancel this booking?",
+      "confirm": "Yes, cancel booking",
+      "reason": "Reason (optional)",
+      "warning": "This action cannot be undone.",
+      "tooLate": "Bookings cannot be cancelled within 48 hours of the start time.",
+      "cancelled": "Booking cancelled",
+      "success": "Your booking has been cancelled."
+    },
+    "type": {
+      "school_only": "Ski School",
+      "rental_only": "Rental",
+      "guiding_only": "Guided Tour",
+      "bundle": "Bundle"
+    },
+    "bundle": "Bundle",
+    "slotFull": "This slot is fully booked"
+  },
+
+  "trips": {
+    "title": "My Trips",
+    "empty": {
+      "title": "No trips yet",
+      "subtitle": "Book a ski school, rental, or guided tour and it will appear here.",
+      "cta": "Explore resorts"
+    },
+    "tabs": {
+      "upcoming": "Upcoming",
+      "past": "Past",
+      "cancelled": "Cancelled"
+    },
+    "viewDetails": "View details",
+    "participants": "{{count}} participant",
+    "participants_plural": "{{count}} participants",
+    "downloadPdf": "Download PDF",
+    "showQr": "Show QR code",
+    "qrSubtitle": "Show this to your instructor on arrival",
+    "preparation": "Preparation tips"
+  },
+
+  "profile": {
+    "title": "Profile",
+    "personalInfo": "Personal information",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email address",
+    "phone": "Phone",
+    "language": "Language",
+    "preferredSeason": "Preferred season",
+    "save": "Save changes",
+    "saved": "Profile updated",
+    "signOut": "Sign out",
+    "accountSection": "Account"
+  },
+
+  "operator": {
+    "verified": "Verified operator",
+
+    "dashboard": {
+      "greeting": {
+        "morning": "Good morning",
+        "afternoon": "Good afternoon",
+        "evening": "Good evening"
+      },
+      "stats": {
+        "todaysBookings": "Today's bookings",
+        "weekRevenue": "This week",
+        "revenue": "revenue",
+        "equipmentOut": "Equipment out",
+        "items": "items"
+      },
+      "schedule": "Today's schedule",
+      "noBookingsToday": "No bookings scheduled for today",
+      "quickActions": "Quick actions",
+      "actions": {
+        "scan": "Scan QR Code",
+        "scanDesc": "Check guests in at arrival",
+        "calendar": "View Calendar",
+        "calendarDesc": "See and edit your availability",
+        "addAvailability": "Add Availability",
+        "addAvailabilityDesc": "Create new time slots",
+        "equipment": "Equipment Tracker",
+        "equipmentDesc": "{{count}} items currently out",
+        "allBookings": "All Bookings",
+        "allBookingsDesc": "{{count}} pending check-in today",
+        "operatorProfile": "Operator Profile",
+        "operatorProfileDesc": "Edit company info and resort links"
+      }
+    },
+
+    "bookings": {
+      "title": "Bookings",
+      "noBookings": "No bookings found",
+      "noBookingsHint": "Adjust your filters to see more results",
+      "filters": {
+        "dateFrom": "From",
+        "dateTo": "To",
+        "serviceType": "Service type",
+        "status": "Status"
+      },
+      "detail": {
+        "participants": "Participants",
+        "rentalMeasurements": "Rental measurements",
+        "height": "Height",
+        "weight": "Weight",
+        "boot": "Boot",
+        "helmet": "Helmet",
+        "brand": "Brand",
+        "skill": "Skill",
+        "total": "Total",
+        "markAs": "Mark as"
+      }
+    },
+
+    "scan": {
+      "title": "Scan QR Code",
+      "subtitle": "Point the camera at the guest's QR code",
+      "startCamera": "Start camera",
+      "scanning": "Scanning…",
+      "stop": "Stop",
+      "notYourBooking": "This booking doesn't belong to your account",
+      "checkIn": "Check in guest",
+      "alreadyCheckedIn": "Already checked in",
+      "equipmentChecklist": "Equipment checklist",
+      "confirmed": "Guest checked in!"
+    },
+
+    "availability": {
+      "title": "Availability",
+      "addSlot": "Add slot",
+      "editSlot": "Edit slot",
+      "deleteSlot": "Delete slot",
+      "blockSlot": "Block slot",
+      "bulkBlock": "Bulk block",
+      "bulkBlockTitle": "Block upcoming slots",
+      "noSlots": "No slots for this day",
+      "selectDay": "Select a day from the calendar",
+      "capacity": "Capacity",
+      "price": "Price override",
+      "notes": "Notes"
+    },
+
+    "equipment": {
+      "title": "Equipment",
+      "subtitle": "Track inventory and rentals",
+      "updateQty": "Update qty",
+      "allOut": "All out",
+      "unitsOut": "Units out",
+      "fullyOut": "Fully out",
+      "itemTypes": "Item types",
+      "available": "Available",
+      "total": "Total",
+      "out": "Out",
+      "outOnly": "Out only",
+      "noInventory": "No equipment inventory found",
+      "noInventoryHint": "Add equipment inventory in your Supabase dashboard to track items here.",
+      "noItemsCategory": "No items in this category",
+      "noItemsOut": "No items currently out in this category"
+    },
+
+    "profile": {
+      "title": "Operator Profile",
+      "companyInfo": "Company info",
+      "companyName": "Company name",
+      "description": "Description",
+      "descriptionPlaceholder": "Tell customers what makes you special…",
+      "contact": "Contact",
+      "website": "Website",
+      "phone": "Phone",
+      "email": "Email",
+      "resorts": "Resorts served",
+      "noResorts": "No resorts linked yet.",
+      "addResort": "Add resort",
+      "logo": "Logo",
+      "uploadLogo": "Upload logo",
+      "uploading": "Uploading…",
+      "logoHint": "PNG, JPG up to 2 MB",
+      "verified": "Verified operator",
+      "verifiedDesc": "Your profile is visible to customers.",
+      "pendingVerification": "Pending verification",
+      "pendingDesc": "Verification is in progress. Contact support if this takes too long."
+    }
+  },
+
+  "errors": {
+    "network": "Network error. Please check your connection and try again.",
+    "payment": "Payment failed. Please check your card details and try again.",
+    "qrScan": "Could not read QR code. Please try again.",
+    "slotFull": "This slot is fully booked. Please choose another.",
+    "notFound": "Page not found",
+    "notFoundDesc": "The page you're looking for doesn't exist or has been moved.",
+    "goHome": "Go home",
+    "generic": "Something went wrong. Please try again.",
+    "loadFailed": "Failed to load data. Please refresh the page.",
+    "offline": "You're offline",
+    "offlineDesc": "Check your internet connection to continue",
+    "boundary": {
+      "title": "Something went wrong",
+      "body": "An unexpected error occurred. Please refresh the page.",
+      "refresh": "Refresh page"
+    }
+  },
+
+  "emptyState": {
+    "noResorts": {
+      "title": "No resorts found",
+      "subtitle": "No {{season}} resorts are available right now. Try switching season or check back later."
+    },
+    "noBookings": {
+      "title": "No trips yet",
+      "subtitle": "Your upcoming bookings will appear here. Ready to plan your next adventure?"
+    },
+    "noUpcoming": {
+      "title": "No bookings today",
+      "subtitle": "Your schedule is clear. Enjoy the calm before the rush!"
+    },
+    "fullyBooked": {
+      "title": "Fully booked",
+      "subtitle": "All slots for this date are taken. Try a different date or service."
+    }
+  }
+}

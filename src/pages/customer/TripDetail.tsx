@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 import { format, parseISO, differenceInHours } from 'date-fns'
 import {
   ArrowLeft,
@@ -111,10 +112,16 @@ function QRPanel({ bookingId }: { bookingId: string }) {
 
   return (
     <>
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col items-center gap-3">
+      {/* QR card — scale-in reveal on mount */}
+      <motion.div
+        initial={{ scale: 0.85, opacity: 0 }}
+        animate={{ scale: 1,    opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 340, damping: 26, delay: 0.15 }}
+        className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col items-center gap-3"
+      >
         <button
           onClick={() => setOpen(true)}
-          className="relative rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow active:scale-95 transition-transform"
+          className="relative rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow active:scale-95"
           aria-label="Tap to expand QR code"
         >
           <canvas ref={smallRef} className="block" />
@@ -132,32 +139,43 @@ function QRPanel({ bookingId }: { bookingId: string }) {
           </div>
           <p className="text-xs text-gray-400 mt-0.5">Operator will scan on arrival</p>
         </div>
-      </div>
+      </motion.div>
 
-      {open && (
-        <div
-          className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-6"
-          onClick={() => setOpen(false)}
-        >
-          <div
-            className="bg-white rounded-3xl p-8 flex flex-col items-center shadow-2xl max-w-xs w-full"
-            onClick={(e) => e.stopPropagation()}
+      {/* Lightbox */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{   opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-6"
+            onClick={() => setOpen(false)}
           >
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Check-in QR</p>
-            <canvas ref={largeRef} className="rounded-2xl block" />
-            <p className="text-xs text-gray-400 mt-4 text-center">
-              Present this code to the operator on arrival
-            </p>
-            <button
-              onClick={() => setOpen(false)}
-              className="mt-5 flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+            <motion.div
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1,   opacity: 1 }}
+              exit={{   scale: 0.7, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 380, damping: 28 }}
+              className="bg-white rounded-3xl p-8 flex flex-col items-center shadow-2xl max-w-xs w-full"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X className="w-4 h-4" />
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">Check-in QR</p>
+              <canvas ref={largeRef} className="rounded-2xl block" />
+              <p className="text-xs text-gray-400 mt-4 text-center">
+                Present this code to the operator on arrival
+              </p>
+              <button
+                onClick={() => setOpen(false)}
+                className="mt-5 flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                <X className="w-4 h-4" />
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }
