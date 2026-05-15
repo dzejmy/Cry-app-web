@@ -31,7 +31,6 @@ export default function Header() {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 shrink-0 font-bold text-lg">
-          <span className="text-xl">⛰️</span>
           <span className={isHero ? 'text-white drop-shadow' : 'text-gray-900'}>PeakPass</span>
         </Link>
 
