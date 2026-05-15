@@ -20,6 +20,16 @@ import ResortList from './pages/ResortList'
 import ResortDetail from './pages/ResortDetail'
 import OperatorOfferPage from './pages/OperatorOfferPage'
 import SkiRentalBooking from './pages/booking/SkiRentalBooking'
+import SkiSchoolBooking from './pages/booking/SkiSchoolBooking'
+
+// Customer pages
+import MyTrips from './pages/customer/MyTrips'
+import TripDetail from './pages/customer/TripDetail'
+
+// Operator pages
+import OperatorDashboard from './pages/operator/Dashboard'
+import OperatorBookings from './pages/operator/Bookings'
+import OperatorCheckIn from './pages/operator/CheckIn'
 
 // ── Placeholder for pages not yet built ─────────────────────────────────────
 function Placeholder({ name }: { name: string }) {
@@ -102,7 +112,7 @@ export default function App() {
           path="/my-trips"
           element={
             <ProtectedRoute requiredRole="customer">
-              <Placeholder name="My Trips" />
+              <MyTrips />
             </ProtectedRoute>
           }
         />
@@ -110,7 +120,7 @@ export default function App() {
           path="/my-trips/:id"
           element={
             <ProtectedRoute requiredRole="customer">
-              <Placeholder name="Trip Detail" />
+              <TripDetail />
             </ProtectedRoute>
           }
         />
@@ -119,6 +129,14 @@ export default function App() {
           element={
             <ProtectedRoute requiredRole="customer">
               <SkiRentalBooking />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/book/ski-school/:operatorId/:resortId"
+          element={
+            <ProtectedRoute requiredRole="customer">
+              <SkiSchoolBooking />
             </ProtectedRoute>
           }
         />
@@ -136,7 +154,7 @@ export default function App() {
           path="/operator"
           element={
             <ProtectedRoute requiredRole="operator">
-              <Placeholder name="Operator Dashboard" />
+              <OperatorDashboard />
             </ProtectedRoute>
           }
         />
@@ -160,7 +178,7 @@ export default function App() {
           path="/operator/bookings"
           element={
             <ProtectedRoute requiredRole="operator">
-              <Placeholder name="Operator Bookings" />
+              <OperatorBookings />
             </ProtectedRoute>
           }
         />
@@ -168,7 +186,7 @@ export default function App() {
           path="/operator/check-in"
           element={
             <ProtectedRoute requiredRole="operator">
-              <Placeholder name="QR Check-In" />
+              <OperatorCheckIn />
             </ProtectedRoute>
           }
         />

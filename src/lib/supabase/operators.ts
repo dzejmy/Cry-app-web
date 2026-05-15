@@ -28,6 +28,21 @@ export async function getOperatorsByResort(resortId: string): Promise<Operator[]
 }
 
 /**
+ * Returns the operator record whose profile_id matches the given auth user ID.
+ * Returns null if no operator has been created for this profile yet.
+ */
+export async function getOperatorByProfileId(profileId: string): Promise<Operator | null> {
+  const { data, error } = await supabase
+    .from('operators')
+    .select('*')
+    .eq('profile_id', profileId)
+    .maybeSingle()
+
+  if (error) throw new Error(`[operators] getOperatorByProfileId: ${error.message}`)
+  return data
+}
+
+/**
  * Returns a single operator by its UUID.
  */
 export async function getOperatorById(id: string): Promise<Operator> {

@@ -9,6 +9,19 @@ function assertData<T>(data: T | null, error: { message: string } | null, contex
 }
 
 /**
+ * Returns a single availability slot by its UUID.
+ */
+export async function getSlotById(id: string): Promise<AvailabilitySlot> {
+  const { data, error } = await supabase
+    .from('availability_slots')
+    .select('*')
+    .eq('id', id)
+    .single()
+
+  return assertData(data, error, `getSlotById(${id})`)
+}
+
+/**
  * Returns active slots for a service within an inclusive date range,
  * where at least one space is still available (capacity_booked < capacity_total).
  */

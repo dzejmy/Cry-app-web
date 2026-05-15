@@ -1,6 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom'
-import { Mountain, Search, Ticket, User } from 'lucide-react'
+import { Mountain, Search, Ticket, User, LayoutDashboard, ClipboardList, ScanLine } from 'lucide-react'
 import { useSeasonStore } from '../../store/seasonStore'
+import { useAuth } from '../../hooks/useAuth'
 
 interface Tab {
   label: string
@@ -9,7 +10,7 @@ interface Tab {
   match: (pathname: string) => boolean
 }
 
-const TABS: Tab[] = [
+const CUSTOMER_TABS: Tab[] = [
   {
     label: 'Home',
     to: '/',
@@ -18,7 +19,7 @@ const TABS: Tab[] = [
   },
   {
     label: 'Search',
-    to: '/search',
+    to: '/resorts',
     icon: Search,
     match: (p) => p.startsWith('/search') || p.startsWith('/resorts'),
   },
@@ -36,13 +37,50 @@ const TABS: Tab[] = [
   },
 ]
 
+const OPERATOR_TABS: Tab[] = [
+  {
+    label: 'Dashboard',
+    to: '/operator',
+    icon: LayoutDashboard,
+    match: (p) => p === '/operator',
+  },
+  {
+    label: 'Bookings',
+    to: '/operator/bookings',
+    icon: ClipboardList,
+    match: (p) => p.startsWith('/operator/bookings'),
+  },
+  {
+    label: 'Check-In',
+    to: '/operator/check-in',
+    icon: ScanLine,
+    match: (p) => p.startsWith('/operator/check-in'),
+  },
+  {
+    label: 'Profile',
+    to: '/profile',
+    icon: User,
+    match: (p) => p.startsWith('/profile'),
+  },
+]
+
 export default function BottomNav() {
   const { pathname } = useLocation()
   const { season } = useSeasonStore()
+  const { role } = useAuth()
   const isWinter = season === 'winter'
 
-  const activeColor = isWinter ? 'text-sky-600' : 'text-amber-500'
-  const activeBg = isWinter ? 'bg-sky-50' : 'bg-amber-50'
+  const tabs = role === 'operator' ? OPERATOR_TABS : CUSTOMER_TABS
+  const activeColor = role === 'operator'
+    ? 'text-violet-600'
+    : isWinter
+    ? 'text-sky-600'
+    : 'text-amber-500'
+  const activeBg = role === 'operator'
+    ? 'bg-violet-50'
+    : isWinter
+    ? 'bg-sky-50'
+    : 'bg-amber-50'
 
   return (
     <nav
@@ -51,7 +89,7 @@ export default function BottomNav() {
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="flex items-stretch">
-        {TABS.map(({ label, to, icon: Icon, match }) => {
+        {tabs.map(({ label, to, icon: Icon, match }) => {
           const active = match(pathname)
           return (
             <NavLink
