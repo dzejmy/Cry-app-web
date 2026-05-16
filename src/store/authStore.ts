@@ -30,6 +30,24 @@ async function fetchProfile(userId: string): Promise<Profile | null> {
   return data ?? null
 }
 
+async function createProfile(userId: string): Promise<Profile | null> {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return null
+  const meta = user.user_metadata ?? {}
+  const { data } = await supabase
+    .from('profiles')
+    .insert({
+      id: userId,
+      email: user.email ?? '',
+      first_name: meta.first_name ?? '',
+      last_name: meta.last_name ?? '',
+      role: meta.role ?? 'customer',
+    })
+    .select()
+    .single()
+  return data ?? null
+}
+
 export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   session: null,
@@ -39,7 +57,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     const { data: { session } } = await supabase.auth.getSession()
 
     if (session) {
-      const user = await fetchProfile(session.user.id)
+      let user = await fetchProfile(session.user.id)
+      if (!user) user = await createProfile(session.user.id)
       set({ session, user, isLoading: false })
     } else {
       set({ isLoading: false })
@@ -48,7 +67,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     // Keep store in sync with Supabase auth events
     supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session) {
-        const user = await fetchProfile(session.user.id)
+        let user = await fetchProfile(session.user.id)
+        if (!user) user = await createProfile(session.user.id)
         set({ session, user })
       } else {
         set({ session: null, user: null })
