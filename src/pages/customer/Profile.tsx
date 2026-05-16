@@ -13,6 +13,7 @@ import {
   Check,
   Loader2,
   AlertCircle,
+  UserCircle,
 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -122,10 +123,16 @@ export default function Profile() {
     }
   }
 
-  if (!user) return null
+  if (!user) return (
+    <div className="min-h-screen bg-gray-50 pt-16 flex flex-col items-center justify-center gap-3 text-gray-400 px-6 text-center">
+      <UserCircle className="w-12 h-12" />
+      <p className="text-sm font-medium text-gray-600">Could not load profile</p>
+      <p className="text-xs">Try refreshing the page</p>
+    </div>
+  )
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-28">
+    <div className="min-h-screen bg-gray-50 pt-16 pb-28">
       {/* Header / avatar */}
       <div className="bg-white border-b border-gray-100 px-4 pt-8 pb-6 flex flex-col items-center gap-3">
         <Avatar
