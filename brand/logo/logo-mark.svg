@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <clipPath id="clip">
+      <rect width="200" height="200" rx="50" ry="50"/>
+    </clipPath>
+  </defs>
+  <rect width="200" height="200" rx="50" ry="50" fill="url(#grad)"/>
+  <!-- Mountain / diamond icon, scaled from 14x14 to 200x200 -->
+  <g transform="translate(100,100) scale(7.14) translate(-7,-7)" stroke="white" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 1L13 5V9L7 13L1 9V5L7 1Z"/>
+    <circle cx="7" cy="7" r="2" fill="white" stroke="none"/>
+  </g>
+</svg>
