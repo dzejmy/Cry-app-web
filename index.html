@@ -986,6 +986,19 @@ footer {
   .design-top { grid-template-columns: 1fr; gap: 24px; }
   .hero-stats { gap: 24px; }
 }
+
+@media (max-width: 480px) {
+  .dphone {
+    width: calc(100vw - 56px);
+    max-width: 320px;
+  }
+  .dphone-inner {
+    height: calc((100vw - 56px) * 1.88);
+    max-height: 600px;
+  }
+  .design { padding: 56px 16px; }
+  .design-tabs { gap: 6px; }
+}
 </style>
 </head>
 <body>
