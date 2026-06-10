@@ -2218,7 +2218,7 @@ function dRender() {
   if (form) {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
-      const textInputs = form.querySelectorAll('input[type=text]');
+      const textInputs = form.querySelectorAll('input[type=text], input[type=email]');
       let valid = true;
       textInputs.forEach(f => {
         f.style.borderColor = '';
