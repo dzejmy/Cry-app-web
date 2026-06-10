@@ -499,6 +499,86 @@ h2 .v { color: var(--violet); }
 .cta-wrap .btn-primary:hover { background: var(--bg1); }
 .cta-note { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 16px; font-family: var(--mono); position: relative; }
 
+/* ─── TRIAL FORM ─── */
+.trial-form {
+  position: relative;
+  max-width: 560px;
+  margin: 40px auto 0;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 36px 40px 40px;
+  text-align: left;
+}
+.trial-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.trial-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.trial-field:last-child { margin-bottom: 0; }
+.trial-field label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+.trial-field input,
+.trial-field select {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: var(--font);
+  color: white;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.trial-field input::placeholder { color: rgba(255,255,255,0.3); }
+.trial-field input:focus,
+.trial-field select:focus {
+  border-color: #7DD3FC;
+  background: rgba(255,255,255,0.12);
+}
+.trial-field select { cursor: pointer; color: rgba(255,255,255,0.85); }
+.trial-field select option { background: #1e293b; color: white; }
+.trial-submit {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px;
+  background: white;
+  color: var(--blue);
+  border: none;
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+}
+.trial-submit:hover { background: var(--bg1); transform: translateY(-1px); }
+.trial-success {
+  display: none;
+  text-align: center;
+  padding: 20px 0 4px;
+  color: #7DD3FC;
+  font-size: 15px;
+  font-weight: 600;
+}
+@media (max-width: 600px) {
+  .trial-form { padding: 28px 20px 32px; }
+  .trial-form-row { grid-template-columns: 1fr; gap: 0; }
+}
+
 /* ─── FOOTER ─── */
 footer {
   background: var(--bg1); border-top: 1px solid var(--border); padding: 56px 64px;
@@ -854,7 +934,7 @@ footer {
     <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
   </div>
-  <a href="#pricing" class="nav-cta">Free Trial</a>
+  <a href="#free-trial" class="nav-cta">Free Trial</a>
 </nav>
 
 <!-- HERO -->
@@ -1801,12 +1881,41 @@ footer {
 </section>
 
 <!-- CTA -->
-<div class="cta-wrap">
+<div class="cta-wrap" id="free-trial">
   <div class="section-kicker" style="justify-content:center;color:#7DD3FC;">Get started today</div>
   <h2>Leave the spreadsheets<br><em>behind.</em></h2>
-  <p>Set up in minutes. Your branded booking widget live before the season starts.</p>
-  <a href="#pricing" class="btn-primary">Start Your Free 14-Day Trial</a>
-  <p class="cta-note">no credit card · cancel anytime · free onboarding included</p>
+  <p>Book a free intro call and we'll have your school set up before the season starts.</p>
+
+  <form class="trial-form" id="trialForm" novalidate>
+    <div class="trial-form-row">
+      <div class="trial-field">
+        <label for="tf-name">First name</label>
+        <input id="tf-name" type="text" placeholder="Jan" required>
+      </div>
+      <div class="trial-field">
+        <label for="tf-surname">Last name</label>
+        <input id="tf-surname" type="text" placeholder="Novák" required>
+      </div>
+    </div>
+    <div class="trial-field">
+      <label for="tf-resort">Resort</label>
+      <input id="tf-resort" type="text" placeholder="e.g. Jasná, Cervinia, Verbier" required>
+    </div>
+    <div class="trial-field">
+      <label for="tf-school">Ski school name</label>
+      <input id="tf-school" type="text" placeholder="e.g. Crystalski" required>
+    </div>
+    <div class="trial-field">
+      <label for="tf-date">Preferred call date</label>
+      <input id="tf-date" type="date" required min="">
+    </div>
+    <button type="submit" class="trial-submit">Book My Free Call →</button>
+    <div class="trial-success" id="trialSuccess">
+      ✓ &nbsp;Request received — we'll confirm your call within 24 hours.
+    </div>
+  </form>
+
+  <p class="cta-note" style="margin-top:20px;">no credit card · cancel anytime · free onboarding included</p>
 </div>
 
 <!-- FOOTER -->
@@ -1911,6 +2020,36 @@ function dRender() {
     }
   }
 }
+</script>
+<script>
+// Trial form
+(function() {
+  const dateInput = document.getElementById('tf-date');
+  if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+  }
+
+  const form = document.getElementById('trialForm');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fields = form.querySelectorAll('[required]');
+      let valid = true;
+      fields.forEach(f => {
+        f.style.borderColor = '';
+        if (!f.value.trim()) {
+          f.style.borderColor = '#F87171';
+          valid = false;
+        }
+      });
+      if (!valid) return;
+
+      form.querySelectorAll('input, select, button[type=submit]').forEach(el => el.disabled = true);
+      document.getElementById('trialSuccess').style.display = 'block';
+    });
+  }
+})();
 </script>
 </body>
 </html>
