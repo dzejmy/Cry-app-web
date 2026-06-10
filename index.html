@@ -1958,20 +1958,20 @@ footer {
     <div class="trial-form-row">
       <div class="trial-field">
         <label for="tf-name">First name</label>
-        <input id="tf-name" type="text" placeholder="Jan" required>
+        <input id="tf-name" name="first_name" type="text" placeholder="Jan" required>
       </div>
       <div class="trial-field">
         <label for="tf-surname">Last name</label>
-        <input id="tf-surname" type="text" placeholder="Novák" required>
+        <input id="tf-surname" name="last_name" type="text" placeholder="Novák" required>
       </div>
     </div>
     <div class="trial-field">
       <label for="tf-resort">Resort</label>
-      <input id="tf-resort" type="text" placeholder="e.g. Jasná, Cervinia, Verbier" required>
+      <input id="tf-resort" name="resort" type="text" placeholder="e.g. Jasná, Cervinia, Verbier" required>
     </div>
     <div class="trial-field">
       <label for="tf-school">Ski school name</label>
-      <input id="tf-school" type="text" placeholder="e.g. Crystalski" required>
+      <input id="tf-school" name="school_name" type="text" placeholder="e.g. Crystalski" required>
     </div>
     <div class="slot-picker" id="slotPicker">
       <label>Preferred call date &amp; time</label>
@@ -2212,7 +2212,7 @@ function dRender() {
 
   const form = document.getElementById('trialForm');
   if (form) {
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
       const textInputs = form.querySelectorAll('input[type=text]');
       let valid = true;
@@ -2230,8 +2230,31 @@ function dRender() {
       }
       if (!valid) return;
 
-      form.querySelectorAll('input, button[type=submit]').forEach(el => el.disabled = true);
-      document.getElementById('trialSuccess').style.display = 'block';
+      const submitBtn = form.querySelector('.trial-submit');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      const data = new FormData(form);
+      try {
+        const res = await fetch('https://formspree.io/f/xvznqqvg', {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.querySelectorAll('input, button[type=submit]').forEach(el => el.disabled = true);
+          document.getElementById('trialSuccess').style.display = 'block';
+          submitBtn.style.display = 'none';
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Book My Free Call →';
+          alert('Something went wrong. Please try again or email us directly.');
+        }
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Book My Free Call →';
+        alert('Network error. Please check your connection and try again.');
+      }
     });
   }
 })();
