@@ -574,9 +574,77 @@ h2 .v { color: var(--violet); }
   font-size: 15px;
   font-weight: 600;
 }
+/* ─── SLOT PICKER ─── */
+.slot-picker { margin-bottom: 16px; }
+.slot-picker label {
+  display: block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5); margin-bottom: 10px;
+}
+.sp-calendar {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.sp-cal-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sp-cal-month { font-size: 14px; font-weight: 700; color: white; }
+.sp-cal-nav {
+  background: none; border: none; color: rgba(255,255,255,0.5);
+  font-size: 18px; cursor: pointer; padding: 2px 6px; border-radius: 5px;
+  transition: color 0.15s, background 0.15s; line-height: 1;
+}
+.sp-cal-nav:hover { color: white; background: rgba(255,255,255,0.1); }
+.sp-cal-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  padding: 10px 12px 14px; gap: 4px;
+}
+.sp-day-hd {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); text-align: center; padding: 4px 0 6px;
+}
+.sp-day {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7);
+  border-radius: 7px; cursor: pointer; transition: background 0.12s, color 0.12s;
+  border: 1px solid transparent;
+}
+.sp-day:hover:not(.sp-day--empty):not(.sp-day--past) { background: rgba(255,255,255,0.1); color: white; }
+.sp-day--empty { cursor: default; }
+.sp-day--past { color: rgba(255,255,255,0.2); cursor: default; }
+.sp-day--selected { background: #2563EB !important; color: white !important; border-color: #3B82F6; }
+.sp-day--today { border-color: rgba(125,211,252,0.5); color: #7DD3FC; }
+
+.sp-slots-wrap {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 16px 16px;
+}
+.sp-slots-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); margin-bottom: 10px; letter-spacing: 0.05em; }
+.sp-slots { display: flex; flex-wrap: wrap; gap: 8px; }
+.sp-slot {
+  padding: 7px 14px; border-radius: 7px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.75);
+  cursor: pointer; transition: all 0.12s;
+  font-family: var(--mono);
+}
+.sp-slot:hover { border-color: rgba(255,255,255,0.35); color: white; background: rgba(255,255,255,0.1); }
+.sp-slot--selected { background: #2563EB; border-color: #3B82F6; color: white; }
+.sp-slot--hidden { display: none; }
+.sp-date-display {
+  font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 6px;
+  font-family: var(--mono); min-height: 18px;
+}
+
 @media (max-width: 600px) {
   .trial-form { padding: 28px 20px 32px; }
   .trial-form-row { grid-template-columns: 1fr; gap: 0; }
+  .sp-cal-grid { gap: 2px; padding: 8px; }
 }
 
 /* ─── FOOTER ─── */
@@ -1905,10 +1973,23 @@ footer {
       <label for="tf-school">Ski school name</label>
       <input id="tf-school" type="text" placeholder="e.g. Crystalski" required>
     </div>
-    <div class="trial-field">
-      <label for="tf-date">Preferred call date</label>
-      <input id="tf-date" type="date" required min="">
+    <div class="slot-picker" id="slotPicker">
+      <label>Preferred call date &amp; time</label>
+      <div class="sp-calendar">
+        <div class="sp-cal-head">
+          <button type="button" class="sp-cal-nav" id="spPrev">&#8249;</button>
+          <span class="sp-cal-month" id="spMonthLabel"></span>
+          <button type="button" class="sp-cal-nav" id="spNext">&#8250;</button>
+        </div>
+        <div class="sp-cal-grid" id="spGrid"></div>
+        <div class="sp-slots-wrap" id="spSlotsWrap" style="display:none">
+          <div class="sp-slots-label" id="spSlotsLabel"></div>
+          <div class="sp-slots" id="spSlots"></div>
+        </div>
+      </div>
+      <div class="sp-date-display" id="spDisplay"></div>
     </div>
+    <input type="hidden" id="tf-date" name="call_slot" required>
     <button type="submit" class="trial-submit">Book My Free Call →</button>
     <div class="trial-success" id="trialSuccess">
       ✓ &nbsp;Request received — we'll confirm your call within 24 hours.
@@ -2022,30 +2103,134 @@ function dRender() {
 }
 </script>
 <script>
-// Trial form
+// Trial form + slot picker
 (function() {
-  const dateInput = document.getElementById('tf-date');
-  if (dateInput) {
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.min = today;
+  const SLOTS = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAYS = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+
+  let current = new Date();
+  current.setDate(1);
+  let selectedDate = null;
+  let selectedSlot = null;
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  function renderCalendar() {
+    const grid = document.getElementById('spGrid');
+    const label = document.getElementById('spMonthLabel');
+    if (!grid || !label) return;
+
+    label.textContent = MONTHS[current.getMonth()] + ' ' + current.getFullYear();
+    grid.innerHTML = '';
+
+    // Day headers
+    DAYS.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'sp-day-hd';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    // First weekday offset (Mon=0)
+    const firstDay = new Date(current.getFullYear(), current.getMonth(), 1);
+    let offset = firstDay.getDay() - 1;
+    if (offset < 0) offset = 6;
+
+    for (let i = 0; i < offset; i++) {
+      const blank = document.createElement('div');
+      blank.className = 'sp-day sp-day--empty';
+      grid.appendChild(blank);
+    }
+
+    const daysInMonth = new Date(current.getFullYear(), current.getMonth() + 1, 0).getDate();
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(current.getFullYear(), current.getMonth(), d);
+      const el = document.createElement('div');
+      el.textContent = d;
+      let cls = 'sp-day';
+      const isPast = date < today;
+      const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+      const isToday = date.getTime() === today.getTime();
+      if (isPast || isWeekend) cls += ' sp-day--past';
+      else el.addEventListener('click', () => selectDate(date));
+      if (isToday) cls += ' sp-day--today';
+      if (selectedDate && date.getTime() === selectedDate.getTime()) cls += ' sp-day--selected';
+      el.className = cls;
+      grid.appendChild(el);
+    }
   }
+
+  function selectDate(date) {
+    selectedDate = date;
+    selectedSlot = null;
+    document.getElementById('tf-date').value = '';
+    renderCalendar();
+    renderSlots();
+  }
+
+  function renderSlots() {
+    const wrap = document.getElementById('spSlotsWrap');
+    const slotsEl = document.getElementById('spSlots');
+    const slotLabel = document.getElementById('spSlotsLabel');
+    if (!wrap || !slotsEl) return;
+
+    if (!selectedDate) { wrap.style.display = 'none'; return; }
+
+    const fmt = selectedDate.toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' });
+    slotLabel.textContent = fmt;
+    wrap.style.display = 'block';
+    slotsEl.innerHTML = '';
+
+    SLOTS.forEach(slot => {
+      const btn = document.createElement('div');
+      btn.className = 'sp-slot' + (selectedSlot === slot ? ' sp-slot--selected' : '');
+      btn.textContent = slot;
+      btn.addEventListener('click', () => {
+        selectedSlot = slot;
+        const hidden = document.getElementById('tf-date');
+        hidden.value = fmt + ' at ' + slot;
+        document.getElementById('spDisplay').textContent = '✓  ' + fmt + ' at ' + slot;
+        hidden.style.borderColor = '';
+        renderSlots();
+      });
+      slotsEl.appendChild(btn);
+    });
+  }
+
+  document.getElementById('spPrev')?.addEventListener('click', () => {
+    current.setMonth(current.getMonth() - 1);
+    renderCalendar();
+  });
+  document.getElementById('spNext')?.addEventListener('click', () => {
+    current.setMonth(current.getMonth() + 1);
+    renderCalendar();
+  });
+
+  renderCalendar();
 
   const form = document.getElementById('trialForm');
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      const fields = form.querySelectorAll('[required]');
+      const textInputs = form.querySelectorAll('input[type=text]');
       let valid = true;
-      fields.forEach(f => {
+      textInputs.forEach(f => {
         f.style.borderColor = '';
-        if (!f.value.trim()) {
-          f.style.borderColor = '#F87171';
-          valid = false;
-        }
+        if (!f.value.trim()) { f.style.borderColor = '#F87171'; valid = false; }
       });
+      const hidden = document.getElementById('tf-date');
+      const picker = document.getElementById('slotPicker');
+      if (!hidden.value) {
+        picker.querySelector('.sp-calendar').style.outline = '1.5px solid #F87171';
+        valid = false;
+      } else {
+        picker.querySelector('.sp-calendar').style.outline = '';
+      }
       if (!valid) return;
 
-      form.querySelectorAll('input, select, button[type=submit]').forEach(el => el.disabled = true);
+      form.querySelectorAll('input, button[type=submit]').forEach(el => el.disabled = true);
       document.getElementById('trialSuccess').style.display = 'block';
     });
   }
