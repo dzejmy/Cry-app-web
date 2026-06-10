@@ -2240,7 +2240,10 @@ function dRender() {
 
       const data = new FormData(form);
       try {
-        const res = await fetch('https://formspree.io/f/xvznqqvg', {
+        data.append('access_key', '9f3de4cf-1219-4196-a8a0-7740ce747105');
+        data.append('subject', 'New Free Trial Request — SkiDesk');
+        data.append('from_name', 'SkiDesk');
+        const res = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           body: data,
           headers: { 'Accept': 'application/json' }
