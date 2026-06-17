@@ -1353,23 +1353,6 @@ body.role-manager .design-stage-inst { display: none !important; }
     </div>
   </div>
 
-  <!-- ROLE TOGGLE -->
-  <div class="role-toggle-outer" style="margin-top:28px;">
-    <span class="role-toggle-label">View as:</span>
-    <div class="role-toggle-wrap">
-      <button class="role-btn manager active" id="btn-manager" onclick="dSetRole('manager')">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        Manager
-      </button>
-      <button class="role-btn instructor" id="btn-instructor" onclick="dSetRole('instructor')">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        Instructor
-      </button>
-    </div>
-  </div>
-
-
-
   <!-- STAGE 0: DASHBOARD -->
   <div class="design-stage active reveal" id="ds-0">
     <div class="dscreen-info">
@@ -1380,6 +1363,20 @@ body.role-manager .design-stage-inst { display: none !important; }
         <div class="dpill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Real-time data</div>
         <div class="dpill"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Revenue tracking</div>
         <div class="dpill"><svg viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>Smart alerts</div>
+      </div>
+      <!-- ROLE TOGGLE -->
+      <div class="role-toggle-outer" style="margin-bottom:24px;">
+        <span class="role-toggle-label">View as:</span>
+        <div class="role-toggle-wrap">
+          <button class="role-btn manager active" id="btn-manager" onclick="dSetRole('manager')">
+            <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            Manager
+          </button>
+          <button class="role-btn instructor" id="btn-instructor" onclick="dSetRole('instructor')">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Instructor
+          </button>
+        </div>
       </div>
       <div class="dscreen-nav">
         <button class="dsnav prev" onclick="dSwitchTab(4)"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Prev</button>
