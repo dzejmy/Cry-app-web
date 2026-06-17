@@ -2569,20 +2569,23 @@ function dRenderInst() {
 // init body class
 document.body.classList.add('role-manager');
 
-// Inject device toggle below the phone label in every stage mockup column
+// Inject device toggle below phone label and below web mockup
 (function() {
-  const toggleHTML = `<div class="device-toggle-wrap" style="margin-top:12px;">
-    <button class="device-btn-inj active" onclick="dSetDevice('mobile')">
+  const toggleHTML = (mobileActive) => `<div class="device-toggle-wrap" style="margin-top:12px;">
+    <button class="device-btn-inj${mobileActive ? ' active' : ''}" onclick="dSetDevice('mobile')">
       <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
       Mobile
     </button>
-    <button class="device-btn-inj" onclick="dSetDevice('web')">
+    <button class="device-btn-inj${!mobileActive ? ' active' : ''}" onclick="dSetDevice('web')">
       <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
       Desktop
     </button>
   </div>`;
   document.querySelectorAll('.dphone-wrap').forEach(wrap => {
-    wrap.insertAdjacentHTML('beforeend', toggleHTML);
+    wrap.insertAdjacentHTML('beforeend', toggleHTML(true));
+  });
+  document.querySelectorAll('.dweb-wrap').forEach(wrap => {
+    wrap.insertAdjacentHTML('afterend', toggleHTML(false));
   });
 })();
 </script>
