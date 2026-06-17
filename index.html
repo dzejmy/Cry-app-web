@@ -2600,8 +2600,8 @@ document.body.classList.add('role-manager');
       Desktop
     </button>
   </div>`;
-  document.querySelectorAll('.design-stage .dscreen-info, .design-stage-inst .dscreen-info').forEach(function(info) {
-    info.insertAdjacentHTML('beforeend', toggleHTML);
+  document.querySelectorAll('.design-stage .dscreen-nav, .design-stage-inst .dscreen-nav').forEach(function(nav) {
+    nav.insertAdjacentHTML('beforebegin', toggleHTML);
   });
 })();
 </script>
