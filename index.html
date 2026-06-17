@@ -2574,18 +2574,8 @@ function dRenderInst() {
 // init body class
 document.body.classList.add('role-manager');
 
-// Wrap phone + web in a shared column, add one toggle at the bottom
+// Wrap phone + web in a shared column
 (function() {
-  const toggleHTML = `<div class="device-toggle-wrap" style="margin-top:16px; justify-content:center;">
-    <button class="device-btn-inj active" onclick="dSetDevice('mobile')">
-      <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
-      Mobile
-    </button>
-    <button class="device-btn-inj" onclick="dSetDevice('web')">
-      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-      Desktop
-    </button>
-  </div>`;
   document.querySelectorAll('.design-stage, .design-stage-inst').forEach(function(stage) {
     var phoneWrap = stage.querySelector('.dphone-wrap');
     var webWrap = stage.querySelector('.dweb-wrap');
@@ -2595,7 +2585,23 @@ document.body.classList.add('role-manager');
     phoneWrap.parentNode.insertBefore(col, phoneWrap);
     col.appendChild(phoneWrap);
     col.appendChild(webWrap);
-    col.insertAdjacentHTML('beforeend', toggleHTML);
+  });
+})();
+
+// Inject single device toggle into each stage's info panel, after the progress dots
+(function() {
+  const toggleHTML = `<div class="device-toggle-wrap" style="margin-top:24px;">
+    <button class="device-btn-inj active" onclick="dSetDevice('mobile')">
+      <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
+      Mobile
+    </button>
+    <button class="device-btn-inj" onclick="dSetDevice('web')">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Desktop
+    </button>
+  </div>`;
+  document.querySelectorAll('.design-stage .dscreen-info, .design-stage-inst .dscreen-info').forEach(function(info) {
+    info.insertAdjacentHTML('beforeend', toggleHTML);
   });
 })();
 </script>
