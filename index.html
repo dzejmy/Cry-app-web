@@ -300,24 +300,39 @@ h2 .v { color: var(--violet); }
 
 /* ─── HOW IT WORKS ─── */
 .workflow { background: var(--bg1); }
-.workflow-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 56px; }
-.steps { display: flex; flex-direction: column; }
-.step {
-  display: flex; gap: 20px; padding: 24px 0;
-  border-bottom: 1px solid var(--border);
+.workflow-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  margin-top: 56px; position: relative;
 }
-.step:last-child { border-bottom: none; }
-.step-left { display: flex; flex-direction: column; align-items: center; }
-.step-badge {
+.wstep {
+  display: flex; flex-direction: column; align-items: flex-start;
+  padding: 32px 32px 32px 0; position: relative;
+}
+.wstep:not(:last-child) { padding-right: 40px; }
+.wstep-badge {
   width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
   background: var(--blue); color: white;
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700;
+  font-size: 13px; font-weight: 700; margin-bottom: 20px; position: relative; z-index: 1;
 }
-.step-line { width: 1.5px; background: var(--border); flex: 1; margin-top: 6px; }
-.step:last-child .step-line { display: none; }
-.step-body h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; padding-top: 6px; }
-.step-body p { font-size: 13px; font-weight: 400; color: var(--ink3); line-height: 1.6; }
+.wstep-connector {
+  position: absolute; top: 50px; left: 36px;
+  right: 0; height: 1.5px; background: var(--border);
+}
+.wstep:last-child .wstep-connector { display: none; }
+.wstep-icon {
+  width: 44px; height: 44px; border-radius: 10px; margin-bottom: 16px;
+  background: white; border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+}
+.wstep-icon svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.wstep h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.wstep p { font-size: 13px; font-weight: 400; color: var(--ink3); line-height: 1.65; }
+
+@media (max-width: 768px) {
+  .workflow-steps { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .wstep-connector { display: none; }
+}
 
 .code-panel {
   background: var(--ink); border-radius: 14px; overflow: hidden;
@@ -2121,55 +2136,33 @@ body.role-manager .design-stage-inst { display: none !important; }
 <section class="workflow" id="how-it-works">
   <div class="section-kicker">How it works</div>
   <h2>Up and running<br>in <em>4 steps.</em></h2>
-  <div class="workflow-inner reveal">
-    <div class="steps">
-      <div class="step">
-        <div class="step-left"><div class="step-badge">1</div><div class="step-line"></div></div>
-        <div class="step-body"><h4>Create your account</h4><p>Configure your school — lesson types, pricing tiers, available languages, and scheduling parameters.</p></div>
-      </div>
-      <div class="step">
-        <div class="step-left"><div class="step-badge">2</div><div class="step-line"></div></div>
-        <div class="step-body"><h4>Add your instructors</h4><p>Import profiles with certifications, skills, teaching preferences, and availability schedules.</p></div>
-      </div>
-      <div class="step">
-        <div class="step-left"><div class="step-badge">3</div><div class="step-line"></div></div>
-        <div class="step-body"><h4>Embed on your website</h4><p>Copy one line of code. Your fully branded booking widget goes live in under 5 minutes.</p></div>
-      </div>
-      <div class="step">
-        <div class="step-left"><div class="step-badge">4</div></div>
-        <div class="step-body"><h4>Manage everything</h4><p>Bookings flow in automatically. Manage lessons, payouts, and reports from your dashboard.</p></div>
-      </div>
+  <div class="workflow-steps reveal">
+    <div class="wstep">
+      <div class="wstep-badge">1</div>
+      <div class="wstep-connector"></div>
+      <div class="wstep-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <h4>Create your account</h4>
+      <p>Configure your school — lesson types, pricing, languages, and scheduling in minutes.</p>
     </div>
-    <div class="code-panel">
-      <div class="code-bar">
-        <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
-        <div class="code-title">embed code — step 3</div>
-      </div>
-      <div class="code-body">
-        <span class="c-comment">&lt;!-- Paste this on your website --&gt;</span><br>
-        <span class="c-tag">&lt;script</span><br>
-        &nbsp;&nbsp;<span class="c-attr">src</span>=<span class="c-val">"https://cdn.skidesk.app/widget.js"</span><br>
-        &nbsp;&nbsp;<span class="c-attr">data-school</span>=<span class="c-val">"your-school-id"</span><br>
-        &nbsp;&nbsp;<span class="c-attr">data-lang</span>=<span class="c-val">"sk"</span><br>
-        &nbsp;&nbsp;<span class="c-attr">data-theme</span>=<span class="c-val">"light"</span><br>
-        <span class="c-tag">&gt;&lt;/script&gt;</span>
-        <div class="code-divider"></div>
-        <span class="c-comment"># Result on your website:</span>
-      </div>
-      <div class="widget-preview">
-        <div class="wp-header">
-          <div class="wp-title">Book a Lesson</div>
-          <div class="wp-live">Live on your site</div>
-        </div>
-        <div class="wp-body">
-          <div class="wp-row">
-            <div class="wp-field"><label>Lesson type</label><div class="wp-input">Private — 1 person</div></div>
-            <div class="wp-field"><label>Duration</label><div class="wp-input">2 hours</div></div>
-          </div>
-          <div class="wp-field"><label>Preferred date</label><div class="wp-input">January 14, 2026</div></div>
-          <div class="wp-btn">Check availability →</div>
-        </div>
-      </div>
+    <div class="wstep">
+      <div class="wstep-badge">2</div>
+      <div class="wstep-connector"></div>
+      <div class="wstep-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+      <h4>Add your instructors</h4>
+      <p>Import profiles with certifications, skills, and availability schedules.</p>
+    </div>
+    <div class="wstep">
+      <div class="wstep-badge">3</div>
+      <div class="wstep-connector"></div>
+      <div class="wstep-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg></div>
+      <h4>Start taking bookings</h4>
+      <p>Clients book online and lessons are automatically assigned to the right instructor.</p>
+    </div>
+    <div class="wstep">
+      <div class="wstep-badge">4</div>
+      <div class="wstep-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+      <h4>Manage everything</h4>
+      <p>Track lessons, payouts, and reports — all from one dashboard on any device.</p>
     </div>
   </div>
 </section>
