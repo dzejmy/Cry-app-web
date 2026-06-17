@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Policy — SkiDesk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #FFFFFF; --bg1: #F7F9FC; --bg2: #EFF3F9;
+  --ink: #0D1526; --ink2: #374162; --ink3: #6B748F; --ink4: #9BA3B8;
+  --blue: #2563EB; --blue-light: #3B82F6; --blue-pale: #EFF6FF; --blue-mid: #DBEAFE;
+  --violet: #7C3AED; --border: #E2E8F0; --border2: #CBD5E1;
+  --font: 'Plus Jakarta Sans', sans-serif; --mono: 'JetBrains Mono', monospace;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 64px; height: 64px;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); text-decoration: none; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--ink3); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { background: var(--blue); color: white; padding: 9px 22px; border-radius: 7px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.15s; }
+.nav-cta:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+.page { max-width: 720px; margin: 0 auto; padding: 112px 24px 80px; }
+.page-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-pale); border: 1px solid var(--blue-mid);
+  color: var(--blue); padding: 5px 14px; border-radius: 100px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 20px;
+}
+.page-kicker::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+.updated { font-size: 13px; color: var(--ink4); margin-bottom: 48px; }
+.doc h2 { font-size: 18px; font-weight: 700; color: var(--ink); margin: 40px 0 12px; }
+.doc p { font-size: 15px; line-height: 1.75; color: var(--ink2); margin-bottom: 16px; }
+.doc a { color: var(--blue); }
+
+.cookie-table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 14px; }
+.cookie-table th { text-align: left; padding: 10px 14px; background: var(--bg2); font-weight: 600; color: var(--ink); border-bottom: 1px solid var(--border2); }
+.cookie-table td { padding: 10px 14px; color: var(--ink2); border-bottom: 1px solid var(--border); vertical-align: top; }
+.cookie-table tr:last-child td { border-bottom: none; }
+.badge { display: inline-block; font-family: var(--mono); font-size: 11px; padding: 2px 8px; border-radius: 4px; }
+.badge-essential { background: #DCFCE7; color: #16A34A; }
+.badge-functional { background: var(--blue-pale); color: var(--blue); }
+.badge-analytics { background: #FFF7ED; color: #EA580C; }
+
+@media (max-width: 600px) { nav { padding: 0 24px; } .nav-links { display: none; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">SkiDesk</a>
+  <div class="nav-links">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#design">Design</a>
+    <a href="index.html#how-it-works">How it works</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#faq">FAQ</a>
+  </div>
+  <a href="index.html#free-trial" class="nav-cta">Free Trial</a>
+</nav>
+
+<div class="page">
+  <div class="page-kicker">Legal</div>
+  <h1>Cookie Policy</h1>
+  <p class="updated">Last updated: June 17, 2026</p>
+
+  <div class="doc">
+    <p>SkiDesk uses cookies and similar technologies to keep the platform working and to understand how it is used. This page explains what cookies we set, why, and how you can control them.</p>
+
+    <h2>What are cookies?</h2>
+    <p>Cookies are small text files stored in your browser when you visit a website. They allow the site to remember information about your visit, such as your login session or preferences.</p>
+
+    <h2>Cookies we use</h2>
+
+    <table class="cookie-table">
+      <thead>
+        <tr>
+          <th>Cookie</th>
+          <th>Type</th>
+          <th>Purpose</th>
+          <th>Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>sd_session</code></td>
+          <td><span class="badge badge-essential">Essential</span></td>
+          <td>Keeps you logged in to your SkiDesk account.</td>
+          <td>Session</td>
+        </tr>
+        <tr>
+          <td><code>sd_csrf</code></td>
+          <td><span class="badge badge-essential">Essential</span></td>
+          <td>Protects against cross-site request forgery attacks.</td>
+          <td>Session</td>
+        </tr>
+        <tr>
+          <td><code>sd_prefs</code></td>
+          <td><span class="badge badge-functional">Functional</span></td>
+          <td>Remembers your UI preferences (e.g. calendar view, language).</td>
+          <td>1 year</td>
+        </tr>
+        <tr>
+          <td><code>sd_analytics</code></td>
+          <td><span class="badge badge-analytics">Analytics</span></td>
+          <td>Aggregated, anonymised usage data to help us improve the product. No personal data is shared with third parties.</td>
+          <td>90 days</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Essential cookies</h2>
+    <p>These are strictly necessary for the platform to function. You cannot opt out of essential cookies while using SkiDesk.</p>
+
+    <h2>Functional cookies</h2>
+    <p>These remember your preferences to give you a better experience. You can disable them in your browser settings, but some features may not work as expected.</p>
+
+    <h2>Analytics cookies</h2>
+    <p>We use anonymised analytics to understand which features are used most and where improvements are needed. No personally identifiable information is collected or shared. You can opt out at any time from your account settings.</p>
+
+    <h2>Managing cookies</h2>
+    <p>You can control or delete cookies through your browser settings. Note that disabling cookies may affect the functionality of SkiDesk. For more information visit <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener">allaboutcookies.org</a>.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about cookies? Contact us at <a href="mailto:privacy@skidesk.app">privacy@skidesk.app</a> or use our <a href="contact.html">contact form</a>.</p>
+  </div>
+</div>
+</body>
+</html>
