@@ -49,7 +49,16 @@ h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 
 .doc a { color: var(--blue); }
 hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
 
-@media (max-width: 600px) { nav { padding: 0 24px; } .nav-links { display: none; } }
+footer { background: var(--bg1); border-top: 1px solid var(--border); padding: 56px 64px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+.footer-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+.footer-tagline { font-size: 13px; color: var(--ink4); margin-top: 10px; line-height: 1.6; max-width: 200px; }
+.fc h5 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink3); margin-bottom: 16px; }
+.fc a { display: block; font-size: 13px; font-weight: 400; color: var(--ink4); text-decoration: none; margin-bottom: 9px; transition: color 0.15s; }
+.fc a:hover { color: var(--ink); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; }
+.footer-copy { font-size: 12px; color: var(--ink4); }
+@media (max-width: 600px) { nav { padding: 0 24px; } .nav-links { display: none; } footer { padding: 40px 20px; } .footer-top { grid-template-columns: 1fr; gap: 32px; } }
 </style>
 </head>
 <body>
@@ -115,5 +124,33 @@ hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
     <p>For privacy-related questions, contact us at <a href="mailto:privacy@skidesk.app">privacy@skidesk.app</a> or use our <a href="contact.html">contact form</a>.</p>
   </div>
 </div>
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">SkiDesk</div>
+      <p class="footer-tagline">Management software built exclusively for ski school operators.</p>
+    </div>
+    <div class="fc">
+      <h5>Product</h5>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#how-it-works">How it works</a>
+    </div>
+    <div class="fc">
+      <h5>Support</h5>
+      <a href="index.html#faq">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="fc">
+      <h5>Legal</h5>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="cookies.html">Cookie Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 SkiDesk. All rights reserved.</p>
+  </div>
+</footer>
 </body>
 </html>
