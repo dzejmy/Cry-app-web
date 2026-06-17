@@ -2173,12 +2173,6 @@ body.role-manager .design-stage-inst { display: none !important; }
     <div class="section-kicker">Pricing</div>
     <h2>Simple, honest pricing.</h2>
     <p class="section-sub">Flat monthly rate. No booking commissions. No per-instructor fees. Scale as you grow.</p>
-    <div class="price-toggle">
-      <span class="tg-label on" id="ml">Monthly</span>
-      <div class="tg-switch" id="tg" onclick="toggleB()"><div class="tg-knob"></div></div>
-      <span class="tg-label" id="yl">Yearly</span>
-      <span class="tg-badge">Save 2 months</span>
-    </div>
   </div>
   <div class="pricing-cards reveal" style="grid-template-columns: repeat(4,1fr);">
 
@@ -2188,7 +2182,6 @@ body.role-manager .design-stage-inst { display: none !important; }
       <div class="pc-name">Snow Plough</div>
       <div class="pc-scope">Up to 5 instructors</div>
       <div class="pc-price"><span class="pc-eur">€</span><span class="pc-num" id="p1">29</span><span class="pc-per">/ month</span></div>
-      <div style="font-size:11px;color:var(--ink4);margin-top:4px;font-family:var(--mono);" id="p1-yearly">or €290 / year</div>
       <div class="pc-div"></div>
       <ul class="pc-features">
         <li>Scheduling &amp; backoffice</li>
@@ -2207,7 +2200,6 @@ body.role-manager .design-stage-inst { display: none !important; }
       <div class="pc-name">Parallel</div>
       <div class="pc-scope">Up to 11 instructors</div>
       <div class="pc-price"><span class="pc-eur">€</span><span class="pc-num" id="p2">59</span><span class="pc-per">/ month</span></div>
-      <div style="font-size:11px;color:var(--ink4);margin-top:4px;font-family:var(--mono);" id="p2-yearly">or €590 / year</div>
       <div class="pc-div"></div>
       <ul class="pc-features">
         <li>Scheduling &amp; backoffice</li>
@@ -2225,7 +2217,6 @@ body.role-manager .design-stage-inst { display: none !important; }
       <div class="pc-name">Hip to Snow</div>
       <div class="pc-scope">Up to 23 instructors</div>
       <div class="pc-price"><span class="pc-eur">€</span><span class="pc-num" id="p3">99</span><span class="pc-per">/ month</span></div>
-      <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;font-family:var(--mono);" id="p3-yearly">or €990 / year</div>
       <div class="pc-div"></div>
       <ul class="pc-features">
         <li>Scheduling &amp; backoffice</li>
@@ -2243,7 +2234,6 @@ body.role-manager .design-stage-inst { display: none !important; }
       <div class="pc-name">Fall Line</div>
       <div class="pc-scope">Unlimited instructors</div>
       <div class="pc-price"><span class="pc-eur">€</span><span class="pc-num" id="p4">149</span><span class="pc-per">/ month</span></div>
-      <div style="font-size:11px;color:var(--ink4);margin-top:4px;font-family:var(--mono);" id="p4-yearly">or €1,490 / year</div>
       <div class="pc-div"></div>
       <ul class="pc-features">
         <li>Scheduling &amp; backoffice</li>
@@ -2450,25 +2440,7 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-let yearly = false;
-const pr = {
-  p1: { m: 29,  y: 24,  ym: '€290 / year'   },
-  p2: { m: 59,  y: 49,  ym: '€590 / year'   },
-  p3: { m: 99,  y: 82,  ym: '€990 / year'   },
-  p4: { m: 149, y: 124, ym: '€1,490 / year' },
-};
-function toggleB() {
-  yearly = !yearly;
-  document.getElementById('tg').classList.toggle('active', yearly);
-  document.getElementById('ml').classList.toggle('on', !yearly);
-  document.getElementById('yl').classList.toggle('on', yearly);
-  Object.entries(pr).forEach(([id, v]) => {
-    const numEl = document.getElementById(id);
-    if (numEl) numEl.textContent = yearly ? v.y : v.m;
-    const yrEl = document.getElementById(id + '-yearly');
-    if (yrEl) yrEl.textContent = 'or ' + v.ym;
-  });
-}
+
 function toggleFaq(el) { el.classList.toggle('open'); }
 
 let dDevice = 'mobile';
