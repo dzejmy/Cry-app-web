@@ -1353,21 +1353,6 @@ body.role-manager .design-stage-inst { display: none !important; }
     </div>
   </div>
 
-  <!-- ROLE TOGGLE -->
-  <div class="role-toggle-outer" style="margin-top:28px;">
-    <span class="role-toggle-label">View as:</span>
-    <div class="role-toggle-wrap">
-      <button class="role-btn manager active" id="btn-manager" onclick="dSetRole('manager')">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        Manager
-      </button>
-      <button class="role-btn instructor" id="btn-instructor" onclick="dSetRole('instructor')">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        Instructor
-      </button>
-    </div>
-  </div>
-
   <!-- STAGE 0: DASHBOARD -->
   <div class="design-stage active reveal" id="ds-0">
     <div class="dscreen-info">
@@ -2448,8 +2433,8 @@ function dSetDevice(dev) {
 
 function dSetRole(role) {
   dRole = role;
-  document.getElementById('btn-manager').classList.toggle('active', role === 'manager');
-  document.getElementById('btn-instructor').classList.toggle('active', role === 'instructor');
+  document.querySelectorAll('.btn-manager-inj').forEach(b => b.classList.toggle('active', role === 'manager'));
+  document.querySelectorAll('.btn-instructor-inj').forEach(b => b.classList.toggle('active', role === 'instructor'));
   document.body.classList.toggle('role-manager', role === 'manager');
   document.body.classList.toggle('role-instructor', role === 'instructor');
   dRender();
@@ -2536,8 +2521,21 @@ document.body.classList.add('role-manager');
       Desktop
     </button>
   </div>`;
+  const roleHTML = `<div class="role-toggle-outer" style="margin-top:12px;">
+    <span class="role-toggle-label">View as:</span>
+    <div class="role-toggle-wrap">
+      <button class="role-btn manager active btn-manager-inj" onclick="dSetRole('manager')">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Manager
+      </button>
+      <button class="role-btn instructor btn-instructor-inj" onclick="dSetRole('instructor')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Instructor
+      </button>
+    </div>
+  </div>`;
   document.querySelectorAll('.design-stage .dscreen-nav, .design-stage-inst .dscreen-nav').forEach(function(nav) {
-    nav.insertAdjacentHTML('beforebegin', toggleHTML);
+    nav.insertAdjacentHTML('beforebegin', toggleHTML + roleHTML);
   });
 })();
 </script>
