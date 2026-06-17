@@ -998,7 +998,102 @@ footer {
   }
   .design { padding: 56px 16px; }
   .design-tabs { gap: 6px; }
+  .role-toggle-wrap { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .role-comparison { flex-direction: column; gap: 8px; }
+  .rc-col { padding: 16px; }
 }
+
+/* ─── ROLE TOGGLE ─── */
+.role-toggle-outer {
+  display: flex; align-items: center; gap: 24px; margin-bottom: 28px; flex-wrap: wrap;
+}
+.role-toggle-label {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink4);
+}
+.role-toggle-wrap {
+  display: flex; align-items: center; gap: 0;
+  background: white; border: 1.5px solid var(--border); border-radius: 10px;
+  padding: 4px; width: fit-content;
+}
+.role-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 22px; border-radius: 7px; border: none;
+  font-family: var(--font); font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.18s; color: var(--ink4); background: transparent;
+}
+.role-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.role-btn.active { color: white; }
+.role-btn.manager.active { background: var(--blue); }
+.role-btn.instructor.active { background: #059669; }
+
+/* Role comparison strip */
+.role-comparison {
+  display: flex; gap: 0; border: 1.5px solid var(--border); border-radius: 12px;
+  overflow: hidden; margin-bottom: 32px; background: white;
+}
+.rc-col {
+  flex: 1; padding: 18px 24px;
+}
+.rc-col.manager-col { border-right: 1px solid var(--border); }
+.rc-col-head {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.rc-col.manager-col .rc-col-head { color: var(--blue); }
+.rc-col.instructor-col .rc-col-head { color: #059669; }
+.rc-badge {
+  font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.rc-badge.mgr { background: var(--blue-pale); color: var(--blue); }
+.rc-badge.inst { background: #DCFCE7; color: #059669; }
+.rc-items { display: flex; flex-direction: column; gap: 6px; }
+.rc-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 400; color: var(--ink2);
+}
+.rc-item::before {
+  content: ''; width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+  background-size: contain;
+}
+.rc-item.check::before {
+  background-color: #DCFCE7; border: 1px solid #86EFAC;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%2316A34A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+.rc-item.lock::before {
+  background-color: var(--bg2); border: 1px solid var(--border2);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Crect x='3' y='5' width='6' height='5' rx='1' stroke='%239BA3B8' stroke-width='1.2' fill='none'/%3E%3Cpath d='M4 5V4a2 2 0 014 0v1' stroke='%239BA3B8' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
+}
+.rc-item.lock { color: var(--ink4); }
+
+/* Instructor-only tabs hidden by default */
+.dtab-locked {
+  position: relative; opacity: 0.4; pointer-events: none;
+}
+.dtab-locked::after {
+  content: '🔒'; font-size: 9px; margin-left: 4px; vertical-align: middle;
+}
+.dtab-inst { display: none; }
+body.role-instructor .dtab-inst { display: block; }
+body.role-instructor .dtab-mgr { display: none; }
+body.role-manager .dtab-inst { display: none; }
+body.role-manager .dtab-mgr { display: block; }
+
+/* Instructor stages */
+.design-stage-inst { display: none; }
+body.role-instructor .design-stage { display: none !important; }
+body.role-instructor .design-stage-inst.active { display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: center; }
+body.role-manager .design-stage-inst { display: none !important; }
+
+@media (max-width: 768px) {
+  body.role-instructor .design-stage-inst.active { grid-template-columns: 1fr; }
+}
+
+/* Green tint for instructor screens */
+.dp-stat-val.green { color: #059669; }
+.db-green-inst { background: #DCFCE7; color: #059669; }
 </style>
 </head>
 <body>
@@ -1201,6 +1296,53 @@ footer {
     <p class="section-sub">Manage your school from the slope on your phone, or run full operations from the office on your computer. Same data, perfectly adapted to each device.</p>
   </div>
 
+  <!-- ROLE COMPARISON STRIP -->
+  <div class="role-comparison reveal" style="margin-top:32px;">
+    <div class="rc-col manager-col">
+      <div class="rc-col-head">
+        <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:var(--blue);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Manager
+        <span class="rc-badge mgr">Full access</span>
+      </div>
+      <div class="rc-items">
+        <div class="rc-item check">Dashboard &amp; live overview</div>
+        <div class="rc-item check">All instructor calendars</div>
+        <div class="rc-item check">Create &amp; edit bookings</div>
+        <div class="rc-item check">Manage instructor profiles</div>
+        <div class="rc-item check">Payments &amp; reports</div>
+      </div>
+    </div>
+    <div class="rc-col instructor-col">
+      <div class="rc-col-head">
+        <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:#059669;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Instructor
+        <span class="rc-badge inst">Limited access</span>
+      </div>
+      <div class="rc-items">
+        <div class="rc-item check">My calendar &amp; lessons</div>
+        <div class="rc-item check">Set my workdays</div>
+        <div class="rc-item check">My salary &amp; hours</div>
+        <div class="rc-item lock">Bookings management</div>
+        <div class="rc-item lock">Payments &amp; reports</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLE TOGGLE -->
+  <div class="role-toggle-outer" style="margin-top:28px;">
+    <span class="role-toggle-label">View as:</span>
+    <div class="role-toggle-wrap">
+      <button class="role-btn manager active" id="btn-manager" onclick="dSetRole('manager')">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Manager
+      </button>
+      <button class="role-btn instructor" id="btn-instructor" onclick="dSetRole('instructor')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        Instructor
+      </button>
+    </div>
+  </div>
+
   <!-- DEVICE TOGGLE -->
   <div style="display:flex; align-items:center; gap:16px; margin-bottom:0;">
     <div class="device-toggle-wrap">
@@ -1217,11 +1359,14 @@ footer {
 
   <!-- SCREEN TABS -->
   <div class="design-tabs" style="margin-top:28px;">
-    <div class="dtab active" onclick="dSwitchTab(0)">Dashboard</div>
-    <div class="dtab" onclick="dSwitchTab(1)">Calendar</div>
-    <div class="dtab" onclick="dSwitchTab(2)">New Booking</div>
-    <div class="dtab" onclick="dSwitchTab(3)">Instructor</div>
-    <div class="dtab" onclick="dSwitchTab(4)">Payments</div>
+    <div class="dtab dtab-mgr active" onclick="dSwitchTab(0)">Dashboard</div>
+    <div class="dtab dtab-mgr" onclick="dSwitchTab(1)">Calendar</div>
+    <div class="dtab dtab-mgr" onclick="dSwitchTab(2)">New Booking</div>
+    <div class="dtab dtab-mgr" onclick="dSwitchTab(3)">Instructors</div>
+    <div class="dtab dtab-mgr" onclick="dSwitchTab(4)">Payments</div>
+    <div class="dtab dtab-inst active" onclick="dSwitchInstTab(0)">My Calendar</div>
+    <div class="dtab dtab-inst" onclick="dSwitchInstTab(1)">My Workdays</div>
+    <div class="dtab dtab-inst" onclick="dSwitchInstTab(2)">My Pay</div>
   </div>
 
   <!-- STAGE 0: DASHBOARD -->
@@ -1700,6 +1845,284 @@ footer {
       </div>
     </div>
   </div>
+
+  <!-- INSTRUCTOR STAGE 0: MY CALENDAR -->
+  <div class="design-stage-inst active reveal" id="ds-i-0">
+    <div class="dscreen-info">
+      <div class="dscreen-num">Screen 01 / 03</div>
+      <h3>My lessons,<br><em>my schedule.</em></h3>
+      <p>Instructors see only their own assigned lessons. The calendar shows upcoming bookings, client names, and lesson details — nothing from other instructors.</p>
+      <div class="dfeature-pills">
+        <div class="dpill"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Personal view</div>
+        <div class="dpill"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>My clients only</div>
+      </div>
+      <div class="dscreen-nav">
+        <button class="dsnav prev" onclick="dSwitchInstTab(2)"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Prev</button>
+        <button class="dsnav next" onclick="dSwitchInstTab(1)">Next <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="dprogress"><div class="dpd active" onclick="dSwitchInstTab(0)"></div><div class="dpd" onclick="dSwitchInstTab(1)"></div><div class="dpd" onclick="dSwitchInstTab(2)"></div></div>
+    </div>
+    <div class="dphone-wrap">
+      <div class="dphone"><div class="dphone-inner">
+        <div class="dphone-notch"><div class="dnotch-sensor"></div><div class="dnotch-cam"></div></div>
+        <div class="dphone-screen">
+          <div class="dp-status"><span class="dp-status-time">9:41</span><div class="dp-status-icons"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="2"/><path d="M22 11h2v3h-2z"/></svg></div></div>
+          <div class="dp-nav"><div class="dp-nav-logo"><div class="dp-logo-mark" style="background:linear-gradient(135deg,#059669,#0EA5E9)"><svg viewBox="0 0 14 14"><path d="M7 1L13 5V9L7 13L1 9V5L7 1Z"/><circle cx="7" cy="7" r="2" fill="white" stroke="none"/></svg></div>My Calendar</div></div>
+          <div class="dp-greeting"><div class="dp-greeting-sub">Good morning</div><div class="dp-greeting-name">Pavel Kováč</div><div class="dp-greeting-date">Thursday, January 9 · 3 lessons today</div></div>
+          <div class="dp-cal-header"><div class="dp-cal-month">January 2026</div></div>
+          <div class="dp-cal-grid">
+            <div class="dp-cal-dh-row"><div class="dp-cal-dh">Mo</div><div class="dp-cal-dh">Tu</div><div class="dp-cal-dh">We</div><div class="dp-cal-dh">Th</div><div class="dp-cal-dh">Fr</div><div class="dp-cal-dh">Sa</div><div class="dp-cal-dh">Su</div></div>
+            <div class="dp-days">
+              <div class="dpd-day empty"></div><div class="dpd-day empty"></div><div class="dpd-day has">1</div><div class="dpd-day has">2</div><div class="dpd-day normal">3</div><div class="dpd-day wknd">4</div><div class="dpd-day wknd">5</div>
+              <div class="dpd-day has">6</div><div class="dpd-day normal">7</div><div class="dpd-day has">8</div><div class="dpd-day today">9</div><div class="dpd-day has">10</div><div class="dpd-day wknd">11</div><div class="dpd-day wknd">12</div>
+              <div class="dpd-day normal">13</div><div class="dpd-day has">14</div><div class="dpd-day normal">15</div><div class="dpd-day has">16</div><div class="dpd-day has">17</div><div class="dpd-day wknd">18</div><div class="dpd-day wknd">19</div>
+            </div>
+          </div>
+          <div class="dp-divider"></div>
+          <div class="dp-agenda-date">Thursday, Jan 9 — today</div>
+          <div class="dp-agenda-item"><div class="dp-agenda-time">09:00</div><div class="dp-agenda-bar" style="background:#059669"></div><div class="dp-agenda-body"><div class="dp-agenda-title">Novák family — private</div><div class="dp-agenda-meta">2 adults · 2 hours</div></div></div>
+          <div class="dp-agenda-item"><div class="dp-agenda-time">13:00</div><div class="dp-agenda-bar" style="background:#059669"></div><div class="dp-agenda-body"><div class="dp-agenda-title">Advanced group · 3 pax</div><div class="dp-agenda-meta">3 adults · 2 hours</div></div></div>
+          <div class="dp-agenda-item"><div class="dp-agenda-time">15:00</div><div class="dp-agenda-bar" style="background:#0EA5E9"></div><div class="dp-agenda-body"><div class="dp-agenda-title">Advanced — 2 adults</div><div class="dp-agenda-meta">2 adults · 2 hours</div></div></div>
+          <div style="height:10px;"></div>
+          <div class="dp-bottom-nav">
+            <div class="dp-bnav-item active"><div class="dp-bnav-dot" style="background:#059669"></div><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="dp-bnav-label">Calendar</span></div>
+            <div class="dp-bnav-item"><svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v3H3V6a2 2 0 012-2z"/><path d="M3 10v10a2 2 0 002 2h14a2 2 0 002-2V10"/><path d="M9 16h6M12 13v6"/></svg><span class="dp-bnav-label">Workdays</span></div>
+            <div class="dp-bnav-item"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span class="dp-bnav-label">My Pay</span></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="dphone-label">My Calendar</div>
+    </div>
+    <!-- WEB: MY CALENDAR -->
+    <div class="dweb-wrap" id="dw-i-0">
+      <div class="dbrowser">
+        <div class="dbrowser-bar">
+          <div class="dbrowser-dots"><span class="dbd-r"></span><span class="dbd-y"></span><span class="dbd-g"></span></div>
+          <div class="dbrowser-url"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>app.skidesk.com/my-calendar</div>
+          <div class="dbrowser-actions"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div>
+        </div>
+        <div class="dbrowser-body">
+          <div class="dw-sidebar" style="background:#064E3B">
+            <div class="dw-sidebar-logo"><svg viewBox="0 0 14 14"><path d="M7 1L13 5V9L7 13L1 9V5L7 1Z"/><circle cx="7" cy="7" r="2" fill="white" stroke="none"/></svg></div>
+            <div class="dw-si active"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+            <div class="dw-si"><svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18"/><path d="M3 10v10a2 2 0 002 2h14a2 2 0 002-2V10"/><path d="M9 16h6M12 13v6"/></svg></div>
+            <div class="dw-si"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          </div>
+          <div class="dw-main">
+            <div class="dw-topbar"><div class="dw-topbar-title">My Calendar — Pavel Kováč</div><div class="dw-topbar-right"><div class="dw-inst-av" style="background:linear-gradient(135deg,#059669,#0EA5E9);width:32px;height:32px;font-size:11px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700">PK</div></div></div>
+            <div class="dw-pad">
+              <div class="dw-stats-row">
+                <div class="dw-stat"><div class="dw-stat-label">Today's lessons</div><div class="dw-stat-val" style="color:#059669">3</div><div class="dw-stat-sub">6 hours total</div></div>
+                <div class="dw-stat"><div class="dw-stat-label">This week</div><div class="dw-stat-val" style="color:var(--ink)">12</div><div class="dw-stat-sub">lessons assigned</div></div>
+                <div class="dw-stat"><div class="dw-stat-label">Next day off</div><div class="dw-stat-val" style="color:var(--ink);font-size:18px">Sat 11</div><div class="dw-stat-sub">weekend</div></div>
+              </div>
+              <div class="dw-card">
+                <div class="dw-card-head"><div class="dw-card-title">My lessons — Thursday Jan 9</div></div>
+                <div class="dw-row"><div class="dw-row-dot" style="background:#059669"></div><div class="dw-row-name">Novák family — private</div><div class="dw-row-meta">09:00 · 2h</div><div class="dw-badge" style="background:#DCFCE7;color:#059669">Active</div></div>
+                <div class="dw-row"><div class="dw-row-dot" style="background:#059669"></div><div class="dw-row-name">Advanced group · 3 pax</div><div class="dw-row-meta">13:00 · 2h</div><div class="dw-badge" style="background:#DCFCE7;color:#059669">Active</div></div>
+                <div class="dw-row"><div class="dw-row-dot" style="background:#0EA5E9"></div><div class="dw-row-name">Advanced — 2 adults</div><div class="dw-row-meta">15:00 · 2h</div><div class="dw-badge dwb-gray">Upcoming</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTRUCTOR STAGE 1: MY WORKDAYS -->
+  <div class="design-stage-inst reveal" id="ds-i-1">
+    <div class="dscreen-info">
+      <div class="dscreen-num">Screen 02 / 03</div>
+      <h3>Set your<br><em>availability.</em></h3>
+      <p>Instructors mark which days they're available to teach. Managers see this when creating bookings — no back-and-forth messages needed.</p>
+      <div class="dfeature-pills">
+        <div class="dpill"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Self-managed</div>
+        <div class="dpill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Real-time sync</div>
+      </div>
+      <div class="dscreen-nav">
+        <button class="dsnav prev" onclick="dSwitchInstTab(0)"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Prev</button>
+        <button class="dsnav next" onclick="dSwitchInstTab(2)">Next <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="dprogress"><div class="dpd" onclick="dSwitchInstTab(0)"></div><div class="dpd active" onclick="dSwitchInstTab(1)"></div><div class="dpd" onclick="dSwitchInstTab(2)"></div></div>
+    </div>
+    <div class="dphone-wrap">
+      <div class="dphone"><div class="dphone-inner">
+        <div class="dphone-notch"><div class="dnotch-sensor"></div><div class="dnotch-cam"></div></div>
+        <div class="dphone-screen">
+          <div class="dp-status"><span class="dp-status-time">9:41</span></div>
+          <div class="dp-nav"><div class="dp-nav-logo"><div class="dp-logo-mark" style="background:linear-gradient(135deg,#059669,#0EA5E9)"><svg viewBox="0 0 14 14"><path d="M7 1L13 5V9L7 13L1 9V5L7 1Z"/><circle cx="7" cy="7" r="2" fill="white" stroke="none"/></svg></div>My Workdays</div></div>
+          <div class="dp-greeting"><div class="dp-greeting-sub">January 2026</div><div class="dp-greeting-name">Set your availability</div><div class="dp-greeting-date">Tap a day to toggle available / off</div></div>
+          <div style="padding:0 14px">
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px;">
+              <div style="text-align:center;font-size:9px;font-weight:700;color:var(--ink4);padding:2px">Mo</div><div style="text-align:center;font-size:9px;font-weight:700;color:var(--ink4);padding:2px">Tu</div><div style="text-align:center;font-size:9px;font-weight:700;color:var(--ink4);padding:2px">We</div><div style="text-align:center;font-size:9px;font-weight:700;color:var(--ink4);padding:2px">Th</div><div style="text-align:center;font-size:9px;font-weight:700;color:var(--ink4);padding:2px">Fr</div><div style="text-align:center;font-size:9px;font-weight:700;color:var(--ink4);padding:2px">Sa</div><div style="text-align:center;font-size:9px;font-weight:700;color:var(--ink4);padding:2px">Su</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;">
+              <div style="height:28px;"></div><div style="height:28px;"></div>
+              <div style="height:28px;border-radius:6px;background:#DCFCE7;border:1px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#059669">1</div>
+              <div style="height:28px;border-radius:6px;background:#DCFCE7;border:1px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#059669">2</div>
+              <div style="height:28px;border-radius:6px;background:#DCFCE7;border:1px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#059669">3</div>
+              <div style="height:28px;border-radius:6px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ink4)">4</div>
+              <div style="height:28px;border-radius:6px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ink4)">5</div>
+              <div style="height:28px;border-radius:6px;background:#DCFCE7;border:1px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#059669">6</div>
+              <div style="height:28px;border-radius:6px;background:#DCFCE7;border:1px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#059669">7</div>
+              <div style="height:28px;border-radius:6px;background:#DCFCE7;border:1px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#059669">8</div>
+              <div style="height:28px;border-radius:6px;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white">9</div>
+              <div style="height:28px;border-radius:6px;background:#DCFCE7;border:1px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#059669">10</div>
+              <div style="height:28px;border-radius:6px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ink4)">11</div>
+              <div style="height:28px;border-radius:6px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--ink4)">12</div>
+              <div style="height:28px;border-radius:6px;background:var(--bg2);border:1px solid #FECACA;display:flex;align-items:center;justify-content:center;font-size:10px;color:#EF4444">13</div>
+              <div style="height:28px;border-radius:6px;background:#DCFCE7;border:1px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#059669">14</div>
+            </div>
+          </div>
+          <div style="margin:12px 14px 0;display:flex;gap:8px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink3)"><div style="width:10px;height:10px;border-radius:3px;background:#DCFCE7;border:1px solid #86EFAC"></div>Available</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink3)"><div style="width:10px;height:10px;border-radius:3px;background:var(--bg2)"></div>Day off</div>
+            <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--ink3)"><div style="width:10px;height:10px;border-radius:3px;background:#2563EB"></div>Today</div>
+          </div>
+          <div style="height:10px;"></div>
+          <div class="dp-bottom-nav">
+            <div class="dp-bnav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="dp-bnav-label">Calendar</span></div>
+            <div class="dp-bnav-item active"><div class="dp-bnav-dot" style="background:#059669"></div><svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18"/><path d="M3 10v10a2 2 0 002 2h14a2 2 0 002-2V10"/><path d="M9 16h6M12 13v6"/></svg><span class="dp-bnav-label">Workdays</span></div>
+            <div class="dp-bnav-item"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span class="dp-bnav-label">My Pay</span></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="dphone-label">My Workdays</div>
+    </div>
+    <!-- WEB: MY WORKDAYS -->
+    <div class="dweb-wrap" id="dw-i-1">
+      <div class="dbrowser">
+        <div class="dbrowser-bar">
+          <div class="dbrowser-dots"><span class="dbd-r"></span><span class="dbd-y"></span><span class="dbd-g"></span></div>
+          <div class="dbrowser-url"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>app.skidesk.com/my-workdays</div>
+          <div class="dbrowser-actions"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div>
+        </div>
+        <div class="dbrowser-body">
+          <div class="dw-sidebar" style="background:#064E3B">
+            <div class="dw-sidebar-logo"><svg viewBox="0 0 14 14"><path d="M7 1L13 5V9L7 13L1 9V5L7 1Z"/><circle cx="7" cy="7" r="2" fill="white" stroke="none"/></svg></div>
+            <div class="dw-si"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+            <div class="dw-si active"><svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18"/><path d="M3 10v10a2 2 0 002 2h14a2 2 0 002-2V10"/><path d="M9 16h6M12 13v6"/></svg></div>
+            <div class="dw-si"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          </div>
+          <div class="dw-main">
+            <div class="dw-topbar"><div class="dw-topbar-title">My Workdays — January 2026</div><div class="dw-topbar-right"><div class="dw-tb-btn ghost">Previous month</div><div class="dw-tb-btn primary">Save changes</div></div></div>
+            <div class="dw-pad">
+              <div class="dw-card">
+                <div class="dw-card-head"><div class="dw-card-title">Click any day to toggle available / day off</div></div>
+                <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:8px;">
+                  <div style="text-align:center;font-size:10px;font-weight:700;color:var(--ink4);padding:4px">Mo</div><div style="text-align:center;font-size:10px;font-weight:700;color:var(--ink4);padding:4px">Tu</div><div style="text-align:center;font-size:10px;font-weight:700;color:var(--ink4);padding:4px">We</div><div style="text-align:center;font-size:10px;font-weight:700;color:var(--ink4);padding:4px">Th</div><div style="text-align:center;font-size:10px;font-weight:700;color:var(--ink4);padding:4px">Fr</div><div style="text-align:center;font-size:10px;font-weight:700;color:var(--ink4);padding:4px">Sa</div><div style="text-align:center;font-size:10px;font-weight:700;color:var(--ink4);padding:4px">Su</div>
+                  <div style="height:36px"></div><div style="height:36px"></div>
+                  <div style="height:36px;border-radius:8px;background:#DCFCE7;border:1.5px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;cursor:pointer">1</div>
+                  <div style="height:36px;border-radius:8px;background:#DCFCE7;border:1.5px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;cursor:pointer">2</div>
+                  <div style="height:36px;border-radius:8px;background:#DCFCE7;border:1.5px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;cursor:pointer">3</div>
+                  <div style="height:36px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink4)">4</div>
+                  <div style="height:36px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink4)">5</div>
+                  <div style="height:36px;border-radius:8px;background:#DCFCE7;border:1.5px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;cursor:pointer">6</div>
+                  <div style="height:36px;border-radius:8px;background:#DCFCE7;border:1.5px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;cursor:pointer">7</div>
+                  <div style="height:36px;border-radius:8px;background:#DCFCE7;border:1.5px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;cursor:pointer">8</div>
+                  <div style="height:36px;border-radius:8px;background:#2563EB;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;cursor:pointer">9</div>
+                  <div style="height:36px;border-radius:8px;background:#DCFCE7;border:1.5px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;cursor:pointer">10</div>
+                  <div style="height:36px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink4)">11</div>
+                  <div style="height:36px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--ink4)">12</div>
+                  <div style="height:36px;border-radius:8px;background:#FEF2F2;border:1.5px solid #FECACA;display:flex;align-items:center;justify-content:center;font-size:12px;color:#EF4444;cursor:pointer">13</div>
+                  <div style="height:36px;border-radius:8px;background:#DCFCE7;border:1.5px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;cursor:pointer">14</div>
+                  <div style="height:36px;border-radius:8px;background:#DCFCE7;border:1.5px solid #86EFAC;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#059669;cursor:pointer">15</div>
+                </div>
+                <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap">
+                  <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3)"><div style="width:12px;height:12px;border-radius:4px;background:#DCFCE7;border:1.5px solid #86EFAC"></div>Available</div>
+                  <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3)"><div style="width:12px;height:12px;border-radius:4px;background:var(--bg2)"></div>Day off</div>
+                  <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3)"><div style="width:12px;height:12px;border-radius:4px;background:#FEF2F2;border:1.5px solid #FECACA"></div>Requested off</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTRUCTOR STAGE 2: MY PAY -->
+  <div class="design-stage-inst reveal" id="ds-i-2">
+    <div class="dscreen-info">
+      <div class="dscreen-num">Screen 03 / 03</div>
+      <h3>My salary<br>&amp; <em>hours worked.</em></h3>
+      <p>A clear breakdown of hours taught and earnings for the month. Instructors see their own pay — nothing about other instructors or school financials.</p>
+      <div class="dfeature-pills">
+        <div class="dpill"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>My earnings</div>
+        <div class="dpill"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Hours log</div>
+      </div>
+      <div class="dscreen-nav">
+        <button class="dsnav prev" onclick="dSwitchInstTab(1)"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Prev</button>
+        <button class="dsnav next" onclick="dSwitchInstTab(0)">Next <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="dprogress"><div class="dpd" onclick="dSwitchInstTab(0)"></div><div class="dpd" onclick="dSwitchInstTab(1)"></div><div class="dpd active" onclick="dSwitchInstTab(2)"></div></div>
+    </div>
+    <div class="dphone-wrap">
+      <div class="dphone"><div class="dphone-inner">
+        <div class="dphone-notch"><div class="dnotch-sensor"></div><div class="dnotch-cam"></div></div>
+        <div class="dphone-screen">
+          <div class="dp-status"><span class="dp-status-time">9:41</span></div>
+          <div class="dp-nav"><div class="dp-nav-logo"><div class="dp-logo-mark" style="background:linear-gradient(135deg,#059669,#0EA5E9)"><svg viewBox="0 0 14 14"><path d="M7 1L13 5V9L7 13L1 9V5L7 1Z"/><circle cx="7" cy="7" r="2" fill="white" stroke="none"/></svg></div>My Pay</div></div>
+          <div class="dp-greeting"><div class="dp-greeting-sub">January 2026</div><div class="dp-greeting-name">Pavel Kováč</div><div class="dp-greeting-date">Your salary overview this month</div></div>
+          <div class="dp-stats">
+            <div class="dp-stat"><div class="dp-stat-label">Hours worked</div><div class="dp-stat-val" style="color:#059669">42h</div><div class="dp-stat-sub">this month</div></div>
+            <div class="dp-stat"><div class="dp-stat-label">Lessons taught</div><div class="dp-stat-val ink">28</div><div class="dp-stat-sub">sessions</div></div>
+            <div class="dp-stat"><div class="dp-stat-label">My earnings</div><div class="dp-stat-val" style="color:#059669">€1,260</div><div class="dp-stat-sub">net this month</div></div>
+            <div class="dp-stat"><div class="dp-stat-label">Hourly rate</div><div class="dp-stat-val ink">€30</div><div class="dp-stat-sub">per hour</div></div>
+          </div>
+          <div class="dp-section-title">Recent sessions <span>View all</span></div>
+          <div class="dp-booking"><div class="dp-bk-dot" style="background:#059669"></div><div class="dp-bk-info"><div class="dp-bk-name">Novák family — private</div><div class="dp-bk-detail">Jan 9 · 2h · €60</div></div><div class="dp-badge db-green">Paid</div></div>
+          <div class="dp-booking"><div class="dp-bk-dot" style="background:#059669"></div><div class="dp-bk-info"><div class="dp-bk-name">Advanced group · 3 pax</div><div class="dp-bk-detail">Jan 9 · 2h · €60</div></div><div class="dp-badge db-green">Paid</div></div>
+          <div class="dp-booking"><div class="dp-bk-dot" style="background:var(--ink4)"></div><div class="dp-bk-info"><div class="dp-bk-name">Beginners group · 4 pax</div><div class="dp-bk-detail">Jan 8 · 3h · €90</div></div><div class="dp-badge db-gray">Pending</div></div>
+          <div style="height:10px;"></div>
+          <div class="dp-bottom-nav">
+            <div class="dp-bnav-item"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="dp-bnav-label">Calendar</span></div>
+            <div class="dp-bnav-item"><svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18"/><path d="M3 10v10a2 2 0 002 2h14a2 2 0 002-2V10"/><path d="M9 16h6M12 13v6"/></svg><span class="dp-bnav-label">Workdays</span></div>
+            <div class="dp-bnav-item active"><div class="dp-bnav-dot" style="background:#059669"></div><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><span class="dp-bnav-label">My Pay</span></div>
+          </div>
+        </div>
+      </div></div>
+      <div class="dphone-label">My Pay</div>
+    </div>
+    <!-- WEB: MY PAY -->
+    <div class="dweb-wrap" id="dw-i-2">
+      <div class="dbrowser">
+        <div class="dbrowser-bar">
+          <div class="dbrowser-dots"><span class="dbd-r"></span><span class="dbd-y"></span><span class="dbd-g"></span></div>
+          <div class="dbrowser-url"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>app.skidesk.com/my-pay</div>
+          <div class="dbrowser-actions"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></div>
+        </div>
+        <div class="dbrowser-body">
+          <div class="dw-sidebar" style="background:#064E3B">
+            <div class="dw-sidebar-logo"><svg viewBox="0 0 14 14"><path d="M7 1L13 5V9L7 13L1 9V5L7 1Z"/><circle cx="7" cy="7" r="2" fill="white" stroke="none"/></svg></div>
+            <div class="dw-si"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+            <div class="dw-si"><svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18"/><path d="M3 10v10a2 2 0 002 2h14a2 2 0 002-2V10"/><path d="M9 16h6M12 13v6"/></svg></div>
+            <div class="dw-si active"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+          </div>
+          <div class="dw-main">
+            <div class="dw-topbar"><div class="dw-topbar-title">My Pay — January 2026</div><div class="dw-topbar-right"><div class="dw-tb-btn ghost">Download PDF</div><div class="dw-inst-av" style="background:linear-gradient(135deg,#059669,#0EA5E9);width:32px;height:32px;font-size:11px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:700">PK</div></div></div>
+            <div class="dw-pad">
+              <div class="dw-stats-row">
+                <div class="dw-stat"><div class="dw-stat-label">Hours worked</div><div class="dw-stat-val" style="color:#059669">42h</div><div class="dw-stat-sub">this month</div></div>
+                <div class="dw-stat"><div class="dw-stat-label">Lessons taught</div><div class="dw-stat-val" style="color:var(--ink)">28</div><div class="dw-stat-sub">sessions</div></div>
+                <div class="dw-stat"><div class="dw-stat-label">Hourly rate</div><div class="dw-stat-val" style="color:var(--ink)">€30</div><div class="dw-stat-sub">per hour</div></div>
+                <div class="dw-stat"><div class="dw-stat-label">Total earnings</div><div class="dw-stat-val" style="color:#059669">€1,260</div><div class="dw-stat-sub">net this month</div></div>
+              </div>
+              <div class="dw-card">
+                <div class="dw-card-head"><div class="dw-card-title">Sessions this month</div><div class="dw-card-link">Export</div></div>
+                <div class="dw-table-head"><div class="dw-th">Date</div><div class="dw-th">Lesson</div><div class="dw-th">Duration</div><div class="dw-th">Earnings</div><div class="dw-th">Status</div></div>
+                <div class="dw-table-row"><div class="dw-td mono">Jan 9</div><div class="dw-td bold">Novák family</div><div class="dw-td">2h</div><div class="dw-td" style="color:#059669">€60</div><div class="dw-badge" style="background:#DCFCE7;color:#059669">Paid</div></div>
+                <div class="dw-table-row"><div class="dw-td mono">Jan 9</div><div class="dw-td bold">Advanced group</div><div class="dw-td">2h</div><div class="dw-td" style="color:#059669">€60</div><div class="dw-badge" style="background:#DCFCE7;color:#059669">Paid</div></div>
+                <div class="dw-table-row"><div class="dw-td mono">Jan 8</div><div class="dw-td bold">Beginners group</div><div class="dw-td">3h</div><div class="dw-td" style="color:var(--ink4)">€90</div><div class="dw-badge dwb-gray">Pending</div></div>
+                <div class="dw-table-row"><div class="dw-td mono">Jan 7</div><div class="dw-td bold">Kids camp L1</div><div class="dw-td">2h</div><div class="dw-td" style="color:#059669">€60</div><div class="dw-badge" style="background:#DCFCE7;color:#059669">Paid</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- HOW IT WORKS -->
@@ -2082,6 +2505,8 @@ function toggleFaq(el) { el.classList.toggle('open'); }
 
 let dDevice = 'mobile';
 let dTab = 0;
+let dRole = 'manager';
+let dInstTab = 0;
 
 function dSetDevice(dev) {
   dDevice = dev;
@@ -2090,26 +2515,39 @@ function dSetDevice(dev) {
   dRender();
 }
 
-function dSwitchTab(idx) {
-  dTab = idx;
-  document.querySelectorAll('.dtab').forEach((t, i) => t.classList.toggle('active', i === idx));
+function dSetRole(role) {
+  dRole = role;
+  document.getElementById('btn-manager').classList.toggle('active', role === 'manager');
+  document.getElementById('btn-instructor').classList.toggle('active', role === 'instructor');
+  document.body.classList.toggle('role-manager', role === 'manager');
+  document.body.classList.toggle('role-instructor', role === 'instructor');
   dRender();
 }
 
+function dSwitchTab(idx) {
+  dTab = idx;
+  document.querySelectorAll('.dtab-mgr').forEach((t, i) => t.classList.toggle('active', i === idx));
+  dRender();
+}
+
+function dSwitchInstTab(idx) {
+  dInstTab = idx;
+  document.querySelectorAll('.dtab-inst').forEach((t, i) => t.classList.toggle('active', i === idx));
+  dRenderInst();
+}
+
 function dRender() {
+  if (dRole === 'instructor') { dRenderInst(); return; }
   for (let i = 0; i < 5; i++) {
     const stage = document.getElementById('ds-' + i);
     const isActive = i === dTab;
     stage.classList.toggle('active', isActive);
     if (isActive) {
-      // show/hide phone vs web
       const phoneWrap = stage.querySelector('.dphone-wrap');
       const webWrap = stage.querySelector('.dweb-wrap');
       if (phoneWrap) phoneWrap.classList.toggle('hidden', dDevice === 'web');
       if (webWrap) webWrap.classList.toggle('visible', dDevice === 'web');
-      // adjust grid cols
       stage.style.gridTemplateColumns = dDevice === 'web' ? '1fr 2fr' : '1fr 380px';
-      // re-trigger reveal
       stage.querySelectorAll('.reveal').forEach(el => {
         el.classList.remove('visible');
         setTimeout(() => el.classList.add('visible'), 80);
@@ -2117,6 +2555,29 @@ function dRender() {
     }
   }
 }
+
+function dRenderInst() {
+  for (let i = 0; i < 3; i++) {
+    const stage = document.getElementById('ds-i-' + i);
+    if (!stage) continue;
+    const isActive = i === dInstTab;
+    stage.classList.toggle('active', isActive);
+    if (isActive) {
+      const phoneWrap = stage.querySelector('.dphone-wrap');
+      const webWrap = stage.querySelector('.dweb-wrap');
+      if (phoneWrap) phoneWrap.classList.toggle('hidden', dDevice === 'web');
+      if (webWrap) webWrap.classList.toggle('visible', dDevice === 'web');
+      stage.style.gridTemplateColumns = dDevice === 'web' ? '1fr 2fr' : '1fr 380px';
+      stage.querySelectorAll('.reveal').forEach(el => {
+        el.classList.remove('visible');
+        setTimeout(() => el.classList.add('visible'), 80);
+      });
+    }
+  }
+}
+
+// init body class
+document.body.classList.add('role-manager');
 </script>
 <script>
 // Trial form + slot picker
