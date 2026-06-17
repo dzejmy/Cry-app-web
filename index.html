@@ -434,6 +434,11 @@ h2 .v { color: var(--violet); }
   background: rgba(59,130,246,0.2); border-color: rgba(59,130,246,0.4);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%2393C5FD' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 }
+.pc-features li.orange::before {
+  background: #FFF7ED; border-color: #FED7AA;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23EA580C' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: contain;
+}
 .pc-features li.na { color: var(--ink4); }
 .pc.featured .pc-features li.na { color: rgba(255,255,255,0.25); }
 .pc-features li.na::before {
@@ -2187,7 +2192,7 @@ body.role-manager .design-stage-inst { display: none !important; }
         <li>Scheduling &amp; backoffice</li>
         <li>Client records</li>
         <li>Automatic payouts</li>
-        <li>Manual booking entry (phone / email)</li>
+        <li class="orange">Manual booking entry (phone / email)</li>
         <li class="na">Online booking form</li>
       </ul>
       <a href="#free-trial" class="pc-btn pc-btn-outline">Start Free Trial</a>
