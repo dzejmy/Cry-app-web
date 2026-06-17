@@ -1343,22 +1343,9 @@ body.role-manager .design-stage-inst { display: none !important; }
     </div>
   </div>
 
-  <!-- DEVICE TOGGLE -->
-  <div style="display:flex; align-items:center; gap:16px; margin-bottom:0;">
-    <div class="device-toggle-wrap">
-      <button class="device-btn active" id="btn-mobile" onclick="dSetDevice('mobile')">
-        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
-        Mobile
-      </button>
-      <button class="device-btn" id="btn-web" onclick="dSetDevice('web')">
-        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-        Desktop
-      </button>
-    </div>
-  </div>
-
-  <!-- SCREEN TABS -->
-  <div class="design-tabs" style="margin-top:28px;">
+  <!-- SCREEN TABS + DEVICE TOGGLE inline -->
+  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:28px; gap:16px;">
+  <div class="design-tabs" style="margin-top:0;">
     <div class="dtab dtab-mgr active" onclick="dSwitchTab(0)">Dashboard</div>
     <div class="dtab dtab-mgr" onclick="dSwitchTab(1)">Calendar</div>
     <div class="dtab dtab-mgr" onclick="dSwitchTab(2)">New Booking</div>
@@ -1367,6 +1354,17 @@ body.role-manager .design-stage-inst { display: none !important; }
     <div class="dtab dtab-inst active" onclick="dSwitchInstTab(0)">My Calendar</div>
     <div class="dtab dtab-inst" onclick="dSwitchInstTab(1)">My Workdays</div>
     <div class="dtab dtab-inst" onclick="dSwitchInstTab(2)">My Pay</div>
+  </div>
+  <div class="device-toggle-wrap" style="flex-shrink:0;">
+    <button class="device-btn active" id="btn-mobile" onclick="dSetDevice('mobile')">
+      <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg>
+      Mobile
+    </button>
+    <button class="device-btn" id="btn-web" onclick="dSetDevice('web')">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Desktop
+    </button>
+  </div>
   </div>
 
   <!-- STAGE 0: DASHBOARD -->
