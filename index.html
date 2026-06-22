@@ -1001,32 +1001,56 @@ footer {
   nav { padding: 0 20px; }
   .nav-links { display: none; }
   section, .cta-wrap, .logos-strip, footer { padding-left: 20px; padding-right: 20px; }
+  section { padding-top: 64px; padding-bottom: 64px; }
   .hero { grid-template-columns: 1fr; padding: 96px 20px 60px; }
   .hero-right { display: none; }
   .problem-inner, .features-top, .workflow-inner, .testi-top, .faq-inner, .footer-top { grid-template-columns: 1fr; gap: 32px; }
-  .features-grid, .pricing-cards, .testi-grid { grid-template-columns: 1fr; }
+  .features-grid, .testi-grid { grid-template-columns: 1fr; }
   .pricing-cards { grid-template-columns: 1fr !important; }
-  .design-stage.active { grid-template-columns: 1fr; }
+  /* Override JS inline style so design stages stay single-column on mobile */
+  .design-stage.active,
+  body.role-instructor .design-stage-inst.active { grid-template-columns: 1fr !important; }
+  /* On mobile, always show phone mockup and hide desktop mockup */
+  .device-toggle-wrap { display: none; }
+  .dweb-wrap, .dweb-wrap.visible { display: none !important; }
+  .dphone-wrap.hidden { display: flex !important; }
   .dphone-wrap { margin: 0 auto; }
-  .design { padding: 72px 20px; }
+  .design { padding: 56px 20px; }
   .design-top { grid-template-columns: 1fr; gap: 24px; }
-  .hero-stats { gap: 24px; }
+  .hero-stats { gap: 20px; flex-wrap: wrap; }
+  .compare-box { font-size: 13px; }
+  .logos-strip { flex-direction: column; gap: 20px; align-items: flex-start; }
+  .logos-items { gap: 24px; }
+  .faq-inner { gap: 32px; }
+  .cta-wrap { padding: 64px 20px; }
+  .trial-form { margin-top: 28px; }
 }
 
 @media (max-width: 480px) {
   .dphone {
-    width: calc(100vw - 56px);
-    max-width: 320px;
+    width: calc(100vw - 48px);
+    max-width: 340px;
   }
   .dphone-inner {
-    height: calc((100vw - 56px) * 1.88);
-    max-height: 600px;
+    height: calc((100vw - 48px) * 1.88);
+    max-height: 640px;
   }
-  .design { padding: 56px 16px; }
-  .design-tabs { gap: 6px; }
+  .design { padding: 48px 16px; }
+  .design-tabs { gap: 4px; }
+  .dtab { padding: 10px 14px; font-size: 12px; }
   .role-toggle-wrap { flex-direction: column; align-items: flex-start; gap: 16px; }
   .role-comparison { flex-direction: column; gap: 8px; }
   .rc-col { padding: 16px; }
+  .hero-stats { flex-direction: column; gap: 16px; padding-top: 28px; margin-top: 36px; }
+  .stat-num { font-size: 24px; }
+  h2 { font-size: 28px; }
+  .pc { padding: 28px 20px; }
+  .tc { padding: 20px; }
+  .feat { padding: 24px 20px; }
+  .wstep { padding: 20px 0; }
+  .workflow-steps { grid-template-columns: 1fr; gap: 0; }
+  .footer-top { gap: 28px; }
+  footer { padding: 40px 20px; }
 }
 
 /* ─── ROLE TOGGLE ─── */
