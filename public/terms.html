@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — SkiDesk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #FFFFFF; --bg1: #F7F9FC; --bg2: #EFF3F9;
+  --ink: #0D1526; --ink2: #374162; --ink3: #6B748F; --ink4: #9BA3B8;
+  --blue: #2563EB; --blue-light: #3B82F6; --blue-pale: #EFF6FF; --blue-mid: #DBEAFE;
+  --violet: #7C3AED; --border: #E2E8F0; --border2: #CBD5E1;
+  --font: 'Plus Jakarta Sans', sans-serif;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 64px; height: 64px;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); text-decoration: none; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--ink3); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { background: var(--blue); color: white; padding: 9px 22px; border-radius: 7px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.15s; }
+.nav-cta:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+.page { max-width: 720px; margin: 0 auto; padding: 112px 24px 80px; }
+.page-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-pale); border: 1px solid var(--blue-mid);
+  color: var(--blue); padding: 5px 14px; border-radius: 100px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em; margin-bottom: 20px;
+}
+.page-kicker::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+h1 { font-size: 36px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+.updated { font-size: 13px; color: var(--ink4); margin-bottom: 48px; }
+.doc h2 { font-size: 18px; font-weight: 700; color: var(--ink); margin: 40px 0 12px; }
+.doc p { font-size: 15px; line-height: 1.75; color: var(--ink2); margin-bottom: 16px; }
+.doc ul { padding-left: 20px; margin-bottom: 16px; }
+.doc ul li { font-size: 15px; line-height: 1.75; color: var(--ink2); margin-bottom: 6px; }
+.doc a { color: var(--blue); }
+
+footer { background: var(--bg1); border-top: 1px solid var(--border); padding: 56px 64px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+.footer-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+.footer-tagline { font-size: 13px; color: var(--ink4); margin-top: 10px; line-height: 1.6; max-width: 200px; }
+.fc h5 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink3); margin-bottom: 16px; }
+.fc a { display: block; font-size: 13px; font-weight: 400; color: var(--ink4); text-decoration: none; margin-bottom: 9px; transition: color 0.15s; }
+.fc a:hover { color: var(--ink); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; }
+.footer-copy { font-size: 12px; color: var(--ink4); }
+@media (max-width: 600px) { nav { padding: 0 24px; } .nav-links { display: none; } footer { padding: 40px 20px; } .footer-top { grid-template-columns: 1fr; gap: 32px; } }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">SkiDesk</a>
+  <div class="nav-links">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#design">Design</a>
+    <a href="index.html#how-it-works">How it works</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#faq">FAQ</a>
+  </div>
+  <a href="index.html#free-trial" class="nav-cta">Free Trial</a>
+</nav>
+
+<div class="page">
+<h1>Terms of Service</h1>
+  <p class="updated">Last updated: June 17, 2026</p>
+
+  <div class="doc">
+    <p>These Terms of Service ("Terms") govern your access to and use of SkiDesk ("the Service"), operated by SkiDesk s.r.o. By creating an account you agree to these Terms.</p>
+
+    <h2>1. The Service</h2>
+    <p>SkiDesk provides software for managing ski school operations including scheduling, instructor management, booking, and payout tracking. We reserve the right to modify or discontinue features with reasonable notice.</p>
+
+    <h2>2. Accounts</h2>
+    <p>You must provide accurate information when registering. You are responsible for maintaining the security of your account credentials and for all activity that occurs under your account. Notify us immediately at <a href="mailto:support@skidesk.app">support@skidesk.app</a> if you suspect unauthorised access.</p>
+
+    <h2>3. Subscriptions and Billing</h2>
+    <ul>
+      <li>Plans are billed monthly in advance.</li>
+      <li>Prices are listed in EUR and exclude applicable taxes.</li>
+      <li>You may upgrade or downgrade at any time. Upgrades take effect immediately; downgrades apply at the next billing cycle.</li>
+      <li>We do not offer refunds for partial months.</li>
+      <li>If payment fails, your account will be suspended after a 7-day grace period.</li>
+    </ul>
+
+    <h2>4. Acceptable Use</h2>
+    <p>You agree not to:</p>
+    <ul>
+      <li>Use the Service for any unlawful purpose.</li>
+      <li>Attempt to reverse-engineer, scrape, or disrupt the platform.</li>
+      <li>Upload malicious code or interfere with other users.</li>
+      <li>Resell or sublicense access to the Service without our written consent.</li>
+    </ul>
+
+    <h2>5. Your Data</h2>
+    <p>You retain ownership of all data you upload to SkiDesk. You grant us a limited licence to process that data solely to provide the Service. See our <a href="privacy.html">Privacy Policy</a> for details on how we handle personal data.</p>
+
+    <h2>6. Intellectual Property</h2>
+    <p>All code, design, trademarks, and content comprising SkiDesk are our property. Nothing in these Terms transfers any intellectual property rights to you.</p>
+
+    <h2>7. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by law, SkiDesk is not liable for indirect, incidental, or consequential damages arising from your use of the Service. Our total liability is limited to the fees you paid in the three months preceding the claim.</p>
+
+    <h2>8. Termination</h2>
+    <p>You may cancel your account at any time from your account settings. We may terminate or suspend access for material breach of these Terms, with or without notice depending on severity.</p>
+
+    <h2>9. Governing Law</h2>
+    <p>These Terms are governed by the laws of the Slovak Republic. Any disputes shall be resolved in the courts of Bratislava, Slovakia.</p>
+
+    <h2>10. Changes to These Terms</h2>
+    <p>We may update these Terms. We will notify you by email at least 14 days before material changes take effect. Continued use of the Service after that date constitutes acceptance.</p>
+
+    <h2>11. Contact</h2>
+    <p>Questions about these Terms? Contact us at <a href="mailto:legal@skidesk.app">legal@skidesk.app</a> or use our <a href="contact.html">contact form</a>.</p>
+  </div>
+</div>
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">SkiDesk</div>
+      <p class="footer-tagline">Management software built exclusively for ski school operators.</p>
+    </div>
+    <div class="fc">
+      <h5>Product</h5>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#how-it-works">How it works</a>
+    </div>
+    <div class="fc">
+      <h5>Support</h5>
+      <a href="index.html#faq">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="fc">
+      <h5>Legal</h5>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="cookies.html">Cookie Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 SkiDesk. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

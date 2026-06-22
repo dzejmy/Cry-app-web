@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — SkiDesk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #FFFFFF;
+  --bg1:       #F7F9FC;
+  --bg2:       #EFF3F9;
+  --bg3:       #E4EAF4;
+  --ink:       #0D1526;
+  --ink2:      #374162;
+  --ink3:      #6B748F;
+  --ink4:      #9BA3B8;
+  --blue:      #2563EB;
+  --blue-light:#3B82F6;
+  --blue-pale: #EFF6FF;
+  --blue-mid:  #DBEAFE;
+  --violet:    #7C3AED;
+  --border:    #E2E8F0;
+  --border2:   #CBD5E1;
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 64px; height: 64px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink);
+  display: flex; align-items: center; gap: 9px; text-decoration: none;
+}
+.nav-logo-mark {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-logo-mark svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2; }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--ink3); text-decoration: none; transition: color 0.15s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--blue); color: white;
+  padding: 9px 22px; border-radius: 7px;
+  font-size: 14px; font-weight: 600;
+  text-decoration: none; transition: all 0.15s;
+}
+.nav-cta:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+/* PAGE */
+.contact-page {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 120px 24px 80px;
+  background: var(--bg1);
+}
+
+.contact-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 56px 52px;
+  width: 100%; max-width: 520px;
+  box-shadow: 0 4px 24px rgba(13,21,38,0.06);
+}
+
+.contact-kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-pale); border: 1px solid var(--blue-mid);
+  color: var(--blue); padding: 5px 14px; border-radius: 100px;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+  margin-bottom: 20px;
+}
+.contact-kicker::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+
+h1 {
+  font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink);
+  margin-bottom: 8px;
+}
+.contact-sub {
+  font-size: 15px; color: var(--ink3); line-height: 1.6; margin-bottom: 36px;
+}
+
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+label { font-size: 13px; font-weight: 600; color: var(--ink2); }
+input, textarea, select {
+  font-family: var(--font);
+  font-size: 14px; color: var(--ink);
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: 9px;
+  padding: 11px 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+  width: 100%;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  background: var(--bg);
+}
+textarea { resize: vertical; min-height: 130px; }
+
+.submit-btn {
+  width: 100%; padding: 13px;
+  background: var(--blue); color: white;
+  border: none; border-radius: 9px;
+  font-family: var(--font); font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all 0.15s;
+  margin-top: 8px;
+}
+.submit-btn:hover { background: var(--blue-light); transform: translateY(-1px); }
+.submit-btn:active { transform: translateY(0); }
+
+.success-msg {
+  display: none;
+  text-align: center; padding: 20px 0 4px;
+}
+.success-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: #DCFCE7; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.success-icon svg { width: 24px; height: 24px; stroke: #16A34A; fill: none; stroke-width: 2; stroke-linecap: round; }
+.success-msg h2 { font-size: 20px; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
+.success-msg p { font-size: 14px; color: var(--ink3); }
+
+footer { background: var(--bg1); border-top: 1px solid var(--border); padding: 56px 64px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+.footer-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+.footer-tagline { font-size: 13px; color: var(--ink4); margin-top: 10px; line-height: 1.6; max-width: 200px; }
+.fc h5 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink3); margin-bottom: 16px; }
+.fc a { display: block; font-size: 13px; font-weight: 400; color: var(--ink4); text-decoration: none; margin-bottom: 9px; transition: color 0.15s; }
+.fc a:hover { color: var(--ink); }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; }
+.footer-copy { font-size: 12px; color: var(--ink4); }
+
+@media (max-width: 600px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .contact-card { padding: 36px 24px; }
+  footer { padding: 40px 20px; }
+  .footer-top { grid-template-columns: 1fr; gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+
+<nav>
+  <a class="nav-logo" href="index.html">SkiDesk</a>
+  <div class="nav-links">
+    <a href="index.html#features">Features</a>
+    <a href="index.html#design">Design</a>
+    <a href="index.html#how-it-works">How it works</a>
+    <a href="index.html#pricing">Pricing</a>
+    <a href="index.html#faq">FAQ</a>
+  </div>
+  <a href="index.html#free-trial" class="nav-cta">Free Trial</a>
+</nav>
+
+<div class="contact-page">
+  <div class="contact-card">
+<h1>Get in touch</h1>
+    <p class="contact-sub">Have a question or want to see SkiDesk in action? We'll get back to you within one business day.</p>
+
+    <form id="contact-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" placeholder="Jan Novák" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="jan@skischool.com" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell us about your school or ask anything…" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send message</button>
+    </form>
+
+    <div class="success-msg" id="success">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2>Message sent!</h2>
+      <p>Thanks for reaching out. We'll be in touch shortly.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('success').style.display = 'block';
+}
+</script>
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">SkiDesk</div>
+      <p class="footer-tagline">Management software built exclusively for ski school operators.</p>
+    </div>
+    <div class="fc">
+      <h5>Product</h5>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#how-it-works">How it works</a>
+    </div>
+    <div class="fc">
+      <h5>Support</h5>
+      <a href="index.html#faq">FAQ</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="fc">
+      <h5>Legal</h5>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="cookies.html">Cookie Policy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 SkiDesk. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+</html>
