@@ -1010,10 +1010,10 @@ footer {
   /* Override JS inline style so design stages stay single-column on mobile */
   .design-stage.active,
   body.role-instructor .design-stage-inst.active { grid-template-columns: 1fr !important; }
-  /* On mobile, always show phone mockup and hide desktop mockup */
-  .device-toggle-wrap { display: none; }
-  .dweb-wrap, .dweb-wrap.visible { display: none !important; }
-  .dphone-wrap.hidden { display: flex !important; }
+  /* Desktop mockup fits within mobile screen width */
+  .dweb-wrap { width: 100%; }
+  .dbrowser { width: 100%; border-radius: 10px; }
+  .dbrowser-body { height: 280px; }
   .dphone-wrap { margin: 0 auto; }
   .design { padding: 56px 20px; }
   .design-top { grid-template-columns: 1fr; gap: 24px; }
