@@ -1036,7 +1036,10 @@ footer {
   .dw-row-name { font-size: 10px; }
   .dw-row-meta { font-size: 9px; }
   .dw-badge { font-size: 9px; padding: 1px 5px; }
-  .dphone-wrap { margin: 0 auto; }
+  /* Mini phone: scale full-size phone down like we do with desktop */
+  .dphone-wrap { display: flex; justify-content: center; overflow: hidden; height: 460px; }
+  .dphone { transform: scale(0.66); transform-origin: top center; width: 340px; flex-shrink: 0; }
+  .dphone-inner { height: 640px; }
   .design { padding: 56px 20px; }
   .design-top { grid-template-columns: 1fr; gap: 24px; }
   .hero-stats { gap: 20px; flex-wrap: wrap; }
@@ -1049,8 +1052,6 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .dphone { width: 220px; max-width: 220px; }
-  .dphone-inner { height: 414px; max-height: 414px; }
   .design { padding: 48px 16px; }
   .design-tabs { gap: 4px; }
   .dtab { padding: 10px 14px; font-size: 12px; }
