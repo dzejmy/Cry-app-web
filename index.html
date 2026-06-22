@@ -1010,10 +1010,14 @@ footer {
   /* Override JS inline style so design stages stay single-column on mobile */
   .design-stage.active,
   body.role-instructor .design-stage-inst.active { grid-template-columns: 1fr !important; }
-  /* Scale desktop mockup to fit mobile screen width */
-  .dweb-wrap { width: 100%; overflow: hidden; border-radius: 10px; height: 280px; }
-  .dbrowser { transform: scale(0.55); transform-origin: top left; width: 182%; border-radius: 10px; }
-  .dbrowser-body { height: 460px; }
+  /* Constrain grid items so 1fr doesn't expand to min-content */
+  .dmockup-col { min-width: 0; overflow: hidden; }
+  /* Scale desktop mockup to fit mobile screen — scale × width must equal 1.0 */
+  .dweb-wrap { width: 100%; overflow: hidden; border-radius: 10px; height: 230px; }
+  .dbrowser { transform: scale(0.67); transform-origin: top left; width: 150%; border-radius: 10px; }
+  .dbrowser-body { height: 300px; }
+  /* Safety: clip overflow at the stage level too */
+  .design-stage.active, body.role-instructor .design-stage-inst.active { overflow: hidden; }
   .dphone-wrap { margin: 0 auto; }
   .design { padding: 56px 20px; }
   .design-top { grid-template-columns: 1fr; gap: 24px; }
@@ -1027,14 +1031,8 @@ footer {
 }
 
 @media (max-width: 480px) {
-  .dphone {
-    width: calc(100vw - 48px);
-    max-width: 340px;
-  }
-  .dphone-inner {
-    height: calc((100vw - 48px) * 1.88);
-    max-height: 640px;
-  }
+  .dphone { width: 220px; max-width: 220px; }
+  .dphone-inner { height: 414px; max-height: 414px; }
   .design { padding: 48px 16px; }
   .design-tabs { gap: 4px; }
   .dtab { padding: 10px 14px; font-size: 12px; }
