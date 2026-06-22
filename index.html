@@ -1012,10 +1012,17 @@ footer {
   body.role-instructor .design-stage-inst.active { grid-template-columns: 1fr !important; }
   /* Constrain grid items so 1fr doesn't expand to min-content */
   .dmockup-col { min-width: 0; overflow: hidden; }
-  /* Scale desktop mockup to fit mobile screen — scale × width must equal 1.0 */
-  .dweb-wrap { width: 100%; overflow: hidden; border-radius: 10px; height: 230px; }
-  .dbrowser { transform: scale(0.67); transform-origin: top left; width: 150%; border-radius: 10px; }
-  .dbrowser-body { height: 300px; }
+  /* Mini desktop: dark laptop-bezel frame around the browser on mobile */
+  .dweb-wrap {
+    width: 100%; overflow: hidden;
+    border-radius: 10px;
+    height: 260px;
+    background: #1c1c1e;
+    padding: 10px 10px 0;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+  }
+  .dbrowser { transform: scale(0.65); transform-origin: top left; width: 154%; border-radius: 8px 8px 0 0; }
+  .dbrowser-body { height: 320px; }
   /* Safety: clip overflow at the stage level too */
   .design-stage.active, body.role-instructor .design-stage-inst.active { overflow: hidden; }
   .dphone-wrap { margin: 0 auto; }
