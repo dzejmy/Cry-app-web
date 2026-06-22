@@ -1010,10 +1010,10 @@ footer {
   /* Override JS inline style so design stages stay single-column on mobile */
   .design-stage.active,
   body.role-instructor .design-stage-inst.active { grid-template-columns: 1fr !important; }
-  /* Desktop mockup fits within mobile screen width */
-  .dweb-wrap { width: 100%; }
-  .dbrowser { width: 100%; border-radius: 10px; }
-  .dbrowser-body { height: 280px; }
+  /* Scale desktop mockup to fit mobile screen width */
+  .dweb-wrap { width: 100%; overflow: hidden; border-radius: 10px; height: 280px; }
+  .dbrowser { transform: scale(0.55); transform-origin: top left; width: 182%; border-radius: 10px; }
+  .dbrowser-body { height: 460px; }
   .dphone-wrap { margin: 0 auto; }
   .design { padding: 56px 20px; }
   .design-top { grid-template-columns: 1fr; gap: 24px; }
@@ -2481,7 +2481,11 @@ function dRender() {
       const webWrap = stage.querySelector('.dweb-wrap');
       if (phoneWrap) phoneWrap.classList.toggle('hidden', dDevice === 'web');
       if (webWrap) webWrap.classList.toggle('visible', dDevice === 'web');
-      stage.style.gridTemplateColumns = dDevice === 'web' ? '1fr 2fr' : '1fr 380px';
+      if (window.innerWidth > 1024) {
+        stage.style.gridTemplateColumns = dDevice === 'web' ? '1fr 2fr' : '1fr 380px';
+      } else {
+        stage.style.gridTemplateColumns = '';
+      }
       stage.querySelectorAll('.reveal').forEach(el => {
         el.classList.remove('visible');
         setTimeout(() => el.classList.add('visible'), 80);
@@ -2501,7 +2505,11 @@ function dRenderInst() {
       const webWrap = stage.querySelector('.dweb-wrap');
       if (phoneWrap) phoneWrap.classList.toggle('hidden', dDevice === 'web');
       if (webWrap) webWrap.classList.toggle('visible', dDevice === 'web');
-      stage.style.gridTemplateColumns = dDevice === 'web' ? '1fr 2fr' : '1fr 380px';
+      if (window.innerWidth > 1024) {
+        stage.style.gridTemplateColumns = dDevice === 'web' ? '1fr 2fr' : '1fr 380px';
+      } else {
+        stage.style.gridTemplateColumns = '';
+      }
       stage.querySelectorAll('.reveal').forEach(el => {
         el.classList.remove('visible');
         setTimeout(() => el.classList.add('visible'), 80);
