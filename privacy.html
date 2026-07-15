@@ -32,6 +32,11 @@ nav {
 .nav-cta { background: var(--blue); color: white; padding: 9px 22px; border-radius: 7px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.15s; }
 .nav-cta:hover { background: var(--blue-light); transform: translateY(-1px); }
 
+.lang-toggle { display: flex; align-items: center; gap: 2px; background: var(--bg2); border: 1px solid var(--border); border-radius: 7px; padding: 2px; margin-right: 8px; }
+.lang-toggle button { font-family: var(--font); font-size: 12px; font-weight: 600; color: var(--ink3); background: transparent; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; transition: all 0.15s; }
+.lang-toggle button:hover { color: var(--ink); }
+.lang-toggle button.active { background: var(--bg); color: var(--blue); box-shadow: 0 1px 2px rgba(13,21,38,0.08); }
+
 .page { max-width: 720px; margin: 0 auto; padding: 112px 24px 80px; }
 .page-kicker {
   display: inline-flex; align-items: center; gap: 8px;
@@ -60,95 +65,190 @@ footer { background: var(--bg1); border-top: 1px solid var(--border); padding: 5
 .footer-copy { font-size: 12px; color: var(--ink4); }
 @media (max-width: 600px) { nav { padding: 0 24px; } .nav-links { display: none; } footer { padding: 40px 20px; } .footer-top { grid-template-columns: 1fr; gap: 32px; } }
 </style>
+<script>
+window.SITE_I18N = {
+  en: {
+    nav: { features: "Features", design: "Design", how: "How it works", pricing: "Pricing", faq: "FAQ", cta: "Free Trial" },
+    hero: { title: "Privacy Policy", updated: "Last updated: June 17, 2026" },
+    doc: {
+      intro: "SkiDesk (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) operates the SkiDesk platform for ski school management. This Privacy Policy explains how we collect, use, and protect your personal data when you use our service.",
+      h1: "1. Data We Collect",
+      p1: "We collect the following categories of personal data:",
+      p1_li1: "<strong>Account data:</strong> name, email address, and password when you register.",
+      p1_li2: "<strong>School data:</strong> information about your ski school, instructors, and bookings that you enter into the platform.",
+      p1_li3: "<strong>Customer data:</strong> names, emails, and booking details of your clients, which you provide to us as a data controller.",
+      p1_li4: "<strong>Usage data:</strong> pages visited, features used, and error logs collected automatically.",
+      p1_li5: "<strong>Payment data:</strong> billing information processed securely through Stripe. We do not store card numbers.",
+      h2: "2. How We Use Your Data",
+      p2: "We use your data to:",
+      p2_li1: "Provide and maintain the SkiDesk platform.",
+      p2_li2: "Send transactional emails (booking confirmations, payout summaries).",
+      p2_li3: "Respond to support requests.",
+      p2_li4: "Improve our product based on aggregated usage analytics.",
+      p2_li5: "Comply with legal obligations.",
+      h3: "3. Data Sharing",
+      p3: "We do not sell your personal data. We share data only with trusted sub-processors necessary to operate the service (e.g. Stripe for payments, AWS for hosting). All sub-processors are bound by data processing agreements compliant with GDPR.",
+      h4: "4. Data Retention",
+      p4: "We retain your account data for as long as your account is active. After account deletion, data is permanently removed within 30 days, except where we are required by law to retain it longer.",
+      h5: "5. Your Rights",
+      p5: "Under GDPR you have the right to access, correct, export, or delete your personal data at any time. To exercise these rights, contact us at <a href=\"mailto:privacy@skidesk.app\">privacy@skidesk.app</a>.",
+      h6: "6. Cookies",
+      p6: "We use essential cookies to keep you logged in and functional cookies to remember your preferences. See our <a href=\"cookies.html\">Cookie Policy</a> for details.",
+      h7: "7. Security",
+      p7: "All data is encrypted in transit (TLS 1.3) and at rest. We perform regular security audits and follow industry best practices for access control.",
+      h8: "8. Changes to This Policy",
+      p8: "We may update this policy from time to time. We will notify you by email of any material changes at least 14 days before they take effect.",
+      h9: "9. Contact",
+      p9: "For privacy-related questions, contact us at <a href=\"mailto:privacy@skidesk.app\">privacy@skidesk.app</a> or use our <a href=\"contact.html\">contact form</a>."
+    },
+    footer: {
+      tagline: "Management software built exclusively for ski school operators.",
+      product: "Product", support: "Support", legal: "Legal",
+      features: "Features", pricing: "Pricing", how: "How it works",
+      faq: "FAQ", contact: "Contact",
+      privacy: "Privacy Policy", terms: "Terms of Service", cookies: "Cookie Policy",
+      copy: "© 2026 SkiDesk. All rights reserved."
+    }
+  },
+  sk: {
+    nav: { features: "Funkcie", design: "Dizajn", how: "Ako to funguje", pricing: "Cenník", faq: "Časté otázky", cta: "Vyskúšať zdarma" },
+    hero: { title: "Zásady ochrany osobných údajov", updated: "Posledná aktualizácia: 17. júna 2026" },
+    doc: {
+      intro: "Spoločnosť SkiDesk (&quot;my&quot;, &quot;nás&quot; alebo &quot;naše&quot;) prevádzkuje platformu SkiDesk určenú na správu lyžiarskych škôl. Tieto Zásady ochrany osobných údajov vysvetľujú, akým spôsobom zhromažďujeme, používame a chránime vaše osobné údaje pri používaní našej služby.",
+      h1: "1. Údaje, ktoré zhromažďujeme",
+      p1: "Zhromažďujeme nasledujúce kategórie osobných údajov:",
+      p1_li1: "<strong>Údaje o účte:</strong> meno, e-mailová adresa a heslo pri registrácii.",
+      p1_li2: "<strong>Údaje o škole:</strong> informácie o vašej lyžiarskej škole, inštruktoroch a rezerváciách, ktoré zadávate do platformy.",
+      p1_li3: "<strong>Údaje o zákazníkoch:</strong> mená, e-maily a údaje o rezerváciách vašich klientov, ktoré nám poskytujete ako prevádzkovateľovi údajov.",
+      p1_li4: "<strong>Údaje o používaní:</strong> navštívené stránky, používané funkcie a záznamy o chybách zhromažďované automaticky.",
+      p1_li5: "<strong>Platobné údaje:</strong> fakturačné údaje spracúvané bezpečne prostredníctvom spoločnosti Stripe. Čísla platobných kariet neukladáme.",
+      h2: "2. Ako používame vaše údaje",
+      p2: "Vaše údaje používame na to, aby sme:",
+      p2_li1: "poskytovali a udržiavali platformu SkiDesk,",
+      p2_li2: "zasielali transakčné e-maily (potvrdenia rezervácií, súhrny výplat),",
+      p2_li3: "reagovali na žiadosti o podporu,",
+      p2_li4: "zlepšovali náš produkt na základe agregovanej analýzy používania,",
+      p2_li5: "dodržiavali zákonné povinnosti.",
+      h3: "3. Zdieľanie údajov",
+      p3: "Vaše osobné údaje nepredávame. Údaje zdieľame len s dôveryhodnými sprostredkovateľmi nevyhnutnými na prevádzku služby (napr. Stripe pre platby, AWS pre hosting). Všetci sprostredkovatelia sú viazaní zmluvami o spracúvaní údajov v súlade s GDPR.",
+      h4: "4. Uchovávanie údajov",
+      p4: "Údaje o vašom účte uchovávame po celý čas, počas ktorého je váš účet aktívny. Po zrušení účtu sú údaje trvalo odstránené do 30 dní, s výnimkou prípadov, keď sme zo zákona povinní uchovávať ich dlhšie.",
+      h5: "5. Vaše práva",
+      p5: "Podľa GDPR máte právo kedykoľvek požiadať o prístup k svojim osobným údajom, ich opravu, export alebo vymazanie. Na uplatnenie týchto práv nás kontaktujte na adrese <a href=\"mailto:privacy@skidesk.app\">privacy@skidesk.app</a>.",
+      h6: "6. Cookies",
+      p6: "Používame nevyhnutné cookies na udržanie vášho prihlásenia a funkčné cookies na zapamätanie vašich preferencií. Podrobnosti nájdete v našich <a href=\"cookies.html\">Zásadách používania cookies</a>.",
+      h7: "7. Bezpečnosť",
+      p7: "Všetky údaje sú šifrované počas prenosu (TLS 1.3) aj v pokoji. Pravidelne vykonávame bezpečnostné audity a dodržiavame štandardné postupy riadenia prístupu.",
+      h8: "8. Zmeny týchto zásad",
+      p8: "Tieto zásady môžeme z času na čas aktualizovať. O akýchkoľvek podstatných zmenách vás budeme informovať e-mailom najmenej 14 dní pred ich nadobudnutím účinnosti.",
+      h9: "9. Kontakt",
+      p9: "V prípade otázok týkajúcich sa ochrany osobných údajov nás kontaktujte na adrese <a href=\"mailto:privacy@skidesk.app\">privacy@skidesk.app</a> alebo použite náš <a href=\"contact.html\">kontaktný formulár</a>."
+    },
+    footer: {
+      tagline: "Softvér na správu prevádzky vytvorený výlučne pre lyžiarske školy.",
+      product: "Produkt", support: "Podpora", legal: "Právne informácie",
+      features: "Funkcie", pricing: "Cenník", how: "Ako to funguje",
+      faq: "Časté otázky", contact: "Kontakt",
+      privacy: "Zásady ochrany osobných údajov", terms: "Obchodné podmienky", cookies: "Zásady používania cookies",
+      copy: "© 2026 SkiDesk. Všetky práva vyhradené."
+    }
+  }
+};
+</script>
+<script src="/i18n-toggle.js" defer></script>
 </head>
 <body>
 <nav>
   <a class="nav-logo" href="index.html">SkiDesk</a>
   <div class="nav-links">
-    <a href="index.html#features">Features</a>
-    <a href="index.html#design">Design</a>
-    <a href="index.html#how-it-works">How it works</a>
-    <a href="index.html#pricing">Pricing</a>
-    <a href="index.html#faq">FAQ</a>
+    <a href="index.html#features" data-i18n="nav.features">Features</a>
+    <a href="index.html#design" data-i18n="nav.design">Design</a>
+    <a href="index.html#how-it-works" data-i18n="nav.how">How it works</a>
+    <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+    <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
   </div>
-  <a href="index.html#free-trial" class="nav-cta">Free Trial</a>
+  <div class="lang-toggle">
+    <button type="button" data-lang-btn="en" onclick="setSiteLang('en')">EN</button>
+    <button type="button" data-lang-btn="sk" onclick="setSiteLang('sk')">SK</button>
+  </div>
+  <a href="index.html#free-trial" class="nav-cta" data-i18n="nav.cta">Free Trial</a>
 </nav>
 
 <div class="page">
-<h1>Privacy Policy</h1>
-  <p class="updated">Last updated: June 17, 2026</p>
+<h1 data-i18n="hero.title">Privacy Policy</h1>
+  <p class="updated" data-i18n="hero.updated">Last updated: June 17, 2026</p>
 
   <div class="doc">
-    <p>SkiDesk ("we", "us", or "our") operates the SkiDesk platform for ski school management. This Privacy Policy explains how we collect, use, and protect your personal data when you use our service.</p>
+    <p data-i18n="doc.intro">SkiDesk ("we", "us", or "our") operates the SkiDesk platform for ski school management. This Privacy Policy explains how we collect, use, and protect your personal data when you use our service.</p>
 
-    <h2>1. Data We Collect</h2>
-    <p>We collect the following categories of personal data:</p>
+    <h2 data-i18n="doc.h1">1. Data We Collect</h2>
+    <p data-i18n="doc.p1">We collect the following categories of personal data:</p>
     <ul>
-      <li><strong>Account data:</strong> name, email address, and password when you register.</li>
-      <li><strong>School data:</strong> information about your ski school, instructors, and bookings that you enter into the platform.</li>
-      <li><strong>Customer data:</strong> names, emails, and booking details of your clients, which you provide to us as a data controller.</li>
-      <li><strong>Usage data:</strong> pages visited, features used, and error logs collected automatically.</li>
-      <li><strong>Payment data:</strong> billing information processed securely through Stripe. We do not store card numbers.</li>
+      <li data-i18n="doc.p1_li1"><strong>Account data:</strong> name, email address, and password when you register.</li>
+      <li data-i18n="doc.p1_li2"><strong>School data:</strong> information about your ski school, instructors, and bookings that you enter into the platform.</li>
+      <li data-i18n="doc.p1_li3"><strong>Customer data:</strong> names, emails, and booking details of your clients, which you provide to us as a data controller.</li>
+      <li data-i18n="doc.p1_li4"><strong>Usage data:</strong> pages visited, features used, and error logs collected automatically.</li>
+      <li data-i18n="doc.p1_li5"><strong>Payment data:</strong> billing information processed securely through Stripe. We do not store card numbers.</li>
     </ul>
 
-    <h2>2. How We Use Your Data</h2>
-    <p>We use your data to:</p>
+    <h2 data-i18n="doc.h2">2. How We Use Your Data</h2>
+    <p data-i18n="doc.p2">We use your data to:</p>
     <ul>
-      <li>Provide and maintain the SkiDesk platform.</li>
-      <li>Send transactional emails (booking confirmations, payout summaries).</li>
-      <li>Respond to support requests.</li>
-      <li>Improve our product based on aggregated usage analytics.</li>
-      <li>Comply with legal obligations.</li>
+      <li data-i18n="doc.p2_li1">Provide and maintain the SkiDesk platform.</li>
+      <li data-i18n="doc.p2_li2">Send transactional emails (booking confirmations, payout summaries).</li>
+      <li data-i18n="doc.p2_li3">Respond to support requests.</li>
+      <li data-i18n="doc.p2_li4">Improve our product based on aggregated usage analytics.</li>
+      <li data-i18n="doc.p2_li5">Comply with legal obligations.</li>
     </ul>
 
-    <h2>3. Data Sharing</h2>
-    <p>We do not sell your personal data. We share data only with trusted sub-processors necessary to operate the service (e.g. Stripe for payments, AWS for hosting). All sub-processors are bound by data processing agreements compliant with GDPR.</p>
+    <h2 data-i18n="doc.h3">3. Data Sharing</h2>
+    <p data-i18n="doc.p3">We do not sell your personal data. We share data only with trusted sub-processors necessary to operate the service (e.g. Stripe for payments, AWS for hosting). All sub-processors are bound by data processing agreements compliant with GDPR.</p>
 
-    <h2>4. Data Retention</h2>
-    <p>We retain your account data for as long as your account is active. After account deletion, data is permanently removed within 30 days, except where we are required by law to retain it longer.</p>
+    <h2 data-i18n="doc.h4">4. Data Retention</h2>
+    <p data-i18n="doc.p4">We retain your account data for as long as your account is active. After account deletion, data is permanently removed within 30 days, except where we are required by law to retain it longer.</p>
 
-    <h2>5. Your Rights</h2>
-    <p>Under GDPR you have the right to access, correct, export, or delete your personal data at any time. To exercise these rights, contact us at <a href="mailto:privacy@skidesk.app">privacy@skidesk.app</a>.</p>
+    <h2 data-i18n="doc.h5">5. Your Rights</h2>
+    <p data-i18n="doc.p5">Under GDPR you have the right to access, correct, export, or delete your personal data at any time. To exercise these rights, contact us at <a href="mailto:privacy@skidesk.app">privacy@skidesk.app</a>.</p>
 
-    <h2>6. Cookies</h2>
-    <p>We use essential cookies to keep you logged in and functional cookies to remember your preferences. See our <a href="cookies.html">Cookie Policy</a> for details.</p>
+    <h2 data-i18n="doc.h6">6. Cookies</h2>
+    <p data-i18n="doc.p6">We use essential cookies to keep you logged in and functional cookies to remember your preferences. See our <a href="cookies.html">Cookie Policy</a> for details.</p>
 
-    <h2>7. Security</h2>
-    <p>All data is encrypted in transit (TLS 1.3) and at rest. We perform regular security audits and follow industry best practices for access control.</p>
+    <h2 data-i18n="doc.h7">7. Security</h2>
+    <p data-i18n="doc.p7">All data is encrypted in transit (TLS 1.3) and at rest. We perform regular security audits and follow industry best practices for access control.</p>
 
-    <h2>8. Changes to This Policy</h2>
-    <p>We may update this policy from time to time. We will notify you by email of any material changes at least 14 days before they take effect.</p>
+    <h2 data-i18n="doc.h8">8. Changes to This Policy</h2>
+    <p data-i18n="doc.p8">We may update this policy from time to time. We will notify you by email of any material changes at least 14 days before they take effect.</p>
 
-    <h2>9. Contact</h2>
-    <p>For privacy-related questions, contact us at <a href="mailto:privacy@skidesk.app">privacy@skidesk.app</a> or use our <a href="contact.html">contact form</a>.</p>
+    <h2 data-i18n="doc.h9">9. Contact</h2>
+    <p data-i18n="doc.p9">For privacy-related questions, contact us at <a href="mailto:privacy@skidesk.app">privacy@skidesk.app</a> or use our <a href="contact.html">contact form</a>.</p>
   </div>
 </div>
 <footer>
   <div class="footer-top">
     <div>
       <div class="footer-logo">SkiDesk</div>
-      <p class="footer-tagline">Management software built exclusively for ski school operators.</p>
+      <p class="footer-tagline" data-i18n="footer.tagline">Management software built exclusively for ski school operators.</p>
     </div>
     <div class="fc">
-      <h5>Product</h5>
-      <a href="index.html#features">Features</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="index.html#how-it-works">How it works</a>
+      <h5 data-i18n="footer.product">Product</h5>
+      <a href="index.html#features" data-i18n="footer.features">Features</a>
+      <a href="index.html#pricing" data-i18n="footer.pricing">Pricing</a>
+      <a href="index.html#how-it-works" data-i18n="footer.how">How it works</a>
     </div>
     <div class="fc">
-      <h5>Support</h5>
-      <a href="index.html#faq">FAQ</a>
-      <a href="contact.html">Contact</a>
+      <h5 data-i18n="footer.support">Support</h5>
+      <a href="index.html#faq" data-i18n="footer.faq">FAQ</a>
+      <a href="contact.html" data-i18n="footer.contact">Contact</a>
     </div>
     <div class="fc">
-      <h5>Legal</h5>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="cookies.html">Cookie Policy</a>
+      <h5 data-i18n="footer.legal">Legal</h5>
+      <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="terms.html" data-i18n="footer.terms">Terms of Service</a>
+      <a href="cookies.html" data-i18n="footer.cookies">Cookie Policy</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 SkiDesk. All rights reserved.</p>
+    <p class="footer-copy" data-i18n="footer.copy">© 2026 SkiDesk. All rights reserved.</p>
   </div>
 </footer>
 </body>

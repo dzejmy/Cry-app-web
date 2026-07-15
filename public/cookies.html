@@ -32,6 +32,11 @@ nav {
 .nav-cta { background: var(--blue); color: white; padding: 9px 22px; border-radius: 7px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.15s; }
 .nav-cta:hover { background: var(--blue-light); transform: translateY(-1px); }
 
+.lang-toggle { display: flex; align-items: center; gap: 2px; background: var(--bg2); border: 1px solid var(--border); border-radius: 7px; padding: 2px; margin-right: 8px; }
+.lang-toggle button { font-family: var(--font); font-size: 12px; font-weight: 600; color: var(--ink3); background: transparent; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; transition: all 0.15s; }
+.lang-toggle button:hover { color: var(--ink); }
+.lang-toggle button.active { background: var(--bg); color: var(--blue); box-shadow: 0 1px 2px rgba(13,21,38,0.08); }
+
 .page { max-width: 720px; margin: 0 auto; padding: 112px 24px 80px; }
 .page-kicker {
   display: inline-flex; align-items: center; gap: 8px;
@@ -66,111 +71,194 @@ footer { background: var(--bg1); border-top: 1px solid var(--border); padding: 5
 .footer-copy { font-size: 12px; color: var(--ink4); }
 @media (max-width: 600px) { nav { padding: 0 24px; } .nav-links { display: none; } footer { padding: 40px 20px; } .footer-top { grid-template-columns: 1fr; gap: 32px; } }
 </style>
+<script>
+window.SITE_I18N = {
+  en: {
+    nav: { features: "Features", design: "Design", how: "How it works", pricing: "Pricing", faq: "FAQ", cta: "Free Trial" },
+    hero: { title: "Cookie Policy", updated: "Last updated: June 17, 2026" },
+    doc: {
+      intro: "SkiDesk uses cookies and similar technologies to keep the platform working and to understand how it is used. This page explains what cookies we set, why, and how you can control them.",
+      h1: "What are cookies?",
+      p1: "Cookies are small text files stored in your browser when you visit a website. They allow the site to remember information about your visit, such as your login session or preferences.",
+      h2: "Cookies we use",
+      table: {
+        cookie: "Cookie", type: "Type", purpose: "Purpose", duration: "Duration",
+        essential: "Essential", functional: "Functional", analytics: "Analytics",
+        session_purpose: "Keeps you logged in to your SkiDesk account.",
+        csrf_purpose: "Protects against cross-site request forgery attacks.",
+        prefs_purpose: "Remembers your UI preferences (e.g. calendar view, language).",
+        analytics_purpose: "Aggregated, anonymised usage data to help us improve the product. No personal data is shared with third parties.",
+        session_duration: "Session", year_duration: "1 year", days_duration: "90 days"
+      },
+      h3: "Essential cookies",
+      p3: "These are strictly necessary for the platform to function. You cannot opt out of essential cookies while using SkiDesk.",
+      h4: "Functional cookies",
+      p4: "These remember your preferences to give you a better experience. You can disable them in your browser settings, but some features may not work as expected.",
+      h5: "Analytics cookies",
+      p5: "We use anonymised analytics to understand which features are used most and where improvements are needed. No personally identifiable information is collected or shared. You can opt out at any time from your account settings.",
+      h6: "Managing cookies",
+      p6: "You can control or delete cookies through your browser settings. Note that disabling cookies may affect the functionality of SkiDesk. For more information visit <a href=\"https://www.allaboutcookies.org\" target=\"_blank\" rel=\"noopener\">allaboutcookies.org</a>.",
+      h7: "Contact",
+      p7: "Questions about cookies? Contact us at <a href=\"mailto:privacy@skidesk.app\">privacy@skidesk.app</a> or use our <a href=\"contact.html\">contact form</a>."
+    },
+    footer: {
+      tagline: "Management software built exclusively for ski school operators.",
+      product: "Product", support: "Support", legal: "Legal",
+      features: "Features", pricing: "Pricing", how: "How it works",
+      faq: "FAQ", contact: "Contact",
+      privacy: "Privacy Policy", terms: "Terms of Service", cookies: "Cookie Policy",
+      copy: "© 2026 SkiDesk. All rights reserved."
+    }
+  },
+  sk: {
+    nav: { features: "Funkcie", design: "Dizajn", how: "Ako to funguje", pricing: "Cenník", faq: "Časté otázky", cta: "Vyskúšať zdarma" },
+    hero: { title: "Zásady používania cookies", updated: "Posledná aktualizácia: 17. júna 2026" },
+    doc: {
+      intro: "SkiDesk používa súbory cookie a podobné technológie na zabezpečenie fungovania platformy a na pochopenie spôsobu jej používania. Táto stránka vysvetľuje, aké cookies používame, prečo a ako ich môžete spravovať.",
+      h1: "Čo sú cookies?",
+      p1: "Cookies sú malé textové súbory ukladané vo vašom prehliadači pri návšteve webovej stránky. Umožňujú stránke zapamätať si informácie o vašej návšteve, ako je vaše prihlásenie alebo preferencie.",
+      h2: "Cookies, ktoré používame",
+      table: {
+        cookie: "Cookie", type: "Typ", purpose: "Účel", duration: "Trvanie",
+        essential: "Nevyhnutné", functional: "Funkčné", analytics: "Analytické",
+        session_purpose: "Udržiava vás prihláseného vo vašom účte SkiDesk.",
+        csrf_purpose: "Chráni pred útokmi typu cross-site request forgery.",
+        prefs_purpose: "Zapamätá si vaše používateľské preferencie (napr. zobrazenie kalendára, jazyk).",
+        analytics_purpose: "Agregované, anonymizované údaje o používaní, ktoré nám pomáhajú zlepšovať produkt. Žiadne osobné údaje sa nezdieľajú s tretími stranami.",
+        session_duration: "Relácia", year_duration: "1 rok", days_duration: "90 dní"
+      },
+      h3: "Nevyhnutné cookies",
+      p3: "Tieto sú nevyhnutne potrebné na fungovanie platformy. Nevyhnutné cookies nemôžete pri používaní SkiDesk odmietnuť.",
+      h4: "Funkčné cookies",
+      p4: "Tieto si zapamätajú vaše preferencie, aby vám poskytli lepší zážitok. Môžete ich zakázať v nastaveniach prehliadača, no niektoré funkcie potom nemusia fungovať podľa očakávania.",
+      h5: "Analytické cookies",
+      p5: "Používame anonymizovanú analytiku na pochopenie toho, ktoré funkcie sa používajú najčastejšie a kde sú potrebné zlepšenia. Nezhromažďujú sa ani nezdieľajú žiadne osobne identifikovateľné údaje. Kedykoľvek sa z nich môžete odhlásiť v nastaveniach svojho účtu.",
+      h6: "Správa cookies",
+      p6: "Cookies môžete spravovať alebo vymazať prostredníctvom nastavení svojho prehliadača. Upozorňujeme, že zakázanie cookies môže ovplyvniť funkčnosť SkiDesk. Viac informácií nájdete na stránke <a href=\"https://www.allaboutcookies.org\" target=\"_blank\" rel=\"noopener\">allaboutcookies.org</a>.",
+      h7: "Kontakt",
+      p7: "Máte otázky ohľadom cookies? Kontaktujte nás na adrese <a href=\"mailto:privacy@skidesk.app\">privacy@skidesk.app</a> alebo použite náš <a href=\"contact.html\">kontaktný formulár</a>."
+    },
+    footer: {
+      tagline: "Softvér na správu prevádzky vytvorený výlučne pre lyžiarske školy.",
+      product: "Produkt", support: "Podpora", legal: "Právne informácie",
+      features: "Funkcie", pricing: "Cenník", how: "Ako to funguje",
+      faq: "Časté otázky", contact: "Kontakt",
+      privacy: "Zásady ochrany osobných údajov", terms: "Obchodné podmienky", cookies: "Zásady používania cookies",
+      copy: "© 2026 SkiDesk. Všetky práva vyhradené."
+    }
+  }
+};
+</script>
+<script src="/i18n-toggle.js" defer></script>
 </head>
 <body>
 <nav>
   <a class="nav-logo" href="index.html">SkiDesk</a>
   <div class="nav-links">
-    <a href="index.html#features">Features</a>
-    <a href="index.html#design">Design</a>
-    <a href="index.html#how-it-works">How it works</a>
-    <a href="index.html#pricing">Pricing</a>
-    <a href="index.html#faq">FAQ</a>
+    <a href="index.html#features" data-i18n="nav.features">Features</a>
+    <a href="index.html#design" data-i18n="nav.design">Design</a>
+    <a href="index.html#how-it-works" data-i18n="nav.how">How it works</a>
+    <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+    <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
   </div>
-  <a href="index.html#free-trial" class="nav-cta">Free Trial</a>
+  <div class="lang-toggle">
+    <button type="button" data-lang-btn="en" onclick="setSiteLang('en')">EN</button>
+    <button type="button" data-lang-btn="sk" onclick="setSiteLang('sk')">SK</button>
+  </div>
+  <a href="index.html#free-trial" class="nav-cta" data-i18n="nav.cta">Free Trial</a>
 </nav>
 
 <div class="page">
-<h1>Cookie Policy</h1>
-  <p class="updated">Last updated: June 17, 2026</p>
+<h1 data-i18n="hero.title">Cookie Policy</h1>
+  <p class="updated" data-i18n="hero.updated">Last updated: June 17, 2026</p>
 
   <div class="doc">
-    <p>SkiDesk uses cookies and similar technologies to keep the platform working and to understand how it is used. This page explains what cookies we set, why, and how you can control them.</p>
+    <p data-i18n="doc.intro">SkiDesk uses cookies and similar technologies to keep the platform working and to understand how it is used. This page explains what cookies we set, why, and how you can control them.</p>
 
-    <h2>What are cookies?</h2>
-    <p>Cookies are small text files stored in your browser when you visit a website. They allow the site to remember information about your visit, such as your login session or preferences.</p>
+    <h2 data-i18n="doc.h1">What are cookies?</h2>
+    <p data-i18n="doc.p1">Cookies are small text files stored in your browser when you visit a website. They allow the site to remember information about your visit, such as your login session or preferences.</p>
 
-    <h2>Cookies we use</h2>
+    <h2 data-i18n="doc.h2">Cookies we use</h2>
 
     <table class="cookie-table">
       <thead>
         <tr>
-          <th>Cookie</th>
-          <th>Type</th>
-          <th>Purpose</th>
-          <th>Duration</th>
+          <th data-i18n="doc.table.cookie">Cookie</th>
+          <th data-i18n="doc.table.type">Type</th>
+          <th data-i18n="doc.table.purpose">Purpose</th>
+          <th data-i18n="doc.table.duration">Duration</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td><code>sd_session</code></td>
-          <td><span class="badge badge-essential">Essential</span></td>
-          <td>Keeps you logged in to your SkiDesk account.</td>
-          <td>Session</td>
+          <td><span class="badge badge-essential" data-i18n="doc.table.essential">Essential</span></td>
+          <td data-i18n="doc.table.session_purpose">Keeps you logged in to your SkiDesk account.</td>
+          <td data-i18n="doc.table.session_duration">Session</td>
         </tr>
         <tr>
           <td><code>sd_csrf</code></td>
-          <td><span class="badge badge-essential">Essential</span></td>
-          <td>Protects against cross-site request forgery attacks.</td>
-          <td>Session</td>
+          <td><span class="badge badge-essential" data-i18n="doc.table.essential">Essential</span></td>
+          <td data-i18n="doc.table.csrf_purpose">Protects against cross-site request forgery attacks.</td>
+          <td data-i18n="doc.table.session_duration">Session</td>
         </tr>
         <tr>
           <td><code>sd_prefs</code></td>
-          <td><span class="badge badge-functional">Functional</span></td>
-          <td>Remembers your UI preferences (e.g. calendar view, language).</td>
-          <td>1 year</td>
+          <td><span class="badge badge-functional" data-i18n="doc.table.functional">Functional</span></td>
+          <td data-i18n="doc.table.prefs_purpose">Remembers your UI preferences (e.g. calendar view, language).</td>
+          <td data-i18n="doc.table.year_duration">1 year</td>
         </tr>
         <tr>
           <td><code>sd_analytics</code></td>
-          <td><span class="badge badge-analytics">Analytics</span></td>
-          <td>Aggregated, anonymised usage data to help us improve the product. No personal data is shared with third parties.</td>
-          <td>90 days</td>
+          <td><span class="badge badge-analytics" data-i18n="doc.table.analytics">Analytics</span></td>
+          <td data-i18n="doc.table.analytics_purpose">Aggregated, anonymised usage data to help us improve the product. No personal data is shared with third parties.</td>
+          <td data-i18n="doc.table.days_duration">90 days</td>
         </tr>
       </tbody>
     </table>
 
-    <h2>Essential cookies</h2>
-    <p>These are strictly necessary for the platform to function. You cannot opt out of essential cookies while using SkiDesk.</p>
+    <h2 data-i18n="doc.h3">Essential cookies</h2>
+    <p data-i18n="doc.p3">These are strictly necessary for the platform to function. You cannot opt out of essential cookies while using SkiDesk.</p>
 
-    <h2>Functional cookies</h2>
-    <p>These remember your preferences to give you a better experience. You can disable them in your browser settings, but some features may not work as expected.</p>
+    <h2 data-i18n="doc.h4">Functional cookies</h2>
+    <p data-i18n="doc.p4">These remember your preferences to give you a better experience. You can disable them in your browser settings, but some features may not work as expected.</p>
 
-    <h2>Analytics cookies</h2>
-    <p>We use anonymised analytics to understand which features are used most and where improvements are needed. No personally identifiable information is collected or shared. You can opt out at any time from your account settings.</p>
+    <h2 data-i18n="doc.h5">Analytics cookies</h2>
+    <p data-i18n="doc.p5">We use anonymised analytics to understand which features are used most and where improvements are needed. No personally identifiable information is collected or shared. You can opt out at any time from your account settings.</p>
 
-    <h2>Managing cookies</h2>
-    <p>You can control or delete cookies through your browser settings. Note that disabling cookies may affect the functionality of SkiDesk. For more information visit <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener">allaboutcookies.org</a>.</p>
+    <h2 data-i18n="doc.h6">Managing cookies</h2>
+    <p data-i18n="doc.p6">You can control or delete cookies through your browser settings. Note that disabling cookies may affect the functionality of SkiDesk. For more information visit <a href="https://www.allaboutcookies.org" target="_blank" rel="noopener">allaboutcookies.org</a>.</p>
 
-    <h2>Contact</h2>
-    <p>Questions about cookies? Contact us at <a href="mailto:privacy@skidesk.app">privacy@skidesk.app</a> or use our <a href="contact.html">contact form</a>.</p>
+    <h2 data-i18n="doc.h7">Contact</h2>
+    <p data-i18n="doc.p7">Questions about cookies? Contact us at <a href="mailto:privacy@skidesk.app">privacy@skidesk.app</a> or use our <a href="contact.html">contact form</a>.</p>
   </div>
 </div>
 <footer>
   <div class="footer-top">
     <div>
       <div class="footer-logo">SkiDesk</div>
-      <p class="footer-tagline">Management software built exclusively for ski school operators.</p>
+      <p class="footer-tagline" data-i18n="footer.tagline">Management software built exclusively for ski school operators.</p>
     </div>
     <div class="fc">
-      <h5>Product</h5>
-      <a href="index.html#features">Features</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="index.html#how-it-works">How it works</a>
+      <h5 data-i18n="footer.product">Product</h5>
+      <a href="index.html#features" data-i18n="footer.features">Features</a>
+      <a href="index.html#pricing" data-i18n="footer.pricing">Pricing</a>
+      <a href="index.html#how-it-works" data-i18n="footer.how">How it works</a>
     </div>
     <div class="fc">
-      <h5>Support</h5>
-      <a href="index.html#faq">FAQ</a>
-      <a href="contact.html">Contact</a>
+      <h5 data-i18n="footer.support">Support</h5>
+      <a href="index.html#faq" data-i18n="footer.faq">FAQ</a>
+      <a href="contact.html" data-i18n="footer.contact">Contact</a>
     </div>
     <div class="fc">
-      <h5>Legal</h5>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="cookies.html">Cookie Policy</a>
+      <h5 data-i18n="footer.legal">Legal</h5>
+      <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="terms.html" data-i18n="footer.terms">Terms of Service</a>
+      <a href="cookies.html" data-i18n="footer.cookies">Cookie Policy</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 SkiDesk. All rights reserved.</p>
+    <p class="footer-copy" data-i18n="footer.copy">© 2026 SkiDesk. All rights reserved.</p>
   </div>
 </footer>
 </body>

@@ -32,6 +32,11 @@ nav {
 .nav-cta { background: var(--blue); color: white; padding: 9px 22px; border-radius: 7px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.15s; }
 .nav-cta:hover { background: var(--blue-light); transform: translateY(-1px); }
 
+.lang-toggle { display: flex; align-items: center; gap: 2px; background: var(--bg2); border: 1px solid var(--border); border-radius: 7px; padding: 2px; margin-right: 8px; }
+.lang-toggle button { font-family: var(--font); font-size: 12px; font-weight: 600; color: var(--ink3); background: transparent; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer; transition: all 0.15s; }
+.lang-toggle button:hover { color: var(--ink); }
+.lang-toggle button.active { background: var(--bg); color: var(--blue); box-shadow: 0 1px 2px rgba(13,21,38,0.08); }
+
 .page { max-width: 720px; margin: 0 auto; padding: 112px 24px 80px; }
 .page-kicker {
   display: inline-flex; align-items: center; gap: 8px;
@@ -59,99 +64,198 @@ footer { background: var(--bg1); border-top: 1px solid var(--border); padding: 5
 .footer-copy { font-size: 12px; color: var(--ink4); }
 @media (max-width: 600px) { nav { padding: 0 24px; } .nav-links { display: none; } footer { padding: 40px 20px; } .footer-top { grid-template-columns: 1fr; gap: 32px; } }
 </style>
+<script>
+window.SITE_I18N = {
+  en: {
+    nav: { features: "Features", design: "Design", how: "How it works", pricing: "Pricing", faq: "FAQ", cta: "Free Trial" },
+    hero: { title: "Terms of Service", updated: "Last updated: June 17, 2026" },
+    doc: {
+      intro: "These Terms of Service (&quot;Terms&quot;) govern your access to and use of SkiDesk (&quot;the Service&quot;), operated by SkiDesk s.r.o. By creating an account you agree to these Terms.",
+      h1: "1. The Service",
+      p1: "SkiDesk provides software for managing ski school operations including scheduling, instructor management, booking, and payout tracking. We reserve the right to modify or discontinue features with reasonable notice.",
+      h2: "2. Accounts",
+      p2: "You must provide accurate information when registering. You are responsible for maintaining the security of your account credentials and for all activity that occurs under your account. Notify us immediately at <a href=\"mailto:support@skidesk.app\">support@skidesk.app</a> if you suspect unauthorised access.",
+      h3: "3. Subscriptions and Billing",
+      p3_li1: "Plans are billed monthly in advance.",
+      p3_li2: "Prices are listed in EUR and exclude applicable taxes.",
+      p3_li3: "You may upgrade or downgrade at any time. Upgrades take effect immediately; downgrades apply at the next billing cycle.",
+      p3_li4: "We do not offer refunds for partial months.",
+      p3_li5: "If payment fails, your account will be suspended after a 7-day grace period.",
+      h4: "4. Acceptable Use",
+      p4: "You agree not to:",
+      p4_li1: "Use the Service for any unlawful purpose.",
+      p4_li2: "Attempt to reverse-engineer, scrape, or disrupt the platform.",
+      p4_li3: "Upload malicious code or interfere with other users.",
+      p4_li4: "Resell or sublicense access to the Service without our written consent.",
+      h5: "5. Your Data",
+      p5: "You retain ownership of all data you upload to SkiDesk. You grant us a limited licence to process that data solely to provide the Service. See our <a href=\"privacy.html\">Privacy Policy</a> for details on how we handle personal data.",
+      h6: "6. Intellectual Property",
+      p6: "All code, design, trademarks, and content comprising SkiDesk are our property. Nothing in these Terms transfers any intellectual property rights to you.",
+      h7: "7. Limitation of Liability",
+      p7: "To the maximum extent permitted by law, SkiDesk is not liable for indirect, incidental, or consequential damages arising from your use of the Service. Our total liability is limited to the fees you paid in the three months preceding the claim.",
+      h8: "8. Termination",
+      p8: "You may cancel your account at any time from your account settings. We may terminate or suspend access for material breach of these Terms, with or without notice depending on severity.",
+      h9: "9. Governing Law",
+      p9: "These Terms are governed by the laws of the Slovak Republic. Any disputes shall be resolved in the courts of Bratislava, Slovakia.",
+      h10: "10. Changes to These Terms",
+      p10: "We may update these Terms. We will notify you by email at least 14 days before material changes take effect. Continued use of the Service after that date constitutes acceptance.",
+      h11: "11. Contact",
+      p11: "Questions about these Terms? Contact us at <a href=\"mailto:legal@skidesk.app\">legal@skidesk.app</a> or use our <a href=\"contact.html\">contact form</a>."
+    },
+    footer: {
+      tagline: "Management software built exclusively for ski school operators.",
+      product: "Product", support: "Support", legal: "Legal",
+      features: "Features", pricing: "Pricing", how: "How it works",
+      faq: "FAQ", contact: "Contact",
+      privacy: "Privacy Policy", terms: "Terms of Service", cookies: "Cookie Policy",
+      copy: "© 2026 SkiDesk. All rights reserved."
+    }
+  },
+  sk: {
+    nav: { features: "Funkcie", design: "Dizajn", how: "Ako to funguje", pricing: "Cenník", faq: "Časté otázky", cta: "Vyskúšať zdarma" },
+    hero: { title: "Obchodné podmienky", updated: "Posledná aktualizácia: 17. júna 2026" },
+    doc: {
+      intro: "Tieto Obchodné podmienky (ďalej len &quot;Podmienky&quot;) upravujú váš prístup k službe SkiDesk a jej používanie (ďalej len &quot;Služba&quot;), ktorú prevádzkuje spoločnosť SkiDesk s. r. o. Vytvorením účtu vyjadrujete súhlas s týmito Podmienkami.",
+      h1: "1. Služba",
+      p1: "SkiDesk poskytuje softvér na správu prevádzky lyžiarskych škôl vrátane plánovania, správy inštruktorov, rezervácií a sledovania výplat. Vyhradzujeme si právo upraviť alebo zrušiť jednotlivé funkcie s primeraným predstihom.",
+      h2: "2. Účty",
+      p2: "Pri registrácii ste povinní uviesť presné údaje. Zodpovedáte za zabezpečenie prihlasovacích údajov k vášmu účtu a za všetku činnosť vykonanú pod vaším účtom. Ak máte podozrenie na neoprávnený prístup, bezodkladne nás kontaktujte na adrese <a href=\"mailto:support@skidesk.app\">support@skidesk.app</a>.",
+      h3: "3. Predplatné a fakturácia",
+      p3_li1: "Plány sú fakturované mesačne vopred.",
+      p3_li2: "Ceny sú uvedené v EUR a nezahŕňajú príslušné dane.",
+      p3_li3: "Plán môžete kedykoľvek zmeniť na vyšší alebo nižší. Zmena na vyšší plán nadobúda účinnosť okamžite, zmena na nižší plán sa uplatní až v nasledujúcom fakturačnom cykle.",
+      p3_li4: "Za neúplné mesiace neposkytujeme refundáciu.",
+      p3_li5: "Ak platba zlyhá, váš účet bude po 7-dňovej ochrannej lehote pozastavený.",
+      h4: "4. Prípustné používanie",
+      p4: "Zaväzujete sa, že nebudete:",
+      p4_li1: "používať Službu na akýkoľvek nezákonný účel,",
+      p4_li2: "pokúšať sa o spätnú analýzu (reverse engineering), automatizované sťahovanie dát (scraping) alebo narúšanie platformy,",
+      p4_li3: "nahrávať škodlivý kód ani zasahovať do používania Služby inými používateľmi,",
+      p4_li4: "ďalej predávať ani poskytovať sublicenciu na prístup k Službe bez nášho písomného súhlasu.",
+      h5: "5. Vaše údaje",
+      p5: "Vlastníctvo všetkých údajov, ktoré nahráte do SkiDesk, zostáva zachované vám. Udeľujete nám obmedzenú licenciu na spracúvanie týchto údajov výlučne na účely poskytovania Služby. Podrobnosti o tom, ako nakladáme s osobnými údajmi, nájdete v našich <a href=\"privacy.html\">Zásadách ochrany osobných údajov</a>.",
+      h6: "6. Duševné vlastníctvo",
+      p6: "Všetok kód, dizajn, ochranné známky a obsah tvoriace SkiDesk sú naším vlastníctvom. Žiadne ustanovenie týchto Podmienok na vás neprevádza žiadne práva duševného vlastníctva.",
+      h7: "7. Obmedzenie zodpovednosti",
+      p7: "V najväčšom rozsahu povolenom zákonom SkiDesk nezodpovedá za nepriame, náhodné ani následné škody vyplývajúce z používania Služby. Naša celková zodpovednosť je obmedzená na výšku poplatkov, ktoré ste uhradili za tri mesiace predchádzajúce vzniku nároku.",
+      h8: "8. Ukončenie",
+      p8: "Svoj účet môžete kedykoľvek zrušiť v nastaveniach účtu. Prístup môžeme ukončiť alebo pozastaviť v prípade podstatného porušenia týchto Podmienok, a to s upozornením alebo bez neho v závislosti od závažnosti porušenia.",
+      h9: "9. Rozhodné právo",
+      p9: "Tieto Podmienky sa riadia právnym poriadkom Slovenskej republiky. Všetky spory budú riešené na súdoch v Bratislave.",
+      h10: "10. Zmeny týchto Podmienok",
+      p10: "Tieto Podmienky môžeme aktualizovať. O podstatných zmenách vás budeme informovať e-mailom najmenej 14 dní pred nadobudnutím ich účinnosti. Pokračovaním v používaní Služby po tomto dátume vyjadrujete súhlas so zmenami.",
+      h11: "11. Kontakt",
+      p11: "Máte otázky týkajúce sa týchto Podmienok? Kontaktujte nás na adrese <a href=\"mailto:legal@skidesk.app\">legal@skidesk.app</a> alebo použite náš <a href=\"contact.html\">kontaktný formulár</a>."
+    },
+    footer: {
+      tagline: "Softvér na správu prevádzky vytvorený výlučne pre lyžiarske školy.",
+      product: "Produkt", support: "Podpora", legal: "Právne informácie",
+      features: "Funkcie", pricing: "Cenník", how: "Ako to funguje",
+      faq: "Časté otázky", contact: "Kontakt",
+      privacy: "Zásady ochrany osobných údajov", terms: "Obchodné podmienky", cookies: "Zásady používania cookies",
+      copy: "© 2026 SkiDesk. Všetky práva vyhradené."
+    }
+  }
+};
+</script>
+<script src="/i18n-toggle.js" defer></script>
 </head>
 <body>
 <nav>
   <a class="nav-logo" href="index.html">SkiDesk</a>
   <div class="nav-links">
-    <a href="index.html#features">Features</a>
-    <a href="index.html#design">Design</a>
-    <a href="index.html#how-it-works">How it works</a>
-    <a href="index.html#pricing">Pricing</a>
-    <a href="index.html#faq">FAQ</a>
+    <a href="index.html#features" data-i18n="nav.features">Features</a>
+    <a href="index.html#design" data-i18n="nav.design">Design</a>
+    <a href="index.html#how-it-works" data-i18n="nav.how">How it works</a>
+    <a href="index.html#pricing" data-i18n="nav.pricing">Pricing</a>
+    <a href="index.html#faq" data-i18n="nav.faq">FAQ</a>
   </div>
-  <a href="index.html#free-trial" class="nav-cta">Free Trial</a>
+  <div class="lang-toggle">
+    <button type="button" data-lang-btn="en" onclick="setSiteLang('en')">EN</button>
+    <button type="button" data-lang-btn="sk" onclick="setSiteLang('sk')">SK</button>
+  </div>
+  <a href="index.html#free-trial" class="nav-cta" data-i18n="nav.cta">Free Trial</a>
 </nav>
 
 <div class="page">
-<h1>Terms of Service</h1>
-  <p class="updated">Last updated: June 17, 2026</p>
+<h1 data-i18n="hero.title">Terms of Service</h1>
+  <p class="updated" data-i18n="hero.updated">Last updated: June 17, 2026</p>
 
   <div class="doc">
-    <p>These Terms of Service ("Terms") govern your access to and use of SkiDesk ("the Service"), operated by SkiDesk s.r.o. By creating an account you agree to these Terms.</p>
+    <p data-i18n="doc.intro">These Terms of Service ("Terms") govern your access to and use of SkiDesk ("the Service"), operated by SkiDesk s.r.o. By creating an account you agree to these Terms.</p>
 
-    <h2>1. The Service</h2>
-    <p>SkiDesk provides software for managing ski school operations including scheduling, instructor management, booking, and payout tracking. We reserve the right to modify or discontinue features with reasonable notice.</p>
+    <h2 data-i18n="doc.h1">1. The Service</h2>
+    <p data-i18n="doc.p1">SkiDesk provides software for managing ski school operations including scheduling, instructor management, booking, and payout tracking. We reserve the right to modify or discontinue features with reasonable notice.</p>
 
-    <h2>2. Accounts</h2>
-    <p>You must provide accurate information when registering. You are responsible for maintaining the security of your account credentials and for all activity that occurs under your account. Notify us immediately at <a href="mailto:support@skidesk.app">support@skidesk.app</a> if you suspect unauthorised access.</p>
+    <h2 data-i18n="doc.h2">2. Accounts</h2>
+    <p data-i18n="doc.p2">You must provide accurate information when registering. You are responsible for maintaining the security of your account credentials and for all activity that occurs under your account. Notify us immediately at <a href="mailto:support@skidesk.app">support@skidesk.app</a> if you suspect unauthorised access.</p>
 
-    <h2>3. Subscriptions and Billing</h2>
+    <h2 data-i18n="doc.h3">3. Subscriptions and Billing</h2>
     <ul>
-      <li>Plans are billed monthly in advance.</li>
-      <li>Prices are listed in EUR and exclude applicable taxes.</li>
-      <li>You may upgrade or downgrade at any time. Upgrades take effect immediately; downgrades apply at the next billing cycle.</li>
-      <li>We do not offer refunds for partial months.</li>
-      <li>If payment fails, your account will be suspended after a 7-day grace period.</li>
+      <li data-i18n="doc.p3_li1">Plans are billed monthly in advance.</li>
+      <li data-i18n="doc.p3_li2">Prices are listed in EUR and exclude applicable taxes.</li>
+      <li data-i18n="doc.p3_li3">You may upgrade or downgrade at any time. Upgrades take effect immediately; downgrades apply at the next billing cycle.</li>
+      <li data-i18n="doc.p3_li4">We do not offer refunds for partial months.</li>
+      <li data-i18n="doc.p3_li5">If payment fails, your account will be suspended after a 7-day grace period.</li>
     </ul>
 
-    <h2>4. Acceptable Use</h2>
-    <p>You agree not to:</p>
+    <h2 data-i18n="doc.h4">4. Acceptable Use</h2>
+    <p data-i18n="doc.p4">You agree not to:</p>
     <ul>
-      <li>Use the Service for any unlawful purpose.</li>
-      <li>Attempt to reverse-engineer, scrape, or disrupt the platform.</li>
-      <li>Upload malicious code or interfere with other users.</li>
-      <li>Resell or sublicense access to the Service without our written consent.</li>
+      <li data-i18n="doc.p4_li1">Use the Service for any unlawful purpose.</li>
+      <li data-i18n="doc.p4_li2">Attempt to reverse-engineer, scrape, or disrupt the platform.</li>
+      <li data-i18n="doc.p4_li3">Upload malicious code or interfere with other users.</li>
+      <li data-i18n="doc.p4_li4">Resell or sublicense access to the Service without our written consent.</li>
     </ul>
 
-    <h2>5. Your Data</h2>
-    <p>You retain ownership of all data you upload to SkiDesk. You grant us a limited licence to process that data solely to provide the Service. See our <a href="privacy.html">Privacy Policy</a> for details on how we handle personal data.</p>
+    <h2 data-i18n="doc.h5">5. Your Data</h2>
+    <p data-i18n="doc.p5">You retain ownership of all data you upload to SkiDesk. You grant us a limited licence to process that data solely to provide the Service. See our <a href="privacy.html">Privacy Policy</a> for details on how we handle personal data.</p>
 
-    <h2>6. Intellectual Property</h2>
-    <p>All code, design, trademarks, and content comprising SkiDesk are our property. Nothing in these Terms transfers any intellectual property rights to you.</p>
+    <h2 data-i18n="doc.h6">6. Intellectual Property</h2>
+    <p data-i18n="doc.p6">All code, design, trademarks, and content comprising SkiDesk are our property. Nothing in these Terms transfers any intellectual property rights to you.</p>
 
-    <h2>7. Limitation of Liability</h2>
-    <p>To the maximum extent permitted by law, SkiDesk is not liable for indirect, incidental, or consequential damages arising from your use of the Service. Our total liability is limited to the fees you paid in the three months preceding the claim.</p>
+    <h2 data-i18n="doc.h7">7. Limitation of Liability</h2>
+    <p data-i18n="doc.p7">To the maximum extent permitted by law, SkiDesk is not liable for indirect, incidental, or consequential damages arising from your use of the Service. Our total liability is limited to the fees you paid in the three months preceding the claim.</p>
 
-    <h2>8. Termination</h2>
-    <p>You may cancel your account at any time from your account settings. We may terminate or suspend access for material breach of these Terms, with or without notice depending on severity.</p>
+    <h2 data-i18n="doc.h8">8. Termination</h2>
+    <p data-i18n="doc.p8">You may cancel your account at any time from your account settings. We may terminate or suspend access for material breach of these Terms, with or without notice depending on severity.</p>
 
-    <h2>9. Governing Law</h2>
-    <p>These Terms are governed by the laws of the Slovak Republic. Any disputes shall be resolved in the courts of Bratislava, Slovakia.</p>
+    <h2 data-i18n="doc.h9">9. Governing Law</h2>
+    <p data-i18n="doc.p9">These Terms are governed by the laws of the Slovak Republic. Any disputes shall be resolved in the courts of Bratislava, Slovakia.</p>
 
-    <h2>10. Changes to These Terms</h2>
-    <p>We may update these Terms. We will notify you by email at least 14 days before material changes take effect. Continued use of the Service after that date constitutes acceptance.</p>
+    <h2 data-i18n="doc.h10">10. Changes to These Terms</h2>
+    <p data-i18n="doc.p10">We may update these Terms. We will notify you by email at least 14 days before material changes take effect. Continued use of the Service after that date constitutes acceptance.</p>
 
-    <h2>11. Contact</h2>
-    <p>Questions about these Terms? Contact us at <a href="mailto:legal@skidesk.app">legal@skidesk.app</a> or use our <a href="contact.html">contact form</a>.</p>
+    <h2 data-i18n="doc.h11">11. Contact</h2>
+    <p data-i18n="doc.p11">Questions about these Terms? Contact us at <a href="mailto:legal@skidesk.app">legal@skidesk.app</a> or use our <a href="contact.html">contact form</a>.</p>
   </div>
 </div>
 <footer>
   <div class="footer-top">
     <div>
       <div class="footer-logo">SkiDesk</div>
-      <p class="footer-tagline">Management software built exclusively for ski school operators.</p>
+      <p class="footer-tagline" data-i18n="footer.tagline">Management software built exclusively for ski school operators.</p>
     </div>
     <div class="fc">
-      <h5>Product</h5>
-      <a href="index.html#features">Features</a>
-      <a href="index.html#pricing">Pricing</a>
-      <a href="index.html#how-it-works">How it works</a>
+      <h5 data-i18n="footer.product">Product</h5>
+      <a href="index.html#features" data-i18n="footer.features">Features</a>
+      <a href="index.html#pricing" data-i18n="footer.pricing">Pricing</a>
+      <a href="index.html#how-it-works" data-i18n="footer.how">How it works</a>
     </div>
     <div class="fc">
-      <h5>Support</h5>
-      <a href="index.html#faq">FAQ</a>
-      <a href="contact.html">Contact</a>
+      <h5 data-i18n="footer.support">Support</h5>
+      <a href="index.html#faq" data-i18n="footer.faq">FAQ</a>
+      <a href="contact.html" data-i18n="footer.contact">Contact</a>
     </div>
     <div class="fc">
-      <h5>Legal</h5>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms of Service</a>
-      <a href="cookies.html">Cookie Policy</a>
+      <h5 data-i18n="footer.legal">Legal</h5>
+      <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+      <a href="terms.html" data-i18n="footer.terms">Terms of Service</a>
+      <a href="cookies.html" data-i18n="footer.cookies">Cookie Policy</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 SkiDesk. All rights reserved.</p>
+    <p class="footer-copy" data-i18n="footer.copy">© 2026 SkiDesk. All rights reserved.</p>
   </div>
 </footer>
 </body>
