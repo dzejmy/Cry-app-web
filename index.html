@@ -2389,7 +2389,7 @@ body.role-manager .design-stage-inst { display: none !important; }
 <div class="cta-wrap" id="free-trial">
   <div class="section-kicker" style="justify-content:center;color:#7DD3FC;">Get started today</div>
   <h2>Leave the spreadsheets<br><em>behind.</em></h2>
-  <p>Book a free intro call and we'll have your school set up before the season starts.</p>
+  <p>Book a free intro call and we'll have your school set up before the season starts. For a tailored price, contact us so we can trim it exactly for your ski school.</p>
 
   <form class="trial-form" id="trialForm" novalidate>
     <div class="trial-form-row">
@@ -2482,6 +2482,10 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 
 function toggleFaq(el) { el.classList.toggle('open'); }
+
+if (window.location.hash === '#pricing') {
+  window.location.hash = 'free-trial';
+}
 
 let dDevice = 'mobile';
 let dTab = 0;
