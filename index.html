@@ -91,6 +91,7 @@ nav {
   display: inline-flex; align-items: center; gap: 5px;
 }
 .lang-btn:hover { color: var(--ink2); }
+.flag-ico { width: 16px; height: 11px; border-radius: 2px; flex-shrink: 0; }
 .lang-btn.active { background: white; color: var(--blue); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
 
 /* ─── HERO ─── */
@@ -1194,8 +1195,14 @@ body.role-manager .design-stage-inst { display: none !important; }
   </div>
   <div style="display:flex;align-items:center;">
     <div class="lang-toggle">
-      <button type="button" class="lang-btn" data-lang-btn="en" onclick="setSiteLang('en')">🇬🇧 EN</button>
-      <button type="button" class="lang-btn" data-lang-btn="sk" onclick="setSiteLang('sk')">🇸🇰 SK</button>
+      <button type="button" class="lang-btn" data-lang-btn="en" onclick="setSiteLang('en')">
+        <svg class="flag-ico" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="36" fill="#012169"/><path d="M0,0 60,36M60,0 0,36" stroke="#fff" stroke-width="7"/><path d="M0,0 27,16M60,0 33,16M0,36 27,20M60,36 33,20" fill="none" stroke="#C8102E" stroke-width="3"/><path d="M25,0v36M0,15h60" stroke="#fff" stroke-width="11"/><path d="M27,0v36M0,17h60" stroke="#C8102E" stroke-width="5"/></svg>
+        EN
+      </button>
+      <button type="button" class="lang-btn" data-lang-btn="sk" onclick="setSiteLang('sk')">
+        <svg class="flag-ico" viewBox="0 0 60 36" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="12" fill="#fff"/><rect y="12" width="60" height="12" fill="#0B4EA2"/><rect y="24" width="60" height="12" fill="#EE1C25"/><path d="M14,7v18a9,9 0 0018,0V7z" fill="#fff" stroke="#0B4EA2" stroke-width="1"/><path d="M18,10h10M23,10v13M19,14h8M19,18h8" stroke="#EE1C25" stroke-width="1.6" fill="none"/></svg>
+        SK
+      </button>
     </div>
     <a href="#free-trial" class="nav-cta" data-i18n="nav.freeTrial">Free Trial</a>
   </div>
