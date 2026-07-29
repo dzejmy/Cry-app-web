@@ -1112,15 +1112,16 @@ footer {
 .role-comparison {
   display: flex; gap: 0; border: 1.5px solid var(--border); border-radius: 12px;
   overflow: hidden; margin-bottom: 32px; background: white;
+  max-width: 560px; width: fit-content; margin-right: auto;
 }
 .rc-col {
-  flex: 1; padding: 18px 24px;
+  flex: 1; padding: 14px 18px; min-width: 220px;
 }
 .rc-col.manager-col { border-right: 1px solid var(--border); }
 .rc-col-head {
   display: flex; align-items: center; gap: 8px;
   font-size: 12px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .rc-col.manager-col .rc-col-head { color: var(--blue); }
 .rc-col.instructor-col .rc-col-head { color: #059669; }
@@ -1130,7 +1131,7 @@ footer {
 }
 .rc-badge.mgr { background: var(--blue-pale); color: var(--blue); }
 .rc-badge.inst { background: #DCFCE7; color: #059669; }
-.rc-items { display: flex; flex-direction: column; gap: 6px; }
+.rc-items { display: flex; flex-direction: column; gap: 4px; }
 .rc-item {
   display: flex; align-items: center; gap: 8px;
   font-size: 13px; font-weight: 400; color: var(--ink2);
