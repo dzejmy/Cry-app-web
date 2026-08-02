@@ -244,49 +244,25 @@ h2 .v { color: var(--violet); }
 
 /* ─── PROBLEM ─── */
 .problem { background: var(--bg1); }
-.problem-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; margin-top: 56px; }
-.pain-list { display: flex; flex-direction: column; gap: 0; }
-.pain-item {
-  display: flex; gap: 18px; padding: 24px 0;
-  border-bottom: 1px solid var(--border);
+.problem-inner { margin-top: 56px; }
+.pain-list {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
+  background: var(--border); border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
 }
-.pain-item:first-child { padding-top: 0; }
+.pain-item {
+  display: flex; gap: 18px; padding: 32px 28px;
+  background: white; transition: background 0.15s;
+}
+.pain-item:hover { background: var(--bg1); }
 .pain-num { font-family: var(--mono); font-size: 11px; color: var(--ink4); margin-top: 2px; flex-shrink: 0; width: 20px; }
 .pain-icon {
-  width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
-  background: white; border: 1px solid var(--border);
+  width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+  background: var(--blue-pale); border: 1px solid var(--blue-mid);
   display: flex; align-items: center; justify-content: center;
 }
-.pain-icon svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.pain-icon svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .pain-body h4 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
 .pain-body p { font-size: 13px; font-weight: 400; color: var(--ink3); line-height: 1.6; }
-
-.compare-box {
-  background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
-  box-shadow: 0 4px 24px rgba(13,21,38,0.06);
-}
-.compare-header {
-  display: grid; grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid var(--border);
-}
-.compare-col-head {
-  padding: 14px 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
-}
-.compare-col-head.before { color: var(--ink4); border-right: 1px solid var(--border); }
-.compare-col-head.after { color: var(--blue); }
-.compare-rows { }
-.compare-row {
-  display: grid; grid-template-columns: 1fr 1fr;
-  border-bottom: 1px solid var(--border);
-}
-.compare-row:last-child { border-bottom: none; }
-.cr-cell {
-  padding: 14px 20px; font-size: 13px; font-weight: 400; line-height: 1.45;
-  display: flex; align-items: flex-start; gap: 8px;
-}
-.cr-cell.left { border-right: 1px solid var(--border); color: var(--ink3); }
-.cr-cell.right { color: var(--ink2); font-weight: 500; }
-.cr-cell.right::before { content: ''; width: 14px; height: 14px; border-radius: 50%; background: #DCFCE7; border: 1px solid #86EFAC; flex-shrink: 0; margin-top: 1px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%2316A34A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-size: contain; }
 .cr-cell.left::before { content: ''; width: 14px; height: 14px; border-radius: 50%; background: #FEF2F2; border: 1px solid #FECACA; flex-shrink: 0; margin-top: 1px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 3l6 6M9 3l-6 6' stroke='%23EF4444' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-size: contain; }
 
 /* ─── FEATURES ─── */
@@ -1021,7 +997,7 @@ footer {
   section { padding-top: 64px; padding-bottom: 64px; }
   .hero { grid-template-columns: 1fr; padding: 96px 20px 60px; }
   .hero-right { display: none; }
-  .problem-inner, .features-top, .workflow-inner, .testi-top, .faq-inner, .footer-top { grid-template-columns: 1fr; gap: 32px; }
+  .features-top, .workflow-inner, .testi-top, .faq-inner, .footer-top { grid-template-columns: 1fr; gap: 32px; }
   .features-grid, .testi-grid { grid-template-columns: 1fr; }
   .pricing-cards { grid-template-columns: 1fr !important; }
   /* Override JS inline style so design stages stay single-column on mobile */
@@ -1060,9 +1036,7 @@ footer {
   .design { padding: 56px 20px; }
   .design-top { grid-template-columns: 1fr; gap: 24px; }
   .hero-stats { gap: 20px; flex-wrap: wrap; }
-  .compare-box { font-size: 13px; }
-  .logos-strip { flex-direction: column; gap: 20px; align-items: flex-start; }
-  .logos-items { gap: 24px; }
+  .pain-list { grid-template-columns: 1fr; }
   .faq-inner { gap: 32px; }
   .cta-wrap { padding: 64px 20px; }
   .trial-form { margin-top: 28px; }
@@ -1276,52 +1250,20 @@ body.role-manager .design-stage-inst { display: none !important; }
   <div class="problem-inner reveal">
     <div class="pain-list">
       <div class="pain-item">
-        <div class="pain-num">01</div>
         <div class="pain-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
         <div class="pain-body"><h4 data-i18n="problem.pain1Title">Booking conflicts every week</h4><p data-i18n="problem.pain1Body">Double-booked instructors, missed reservations, no single source of truth. Real revenue lost every season.</p></div>
       </div>
       <div class="pain-item">
-        <div class="pain-num">02</div>
         <div class="pain-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
         <div class="pain-body"><h4 data-i18n="problem.pain2Title">Instructor management is chaos</h4><p data-i18n="problem.pain2Body">Tracking availability, certifications, and payouts across WhatsApp, emails, and paper, unsustainable at scale.</p></div>
       </div>
       <div class="pain-item">
-        <div class="pain-num">03</div>
         <div class="pain-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
         <div class="pain-body"><h4 data-i18n="problem.pain3Title">8–12 hours of admin per week</h4><p data-i18n="problem.pain3Body">Time spent on operational firefighting instead of growing your school, marketing, and improving the experience.</p></div>
       </div>
       <div class="pain-item">
-        <div class="pain-num">04</div>
         <div class="pain-icon"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
         <div class="pain-body"><h4 data-i18n="problem.pain4Title">Payment reconciliation takes hours</h4><p data-i18n="problem.pain4Body">Who paid online, who paid cash, what's owed to each instructor, all manual, all error-prone.</p></div>
-      </div>
-    </div>
-    <div class="compare-box">
-      <div class="compare-header">
-        <div class="compare-col-head before" data-i18n="problem.beforeHead">Without SkiDesk</div>
-        <div class="compare-col-head after" data-i18n="problem.afterHead">With SkiDesk</div>
-      </div>
-      <div class="compare-rows">
-        <div class="compare-row">
-          <div class="cr-cell left" data-i18n="problem.row1Left">4 booking conflicts per week</div>
-          <div class="cr-cell right" data-i18n="problem.row1Right">Zero — auto-prevented</div>
-        </div>
-        <div class="compare-row">
-          <div class="cr-cell left" data-i18n="problem.row2Left">Instructor payouts calculated manually</div>
-          <div class="cr-cell right" data-i18n="problem.row2Right">Auto-calculated, exportable</div>
-        </div>
-        <div class="compare-row">
-          <div class="cr-cell left" data-i18n="problem.row3Left">No view of instructor certifications</div>
-          <div class="cr-cell right" data-i18n="problem.row3Right">Alerts when certs expire</div>
-        </div>
-        <div class="compare-row">
-          <div class="cr-cell left" data-i18n="problem.row4Left">8–12 hrs admin work per week</div>
-          <div class="cr-cell right" data-i18n="problem.row4Right">~2 hrs — save 10 hrs/week</div>
-        </div>
-        <div class="compare-row">
-          <div class="cr-cell left" data-i18n="problem.row5Left">Bookings via phone / email only</div>
-          <div class="cr-cell right" data-i18n="problem.row5Right">24/7 online booking on your site</div>
-        </div>
       </div>
     </div>
   </div>
